@@ -11,14 +11,18 @@
 #import "QBAssetCollectionViewController.h"
 #import "ShareView.h"
 
+/**
+ *  故事盒子编辑界面（长图）
+ *  实现 AccessHomeDelegate协议
+ */
 @interface ImagePickupViewController :UIViewController<UIGestureRecognizerDelegate,HiddenTopViewDelegate,QBAssetCollectionViewControllerDelegate,AccessHomeDelegate,UIAlertViewDelegate>
 {
     UIImage * image;
-    ExtraLayerView * extLayerView;//编辑页
+    ExtraLayerView * extLayerView;          //编辑页
     
-    NSMutableArray* imageArray;//图片数组
-    int current_index;//当前图片的序号从0开始
-    UIView * topView;//顶部栏
+    NSMutableArray* imageArray;             //图片数组
+    int current_index;                      //当前图片的序号从0开始
+    UIView * topView;                       //顶部栏
     UIImageView *imgVBg;
     PositionSwitch *pS;
     ShareView *shareView;

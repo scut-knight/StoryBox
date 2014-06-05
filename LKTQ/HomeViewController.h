@@ -12,6 +12,10 @@
 #import "QBAssetCollectionViewController.h"
 #import "MHImagePickerMutilSelector.h"
 
+/**
+ *  初始界面，点击开始制作按钮
+    在这一页面，要求隐藏状态栏（电池栏）
+ */
 @interface HomeViewController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,QBImagePickerControllerDelegate,AccessHomeDelegate,MHImagePickerMutilSelectorDelegate>
 {
     ImagePickupViewController * imagePkViewC;
@@ -28,6 +32,7 @@
 @property(retain,nonatomic)IBOutlet UIButton *startBtn;
 @property(retain,nonatomic)ImagePickupViewController * imagePkViewC;
 @property(retain,nonatomic) UIImagePickerController *picker;
+
 -(IBAction)clickPhotoPickup:(id)sender;//相册
 -(IBAction)clickset:(id)sender;
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray*)imageArray;

@@ -215,7 +215,8 @@
 }
 -(void)startPanHandle
 {
-    if (![self.superview isKindOfClass:[UIScrollView class]]) {//不在scrollview中 需要把其移入scrollview
+    if (![self.superview isKindOfClass:[UIScrollView class]])
+    {//不在scrollview中 需要把其移入scrollview
         printf("不在sc");
         float _y=self.superview.frame.origin.y+self.center.y;//计算坐标Y
         [self setCenter:CGPointMake(self.center.x, _y)];

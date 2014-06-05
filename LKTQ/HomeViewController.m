@@ -19,39 +19,59 @@
 @synthesize picker;
 @synthesize imagePkViewC;
 @synthesize startBtn,homeBgV;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        show=NO;
-        isadd=NO;
-        [self barControl];
+    if (self)
+    {
+        show = NO;
+        isadd = NO;
+        [self barControl];          //第一次运行，隐藏状态栏
     }
     return self;
 }
+
+
 -(void)barControl
 {
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+    {
         // iOS 7
         [self prefersStatusBarHidden];
+        //刷新状态栏样式
         [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
     }
 }
+
+/**
+ *  重载prefersStatusBarHidden
+ */
 - (BOOL)prefersStatusBarHidden
 {
-    printf("父控制执行");
-    if (!show) {
-        printf("1");
-        show=YES;
-    }
-    else
-    {
-        printf("2");
-        show=NO;
-    }
-    return YES;//隐藏为YES，显示为NO
+//    printf("父控制执行");
+//    if (!show)
+//    {
+////        printf("1");
+//        NSLog(@"隐藏状态栏\n");
+//
+//        show = YES;
+//    }
+//    else
+//    {
+////        printf("2");
+//        NSLog(@"显示状态栏\n");
+//        show = NO;
+//    }
 //    return show;
+    return YES;                 //隐藏为YES，显示为NO
 }
+
+/**
+ *  点击开始制作按钮触发
+    调用MHImagePickerMutilSelector来选取多张图片，并保存到
+ *
+ */
 -(IBAction)clickPhotoPickup:(id)sender//相册
 {
 //    //方法一
@@ -67,38 +87,51 @@
 //    [navigationController release];
     
     //方法二
-    UIButton* btn=(UIButton*)sender;
-    if ([btn isKindOfClass:[UIButton class]]) {
-        NSArray* arr=nil;
+    UIButton* btn = (UIButton*)sender;
+    if ([btn isKindOfClass:[UIButton class]])
+    {
+        NSArray* arr = nil;
         [MHImagePickerMutilSelector showInViewController:self withArr:arr];
     }
     else
     {
-        NSArray* arr=(NSArray*)sender;
+        NSArray* arr = (NSArray*)sender;
         [MHImagePickerMutilSelector showInViewController:self withArr:arr];
     }
     
 }
+
+/**
+ *  委托。图片选取完毕后执行
+ *  @param imageArray MHImagePickerMutilSelector传来的图片数组
+ */
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray*)imageArray
 {
     printf("do");
-    imageA=imageArray;
-    [self jumpToImagePkVC:imageA];
+    imageA = imageArray;                //将imageA指向返回的数组
+    [self jumpToImagePkVC:imageA];      //执行页面跳转
 
 }
 
--(void)jumpToImagePkVC:(NSArray*)array//跳转页面
+/**
+ *  跳转到ImagePickupView页面
+ *
+ *  @param array 用户选取的图片数组指针
+ */
+-(void)jumpToImagePkVC:(NSArray*)array
 {
-    printf("跳转页面");
-    NSArray* array_temp;
-    array_temp=array;
-     printf("最后图片===%d,",array_temp.count);
-    self.imagePkViewC=[[ImagePickupViewController alloc] initWithNibName:@"ImagePickupView" bundle:nil];
+    NSLog(@"跳转页面\n");
+//    printf("跳转页面\n");
+    NSArray * array_temp;
+    array_temp = array;
+    NSLog(@"选中图片数目:%d\n",array_temp.count);
+//    printf("最后图片===%d,",array_temp.count);
     
+    self.imagePkViewC = [[ImagePickupViewController alloc] initWithNibName:@"ImagePickupView" bundle:nil];    //实例化ImagePickupViewController
     [imagePkViewC updateImageArray:array_temp];
-    imagePkViewC.delegate=self;
-    [self.view addSubview:imagePkViewC.view];
-    [imagePkViewC.view release];//add
+    imagePkViewC.delegate = self;
+    [self.view addSubview:imagePkViewC.view];   //把imagePkViewC作为当前视图的子视图（遮盖）
+    [imagePkViewC.view release];                //bin?:为何释放?
     
   
 }

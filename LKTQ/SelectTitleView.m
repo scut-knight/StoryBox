@@ -18,6 +18,7 @@
 @synthesize positionSwich;
 @synthesize selectView;
 int x;
+
 -(id)initWithScrollView:(UIScrollView *)scrollView withTextArr:(NSMutableArray *)arr
 {
     self = [super init];
