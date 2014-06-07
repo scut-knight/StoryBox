@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  选择了类似功能的ImageCropperView，该类已经没有使用
+ *  图片裁剪
+ */
 @interface UICliper : UIView
 {
     UIImageView *imgView;

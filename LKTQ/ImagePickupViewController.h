@@ -12,7 +12,7 @@
 #import "ShareView.h"
 
 /**
- *  故事盒子编辑界面（长图）
+ *  故事盒子编辑界面（长图）控制器
  *  实现 AccessHomeDelegate协议
  */
 @interface ImagePickupViewController :UIViewController<UIGestureRecognizerDelegate,HiddenTopViewDelegate,QBAssetCollectionViewControllerDelegate,AccessHomeDelegate,UIAlertViewDelegate>

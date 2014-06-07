@@ -371,6 +371,7 @@ int Start_y_gemotry;//标签容器
             modifyV.delegate=self.delegate;
             [modifyV  initWithImageView:[imageViewArray objectAtIndex:[alertView tag]] withTextView:[textEditViewArray objectAtIndex: [alertView tag]] withIndex:[alertView tag] withScrollView:scrollView withTextArray:imageViewArray withImageArray:textEditViewArray];
             [self addSubview:modifyV];
+            //bin?:arc
             [modifyV release];
             [self.delegate hiddenTopView:YES];
             break;

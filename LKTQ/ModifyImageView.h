@@ -18,24 +18,26 @@
 //@end
 
 
-
+/**
+ *  编辑单张图片的主界面
+ */
 @interface ModifyImageView : UIView<UpdateCurrentImageDelegate,UITextFieldDelegate,HiddenTopViewDelegate >
 {
     UIImageView * currentImageView;
     UIView * _textV;
-    UIScrollView *_sc;
+    UIScrollView * _sc;
     NSMutableArray * imageViewArr;
-    NSMutableArray* textViewArr;
+    NSMutableArray * textViewArr;
     UIView * imageBarView;
-    PositionSwitch *positionSwich;
+    PositionSwitch * positionSwich;
     CGAffineTransform imageTrangsform;
     
     UIView * moreFunction;
-    UIView *NavigationView;
+    UIView * NavigationView;
     UIView * subFunctionView;
     UITextLable * textEditView;
-    BOOL state_V;//记录镜像垂直状态
-    BOOL state_H;//记录镜像水平状态
+    BOOL state_V;           //记录镜像垂直状态
+    BOOL state_H;           //记录镜像水平状态
     int imageIndex;
     CGImageRef imageCG;
     

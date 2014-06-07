@@ -14,6 +14,9 @@
 
 @end
 
+/**
+ *  从相册中选取多张图片
+ */
 @interface MHImagePickerMutilSelector : UIViewController<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIView* selectedPan;

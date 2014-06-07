@@ -12,6 +12,7 @@
 
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
+//界面布局
 int Start_y_ColorPanel;//410功能容器
 #define _width 320
 #define width_btn_bar 160
@@ -33,7 +34,8 @@ int Start_y_ColorPanel;//410功能容器
 {
     
     self = [super init];
-    if (self) {
+    if (self)
+    {
         if(IS_IPHONE_5)
         {
             
@@ -47,8 +49,8 @@ int Start_y_ColorPanel;//410功能容器
         }
         [self isExclusiveTouch];
         [self  setBackgroundColor:[UIColor blackColor]];
-        state_V=NO;
-        state_H=NO;
+        state_V = NO;
+        state_H = NO;
         
         [imgV setFrame:CGRectMake(0,45, imgV.frame.size.width, imgV.frame.size.height)];
         [textV setFrame:imgV.frame];
@@ -56,18 +58,20 @@ int Start_y_ColorPanel;//410功能容器
         [self addSubview:imgV];
         [self addSubview:textV];
         
-        currentImageView=imgV;
-         _textV=textV;
-        _textV.hidden=YES;
-        _sc=sc;
-        imageCG= CGImageCreateCopy(currentImageView.image.CGImage) ;
+        currentImageView = imgV;
+        //textV为当前图片上的已有标签视图
+         _textV = textV;
+        //隐藏标签
+        _textV.hidden = YES;
+        _sc = sc;
+        imageCG = CGImageCreateCopy(currentImageView.image.CGImage) ;
  
         
-        imageIndex=index;
-        imageViewArr=imageArray;
-        textViewArr=textArray;
+        imageIndex = index;
+        imageViewArr = imageArray;
+        textViewArr = textArray;
         
-        imageTrangsform=currentImageView.transform;
+        imageTrangsform = currentImageView.transform;
         
         [self initColorPanel];
         [self initSubFunction];
@@ -76,13 +80,12 @@ int Start_y_ColorPanel;//410功能容器
         [self bringSubviewToFront:imageBarView];
         [self bringSubviewToFront:subFunctionView];
     }
-    return  self;
-   
-    
-
+    return self;
 }
 
-//导栏
+/**
+ *  导航条布局，添加完成和返回按钮
+ */
 -(void)initNavigationBar
 {
     NavigationView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
@@ -105,28 +108,39 @@ int Start_y_ColorPanel;//410功能容器
     [NavigationView addSubview:finish];
 }
 
-
+/**
+ *  返回按钮触发
+ *
+ *  @param sender
+ */
 -(void)backEdit:(id)sender
 {
-    currentImageView.transform=imageTrangsform;
+    currentImageView.transform = imageTrangsform;
     [currentImageView setImage:[UIImage imageWithCGImage:imageCG]];
 
     [_sc addSubview:currentImageView];
     [_sc addSubview:_textV];
-    _textV.hidden=NO;
+    //显示标签层
+    _textV.hidden = NO;
     [self reloadScrollview];
     [self.delegate hiddenTopView:NO];
     [self removeFromSuperview];
     
 }
 
+/**
+ *  结束按钮触发
+ *
+ *  @param sender
+ */
 -(void)finishEdit:(id)sender
 {
    
     [self reSetImgView];
     [_sc addSubview:currentImageView];
     [_sc addSubview:_textV];
-     _textV.hidden=NO;
+    //显示标签层
+     _textV.hidden = NO;
      [self reloadScrollview];
     
     [self.delegate hiddenTopView:NO];
@@ -135,7 +149,9 @@ int Start_y_ColorPanel;//410功能容器
     
 }
 
-//更新图片和文字层
+/**
+ *  更新图片和文字层
+ */
 -(void)reSetImgView
 {
     
@@ -163,15 +179,16 @@ int Start_y_ColorPanel;//410功能容器
     
     [_textV removeFromSuperview];
     [currentImageView removeFromSuperview];
-  
 }
+
 -(void)anjustTextLableOFView:(UIView*)_v
 {
     UIView *_temp=nil;
     float  dis=0;
-    for (int i=0; i<_v.subviews.count; ++i) {
+    for (int i=0; i<_v.subviews.count; ++i)
+    {
         _temp=[_v.subviews objectAtIndex:i];
-        dis=dis+ _temp.frame.size.height;
+        dis=dis + _temp.frame.size.height;
         [_temp setFrame:CGRectMake(40,30+dis, _temp.frame.size.width, _temp.frame.size.height)];
     }
 }
@@ -180,7 +197,8 @@ int Start_y_ColorPanel;//410功能容器
 {
     int height=0;
     int  _y=0;//two图片Y坐标
-    for (int i=0; i<imageViewArr.count; ++i) {
+    for (int i=0; i<imageViewArr.count; ++i)
+    {
         UIImageView * imgv;
         UIView *textv;
         if(i==imageIndex)
@@ -216,11 +234,13 @@ int Start_y_ColorPanel;//410功能容器
     }
 
 }
--(void)initColorPanel//初始化图片功能栏
+
+/**
+ *  功能栏布局（裁剪，变换）
+ */
+-(void)initColorPanel
 {
-    ///剪切 旋转 删除面板
-    //变化
-    NSLog(@"%d is the width,%d is the ColorPanel.\n",_width,Start_y_ColorPanel);
+//    NSLog(@"%d is the width,%d is the ColorPanel.\n",_width,Start_y_ColorPanel);
     imageBarView=[[UIView alloc] initWithFrame:CGRectMake(0,Start_y_ColorPanel, _width, 44)];//功能面板背景
     [imageBarView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:imageBarView];
@@ -268,6 +288,10 @@ int Start_y_ColorPanel;//410功能容器
 //    [imageBarView addSubview:btnDelete];
 
 }
+
+/**
+ *  变换子功能栏布局
+ */
 -(void)initSubFunction
 {
     
@@ -307,49 +331,77 @@ int Start_y_ColorPanel;//410功能容器
     [btnTurnToR setImage:[UIImage imageNamed:@"levelMirror.png"] forState:UIControlStateNormal];
     [btnTurnToR addTarget:self action:@selector(clickTurnToR:) forControlEvents:UIControlEventTouchUpInside];
     [subFunctionView addSubview:btnTurnToR];
-    
 }
+
+/**
+ *  裁剪按钮触发
+ *
+ *  @param sender
+ */
 -(void)clickCutting:(id)sender
 {
     
-    printf("clip");
-    ClipViewController* clipViewC=[[ClipViewController alloc] initWithNibName:@"ClipViewController_iPhone" bundle:nil];
+    printf("裁剪\n");
+    ClipViewController * clipViewC = [[ClipViewController alloc] initWithNibName:@"ClipViewController_iPhone" bundle:nil];
     [clipViewC initWith:currentImageView.image with:self withDelegate:self];
+    //进入裁剪界面
     [self.superview addSubview:clipViewC.view];
     
     [self removeFromSuperview];
-    
-    
-    moreFunction.hidden=YES;
+
+    moreFunction.hidden = YES;
 }
+
+/**
+ *  变换按钮事件
+ *
+ *  @param sender
+ */
 -(void)clickRotate:(id)sender
 {
-    printf("子功能");
-    if (subFunctionView.hidden) {
-        printf("hidd");
+//    printf("子功能");
+    if (subFunctionView.hidden)
+    {
+//        printf("hidd");
+        NSLog(@"显示变换菜单\n");
         subFunctionView.hidden=NO;
     }
     else
-    { printf("yes dis");
+    {
+//        printf("yes dis");
+        NSLog(@"隐藏变换菜单\n");
         subFunctionView.hidden=YES;
     }
     
     moreFunction.hidden=YES;
     
 }
+
+/**
+ *  滤镜按钮事件，未实现
+ *
+ *  @param sender
+ */
 -(void)clickFilter:(id)sender
 {
     printf("滤镜");
     
 }
+
+/**
+ *  左旋按钮触发，向左选择90度
+ *
+ *  @param sender
+ */
 -(void)clickRotateLeft:(id)sender
 {
-    printf("click1");
+    NSLog(@"左旋\n");
     
-    float h_img=currentImageView.frame.size.height;
-    CGPoint  center=currentImageView.center;
+    float h_img = currentImageView.frame.size.height;
+    CGPoint  center = currentImageView.center;
     CGAffineTransform newTrangsform;
-    switch (currentImageView.tag) {
+    switch (currentImageView.tag)
+    {
         case 0:
             newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1.5),320/h_img, 320/h_img);
             currentImageView.transform=newTrangsform;
@@ -379,15 +431,23 @@ int Start_y_ColorPanel;//410功能容器
     
     textEditView.center=center;
     currentImageView.center=center;
-    
 }
+
+/**
+ *  右旋按钮触发，向右选择90度
+ *
+ *  @param sender
+ */
 -(void)clickRotateRight:(id)sender
 {
+    NSLog(@"右旋\n");
+
     CGPoint  center=currentImageView.center;
     CGAffineTransform newTrangsform;
     float h_img=currentImageView.frame.size.height;
     
-    switch (currentImageView.tag) {
+    switch (currentImageView.tag)
+    {
         case 0:
             newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*0.5), 320/h_img, 320/h_img);//高，宽
             currentImageView.transform=newTrangsform;
@@ -415,17 +475,21 @@ int Start_y_ColorPanel;//410功能容器
     [textEditView setFrame:CGRectMake(currentImageView.frame.origin.x, currentImageView.frame.origin.y, currentImageView.frame.size.width, currentImageView.frame.size.height)];
     textEditView.center=center;
     currentImageView.center=center;
-    
-    printf("click1");
-    
 }
+
+/**
+ *  垂直翻转按钮触发，上下翻转
+ *
+ *  @param sender
+ */
 -(void)clickTurnToL:(id)sender
 {
-    printf("垂直");
+    NSLog(@"垂直翻转\n");
     CGPoint  center=currentImageView.center;
     int flag=currentImageView.tag;
     UIImageOrientation  imageOrientation;
-    switch (flag) {
+    switch (flag)
+    {
         case 0://竖着
         case 2:
             imageOrientation=UIImageOrientationDownMirrored;
@@ -438,11 +502,11 @@ int Start_y_ColorPanel;//410功能容器
         default:
             break;
     }
-    if (!state_V) {
+    if (!state_V)
+    {
         UIImage * img=[UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:imageOrientation];
         [currentImageView setImage:img];
-        
-        
+   
         
         state_V=YES;
     }
@@ -455,52 +519,65 @@ int Start_y_ColorPanel;//410功能容器
     }
     
     currentImageView.center=center;
-    printf("垂直over");
-    
+//    printf("垂直over");
 }
+
+/**
+ *  水平翻转按钮触发，左右翻转
+ *
+ *  @param sender
+ */
 -(void)clickTurnToR:(id)sender
 {
-    printf("水平");
-    CGPoint  center=currentImageView.center;
-    int flag=currentImageView.tag;
+    NSLog(@"水平翻转\n");
+    CGPoint center = currentImageView.center;
+    int flag = currentImageView.tag;
     UIImageOrientation  imageOrientation;
-    switch (flag) {
+    switch (flag)
+    {
         case 0://竖着
         case 2:
-            imageOrientation=UIImageOrientationUpMirrored;
+            imageOrientation = UIImageOrientationUpMirrored;
             break;
         case 1:
         case 3://横着
-            imageOrientation=UIImageOrientationDownMirrored;
+            imageOrientation = UIImageOrientationDownMirrored;
             break;
         default:
             break;
     }
     
-    if (!state_H) {
-        UIImage * img=[UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:imageOrientation];//UIImageOrientationUpMirrored
+    if (!state_H)
+    {
+        UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:imageOrientation];//UIImageOrientationUpMirrored
         [currentImageView setImage:img];
-        state_H=YES;
+        state_H = YES;
     }
     else
     {
-        UIImage * img=[UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:UIImageOrientationUp];//UIImageOrientationUp
+        UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:UIImageOrientationUp];//UIImageOrientationUp
         [currentImageView setImage:img];
-        state_H=NO;
+        state_H = NO;
         
     }
     
     currentImageView.center=center;
-    printf("水平");
+//    printf("水平");
 }
 
+/**
+ *  更新当前的图片
+ *
+ *  @param img
+ */
 -(void)UpdateCurrentImage:(UIImage*)img
 {
-    float img_w=img.size.width;
-    float img_h=img.size.height;
-    img_h=img_h*_width/img_w;//转换
-    NSLog(@"高度:%f,宽度;%d",img_h,_width);
-    if (_width>img_h) {
+    float img_w = img.size.width;
+    float img_h = img.size.height;
+    img_h = img_h*_width/img_w;//转换
+    NSLog(@"高度:%f,宽度;%d \n",img_h,_width);
+    if (_width>img_h)
+    {
          [currentImageView setFrame:CGRectMake(0, y_imgView, _width, img_h)];
     }
     else
@@ -523,6 +600,7 @@ int Start_y_ColorPanel;//410功能容器
 {
     return  NO;
 }
+
 -(void)dealloc
 {
     [super dealloc];
