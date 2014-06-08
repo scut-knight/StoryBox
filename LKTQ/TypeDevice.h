@@ -13,4 +13,5 @@
  */
 @interface TypeDevice : NSObject
 +(NSString *)returnTypeName;                    //返回类型
+
 @end

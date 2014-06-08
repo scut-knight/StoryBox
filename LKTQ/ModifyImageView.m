@@ -228,7 +228,8 @@ int Start_y_ColorPanel;//410功能容器
 {
     for (int i=0; i<_sc.subviews.count; ++i) {
         UITitleLabel * titleLabelTemp=[_sc.subviews objectAtIndex:i];
-        if ([titleLabelTemp isKindOfClass:[UITitleLabel class]]) {
+        if ([titleLabelTemp isKindOfClass:[UITitleLabel class]])
+        {
             [_sc bringSubviewToFront:titleLabelTemp];
         }
     }
@@ -363,13 +364,13 @@ int Start_y_ColorPanel;//410功能容器
     if (subFunctionView.hidden)
     {
 //        printf("hidd");
-        NSLog(@"显示变换菜单\n");
+        NSLog(@"显示变换菜单");
         subFunctionView.hidden=NO;
     }
     else
     {
 //        printf("yes dis");
-        NSLog(@"隐藏变换菜单\n");
+        NSLog(@"隐藏变换菜单");
         subFunctionView.hidden=YES;
     }
     
@@ -395,7 +396,7 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)clickRotateLeft:(id)sender
 {
-    NSLog(@"左旋\n");
+    NSLog(@"左旋");
     
     float h_img = currentImageView.frame.size.height;
     CGPoint  center = currentImageView.center;
@@ -403,22 +404,22 @@ int Start_y_ColorPanel;//410功能容器
     switch (currentImageView.tag)
     {
         case 0:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1.5),320/h_img, 320/h_img);
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1.5),320/h_img, 320/h_img);
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:3];
             break;
         case 3:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1), 1, 1);
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1), 1, 1);
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:2];
             break;
         case 2:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*0.5), 320/h_img, 320/h_img);
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*0.5), 320/h_img, 320/h_img);
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:1];
             break;
         case 1:
-            newTrangsform=CGAffineTransformIdentity;
+            newTrangsform = CGAffineTransformIdentity;
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:0];
             break;
@@ -440,31 +441,31 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)clickRotateRight:(id)sender
 {
-    NSLog(@"右旋\n");
+    NSLog(@"右旋");
 
-    CGPoint  center=currentImageView.center;
+    CGPoint  center = currentImageView.center;
     CGAffineTransform newTrangsform;
     float h_img=currentImageView.frame.size.height;
     
     switch (currentImageView.tag)
     {
         case 0:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*0.5), 320/h_img, 320/h_img);//高，宽
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*0.5), 320/h_img, 320/h_img);//高，宽
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:1];
             break;
         case 1:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1), 1, 1);
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1), 1, 1);
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:2];
             break;
         case 2:
-            newTrangsform=CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1.5), 320/h_img,320/h_img);
+            newTrangsform = CGAffineTransformScale(CGAffineTransformMakeRotation(M_PI*1.5), 320/h_img,320/h_img);
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:3];
             break;
         case 3:
-            newTrangsform=CGAffineTransformIdentity;
+            newTrangsform = CGAffineTransformIdentity;
             currentImageView.transform=newTrangsform;
             [currentImageView setTag:0];
             break;
@@ -484,9 +485,9 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)clickTurnToL:(id)sender
 {
-    NSLog(@"垂直翻转\n");
-    CGPoint  center=currentImageView.center;
-    int flag=currentImageView.tag;
+    NSLog(@"垂直翻转");
+    CGPoint  center = currentImageView.center;
+    int flag = currentImageView.tag;
     UIImageOrientation  imageOrientation;
     switch (flag)
     {
@@ -504,7 +505,7 @@ int Start_y_ColorPanel;//410功能容器
     }
     if (!state_V)
     {
-        UIImage * img=[UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:imageOrientation];
+        UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:imageOrientation];
         [currentImageView setImage:img];
    
         
@@ -512,7 +513,7 @@ int Start_y_ColorPanel;//410功能容器
     }
     else
     {
-        UIImage * img=[UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:UIImageOrientationUp];
+        UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage scale:1 orientation:UIImageOrientationUp];
         [currentImageView setImage:img];
         state_V=NO;
         
@@ -529,7 +530,7 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)clickTurnToR:(id)sender
 {
-    NSLog(@"水平翻转\n");
+    NSLog(@"水平翻转");
     CGPoint center = currentImageView.center;
     int flag = currentImageView.tag;
     UIImageOrientation  imageOrientation;
@@ -575,7 +576,7 @@ int Start_y_ColorPanel;//410功能容器
     float img_w = img.size.width;
     float img_h = img.size.height;
     img_h = img_h*_width/img_w;//转换
-    NSLog(@"高度:%f,宽度;%d \n",img_h,_width);
+    NSLog(@"高度:%f,宽度;%d",img_h,_width);
     if (_width>img_h)
     {
          [currentImageView setFrame:CGRectMake(0, y_imgView, _width, img_h)];

@@ -13,7 +13,7 @@
 
 /**
  *  故事盒子编辑界面（长图）控制器
- *  实现 AccessHomeDelegate协议
+ *  实现 AccessHomeDelegate协议(在shareview.h中),用于shareview通过调用对本界面进行操作
  */
 @interface ImagePickupViewController :UIViewController<UIGestureRecognizerDelegate,HiddenTopViewDelegate,QBAssetCollectionViewControllerDelegate,AccessHomeDelegate,UIAlertViewDelegate>
 {

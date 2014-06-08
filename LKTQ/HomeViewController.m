@@ -102,33 +102,34 @@
 }
 
 /**
- *  委托。图片选取完毕后执行
+ *  委托。图片选取完毕后执行，用于获取多选图片的数组
  *  @param imageArray MHImagePickerMutilSelector传来的图片数组
  */
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray*)imageArray
 {
-    printf("do");
+//    printf("do");
     imageA = imageArray;                //将imageA指向返回的数组
     [self jumpToImagePkVC:imageA];      //执行页面跳转
 
 }
 
 /**
- *  跳转到ImagePickupView页面
+ *  跳转到ImagePickupView（长图编辑）页面
  *
  *  @param array 用户选取的图片数组指针
  */
 -(void)jumpToImagePkVC:(NSArray*)array
 {
-    NSLog(@"跳转页面\n");
+    NSLog(@"跳转页面");
 //    printf("跳转页面\n");
     NSArray * array_temp;
     array_temp = array;
-    NSLog(@"选中图片数目:%d\n",array_temp.count);
+    NSLog(@"选中图片数目:%d",array_temp.count);
 //    printf("最后图片===%d,",array_temp.count);
     
     self.imagePkViewC = [[ImagePickupViewController alloc] initWithNibName:@"ImagePickupView" bundle:nil];    //实例化ImagePickupViewController
     [imagePkViewC updateImageArray:array_temp];
+    //设置代理
     imagePkViewC.delegate = self;
     [self.view addSubview:imagePkViewC.view];   //把imagePkViewC作为当前视图的子视图（遮盖）
     [imagePkViewC.view release];                //bin?:为何释放?

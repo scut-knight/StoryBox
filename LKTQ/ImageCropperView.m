@@ -58,7 +58,7 @@
  */
 -(void)setWidthAndHeight:(NSInteger)width withHeight:(NSInteger)height
 {
-    NSLog(@"%f,%f,is the w/h\n",self.contentSize.width,self.contentSize.height);
+    NSLog(@"%f,%f,is the w/h",self.contentSize.width,self.contentSize.height);
     if(self.contentSize.width/self.contentSize.height >= 1)
     {
         if(self.contentSize.width/self.contentSize.height > width*1.0/height)

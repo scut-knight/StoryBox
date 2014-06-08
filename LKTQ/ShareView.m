@@ -10,6 +10,7 @@
 #import "CameraCustom.h"
 #import "UITitleLabel.h"
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @implementation ShareView
 @synthesize pannerShareView;
 @synthesize img_Merged;
@@ -17,194 +18,244 @@
 - (id)initWithFrame:(CGRect)frame  withImageVA:(NSMutableArray*)imageVA withTextEditVA:(NSMutableArray *)textEVA
 {
     self = [super initWithFrame:frame];
-    if (self) {
- 
-        imageVArr=imageVA;
-        textEditVArr=textEVA;
+    if (self)
+    {
+        imageVArr = imageVA;
+        textEditVArr = textEVA;
         
-        [CameraCustom photoMerge:imageVArr textViewArray:textEditVArr];//合成
+        [CameraCustom photoMerge:imageVArr textViewArray:textEditVArr];     //合成
         NSLog(@"path1=%@",pathImageM);
        
-         [self viewLoad];
-        [self initIconShare];//添加社会化分享按钮
+        [self viewLoad];
+        [self initIconShare];                                               //添加社会化分享按钮
         
     }
     return self;
 }
+
 -(void)viewLoad
 {
-    bg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
     [bg setImage:[UIImage imageNamed:@"shareView_bg-color.png"]];
     [self addSubview:bg];
     [bg release];
     
+    //顶部导航栏
     topView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     [topView setImage:[UIImage imageNamed:@"Navigation.png"]];
     [self addSubview:topView];
     [topView release];
 
+    //返回按钮
     UIButton *backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-     [backBtn setFrame:CGRectMake(10,32, 40, 14)];//(230, 280, 50, 50)
+    [backBtn setFrame:CGRectMake(10,32, 40, 14)];//(230, 280, 50, 50)
     [backBtn setImage:[UIImage imageNamed:@"backBtn.png"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backBtn];
     
-    UIButton *homeBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-     [homeBtn setFrame:CGRectMake(233,32, 77,15)];//(230, 280, 50, 50)
+    //继续制作按钮
+    UIButton *homeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [homeBtn setFrame:CGRectMake(233,32, 77,15)];//(230, 280, 50, 50)
 //    [homeBtn setTitle:@"首页" forState:UIControlStateNormal];
     [homeBtn setImage:[UIImage imageNamed:@"homeBtn.png"] forState:UIControlStateNormal];
     [homeBtn addTarget:self action:@selector(clickHome:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:homeBtn];
     
-    outputBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    [outputBtn setTitle:@"保存所有的照片到手机相册" forState:UIControlStateNormal];
-   
-    [outputBtn setImage:[UIImage imageNamed:@"Singlesave.png"] forState:UIControlStateNormal];
- 
-        [outputBtn setFrame:CGRectMake(45,98, 230, 44)];
-    [outputBtn addTarget:self action:@selector(clickOutput:) forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:outputBtn];
+    //分开保存到相册按钮，已失效
+//    outputBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+////    [outputBtn setTitle:@"保存所有的照片到手机相册" forState:UIControlStateNormal];
+//    [outputBtn setImage:[UIImage imageNamed:@"Singlesave.png"] forState:UIControlStateNormal];
+//    [outputBtn setFrame:CGRectMake(45,98, 230, 44)];
+//    [outputBtn addTarget:self action:@selector(clickOutput:) forControlEvents:UIControlEventTouchUpInside];
+////    [self addSubview:outputBtn];
     
-     outputAllBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    //合并保存按钮
+    outputAllBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [outputAllBtn setImage:[UIImage imageNamed:@"Mergesave.png"] forState:UIControlStateNormal];
 //    [outputAllBtn setFrame:[positionSwitch switchRect:CGRectMake(45,80, 230, 44)]];//(230, 280, 50, 50)
     [outputAllBtn setFrame:CGRectMake(45,98, 230, 44)];//(45,168, 230, 44)
     [outputAllBtn addTarget:self action:@selector(clickOutputAll:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:outputAllBtn];
     
-    
-    pannerShareView=[[UIView alloc]initWithFrame:CGRectMake(0, 238, 320, 220)];
-    pannerShareView.alpha=0.8;
+    //社会化分享按钮容器
+    pannerShareView = [[UIView alloc]initWithFrame:CGRectMake(0, 238, 320, 220)];
+    pannerShareView.alpha = 0.8;
     [self addSubview:pannerShareView];
     [pannerShareView release];
  
     
-    label=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 28)];
+    label = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 28)];
     [label setImage:[UIImage imageNamed:@"labale_shareView.png"]];
     [pannerShareView addSubview:label];
     [label release];
 
 }
+
+/**
+ *  初始化社会化分享按钮
+ */
 -(void)initIconShare
 {
-    int num=2;
+    //目前设置只有两个按钮
+    int num = 2;
     UIButton* iconBtn;
-    int gap=74;
-    for (int i=0; i<num; ++i) {
-        int rows=0;
-        if (i<4) {
-            rows=0;
+    int gap = 74;
+    //分两行，每行4个图标
+    for (int i=0; i<num; ++i)
+    {
+        int rows = 0;
+        if (i<4)
+        {
+            rows = 0;
         }
         else if(i<8)
         {
-            rows=1;
+            rows = 1;
         }
-        iconBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        iconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [iconBtn setFrame:CGRectMake(24+i%4*gap, 36+74*rows, 50, 50)];
         [iconBtn setTag:i];
         [iconBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"shareIcon%d.png",i]] forState:UIControlStateNormal];
         [iconBtn addTarget:self action:@selector(clickIcon:) forControlEvents:UIControlEventTouchUpInside];
       
+        //把按钮添加到容器中并置于前端
         [pannerShareView addSubview:iconBtn];
         [pannerShareView bringSubviewToFront:iconBtn];
         
     }
+}
 
-}
--(void)clickIcon:(id)sender//社会化按钮
+/**
+ *  接收所有社会化分享按钮的触发事件
+ *
+ *  @param sender
+ */
+-(void)clickIcon:(id)sender
 {
-    printf("tag=%d",[sender tag]);
-    int flag=[sender tag];
-    pathImageM=[CameraCustom pathOfImageOfBox];
-     [self getShareTypeSocial:flag];
-     [self  initCustomShareInter];
-    
+    int flag = [sender tag];
+    NSLog(@"分享方式:%d",flag);
+    //获取分享相片
+    pathImageM = [CameraCustom pathOfImageOfBox];
+    [self getShareTypeSocial:flag];
+    [self initCustomShareInter];
 }
+
+/**
+ *  返回按钮触发
+ *
+ *  @param sender
+ */
 -(void)clickBack:(id)sender
 {
-    printf("back");
+    NSLog(@"back");
+    
     [self.delegate reloadimageView];
     [self.delegate resetTitleView];
    
     [self removeFromSuperview];
 }
 
+/**
+ *  继续制作按钮触发
+ *
+ *  @param sender
+ */
 -(void)clickHome:(id)sender
 {
-    printf("homeBTn");
+    NSLog(@"homeBtn");
 
     [self.delegate clear];
-    
 }
--(void)clickOutput:(id)sender
-{
-      printf("output");
- 
-    [CameraCustom saveAllImageOneByOne: imageVArr textViewArray:textEditVArr];
-    
-    [sender setImage:[UIImage imageNamed:@"Singlefinish.png"] forState:UIControlStateNormal];
-    [sender setEnabled:NO];
-}
+
+
+//-(void)clickOutput:(id)sender
+//{
+//      printf("output");
+// 
+//    [CameraCustom saveAllImageOneByOne: imageVArr textViewArray:textEditVArr];
+//    
+//    [sender setImage:[UIImage imageNamed:@"Singlefinish.png"] forState:UIControlStateNormal];
+//    [sender setEnabled:NO];
+//}
+
+/**
+ *  保存到相册按钮触发
+ *
+ *  @param sender
+ */
 -(void)clickOutputAll:(id)sender
 {
-    printf("output");
-    pathImageM=[CameraCustom pathOfImageOfBox];
-    img_Merged=[UIImage imageWithContentsOfFile:pathImageM];
-    [CameraCustom saveImage_merged:img_Merged];//保存拼接后图片到本地
+    NSLog(@"output");
+
+    //获取拼接后的图片
+    pathImageM = [CameraCustom pathOfImageOfBox];
+    img_Merged = [UIImage imageWithContentsOfFile:pathImageM];
+    //保存到相册
+    [CameraCustom saveImage_merged:img_Merged];
     
+    //更改保存按钮样式并使其失效
     [sender setImage:[UIImage imageNamed:@"Mergefinish.png"] forState:UIControlStateNormal];
     [sender setEnabled:NO];
 }
 
+/**
+ *  获取分享类型
+ *
+ *  @param index 按钮序号
+ */
 -(void)getShareTypeSocial:(int)index
 {
-    switch (index) {
+    switch (index)
+    {
         case 0:
-            shareTypeSocial=ShareTypeWeixiTimeline ;//微信朋友圈
+            shareTypeSocial = ShareTypeWeixiTimeline ;//微信朋友圈
             break;
         case 1:
-            shareTypeSocial= ShareTypeSinaWeibo; //新浪微博
+            shareTypeSocial = ShareTypeSinaWeibo; //新浪微博
             break;
         case 2:
-            shareTypeSocial=ShareTypeWeixiSession;//微信好友
+            shareTypeSocial = ShareTypeWeixiSession;//微信好友
             break;
         case 3:
-            shareTypeSocial=ShareTypeQQSpace;//QQ空间
+            shareTypeSocial = ShareTypeQQSpace;//QQ空间
             break;
         case 4:
-            shareTypeSocial=ShareTypeRenren;//人人
+            shareTypeSocial = ShareTypeRenren;//人人
             
             break;
         case 5:
-            shareTypeSocial=ShareTypeDouBan;//豆瓣
+            shareTypeSocial = ShareTypeDouBan;//豆瓣
             break;
         case 6:
-            shareTypeSocial=ShareTypeTencentWeibo;//腾讯微博
+            shareTypeSocial = ShareTypeTencentWeibo;//腾讯微博
             break;
         case 7:
-            shareTypeSocial=ShareTypeQQ;//QQ好友
+            shareTypeSocial = ShareTypeQQ;//QQ好友
             break;
         default:
             break;
     }
     
-    
 }
+
+/**
+ *  调用社交分享接口
+ */
 -(void)initCustomShareInter
 {
     
-    @autoreleasepool {
-    
-        id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:nil      //分享视图标题
-                                                                  oneKeyShareList:nil
-                                            //一键分享菜单
-                                                                   qqButtonHidden:NO                               //QQ分享按钮是否隐藏
-                                                            wxSessionButtonHidden:NO                   //微信好友分享按钮是否隐藏
-                                                           wxTimelineButtonHidden:NO                 //微信朋友圈分享按钮是否隐藏
-                                                             showKeyboardOnAppear:NO                  //是否显示键盘
-                                                                shareViewDelegate:nil                            //分享视图委托
-                                                              friendsViewDelegate:nil                          //好友视图委托
-                                                            picViewerViewDelegate:nil];                    //图片浏览视图委托
+    @autoreleasepool
+    {
+        id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:nil               //分享视图标题
+                                                                  oneKeyShareList:nil               //一键分享菜单
+                                                                   qqButtonHidden:NO                //QQ分享按钮是否隐藏
+                                                            wxSessionButtonHidden:NO                //微信好友分享按钮是否隐藏
+                                                           wxTimelineButtonHidden:NO                //微信朋友圈分享按钮是否隐藏
+                                                             showKeyboardOnAppear:NO                //是否显示键盘
+                                                                shareViewDelegate:nil               //分享视图委托
+                                                              friendsViewDelegate:nil               //好友视图委托
+                                                            picViewerViewDelegate:nil];             //图片浏览视图委托
         
         
         
@@ -212,12 +263,15 @@
         //构造分享内容
         
         SSPublishContentMediaType  mediaType;
-        if (shareTypeSocial==ShareTypeWeixiTimeline) {
-            mediaType=SSPublishContentMediaTypeImage;
+        
+        //如果是分享到微信朋友圈，则设定为图片消息类型，否则为新闻消息类型
+        if (shareTypeSocial == ShareTypeWeixiTimeline)
+        {
+            mediaType = SSPublishContentMediaTypeImage;
         }
         else
         {
-            mediaType=SSPublishContentMediaTypeNews;
+            mediaType = SSPublishContentMediaTypeNews;
         }
         id<ISSContent> publishContent = [ShareSDK content:@"分享内容:该消息来自故事盒子，分享瞬间美好，留住回忆人生"
                                            defaultContent:@"默认分享内容，没内容时显示"
@@ -231,7 +285,6 @@
         id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES allowCallback:YES authViewStyle:SSAuthViewStyleFullScreenPopup viewDelegate:nil authManagerViewDelegate:nil];
         
         //判断
-        
         id<ISSPlatformUser> userAuth=[ShareSDK currentAuthUserWithType:shareTypeSocial];
      
         //    [ShareSDK cancelAuthWithType:shareTypeSocial];
@@ -279,29 +332,27 @@
                           statusBarTips:YES
                             authOptions:nil
                            shareOptions:shareOptions
-                                 result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end){
-                                     
-                                     if (state == SSPublishContentStateSuccess)
-                                     {
-                                         NSLog(@"分享成功");
-                                         //                                         [self removeFromSuperview];
-                                         UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                                         [alert setTag:0];
-                                         [alert show];
-                                         [alert release];
-                                         
-                                     }
-                                     else if (state == SSPublishContentStateFail)
-                                     {
-                                         NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
-                                         UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享失败，重试" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-                                         [alert setTag:1];
-                                         [alert show];
-                                         [alert release];
-                                         
-                                         
-                                     }
-                                 }];
+                                 result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end)
+        {
+            if (state == SSPublishContentStateSuccess)
+            {
+                 NSLog(@"分享成功");
+                 //                                         [self removeFromSuperview];
+                 UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                 [alert setTag:0];
+                 [alert show];
+                 [alert release];
+            }
+            else if (state == SSPublishContentStateFail)
+            {
+                 NSLog(@"分享失败,错误码:%d,错误描述:%@", [error errorCode], [error errorDescription]);
+                 UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享失败，重试" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                 [alert setTag:1];
+                 [alert show];
+                 [alert release];
+             
+            }
+        }];
         
         
         //    }
@@ -326,26 +377,25 @@
         //                                }
         //                            }];
         
-
-        
-        
     }
-    
    
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag==0) {//成功
+    if (alertView.tag == 0)
+    {//成功
 //        [self removeFromSuperview];
     }
     else//失败
     {
         
     }
-    
-    
 }
+
+/**
+ *  移除界面元素
+ */
 -(void)clearView
 {
     [bg removeFromSuperview];
@@ -362,7 +412,6 @@
 //        [_v removeFromSuperview];
 //        
 //    }
- 
 }
 
 -(void)dealloc

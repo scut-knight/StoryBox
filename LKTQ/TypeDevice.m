@@ -16,7 +16,7 @@
     NSString * str1=[[UIDevice currentDevice] systemVersion];
     NSString * str2=[[UIDevice currentDevice] systemName];
     NSString * str3 =[[UIDevice currentDevice] name];
-    NSLog(@"当前设备:系统版本:%@,系统名称：%@,,名称%@\n",str1,str2,str3);
+    NSLog(@"当前设备:系统版本:%@,系统名称：%@,,名称%@",str1,str2,str3);
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);

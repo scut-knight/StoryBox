@@ -39,7 +39,7 @@
  */
 -(void)clickBack:(id)sender
 {
-    NSLog(@"切换的选择图片界面\n");
+    NSLog(@"切换的选择图片界面");
     addIS=YES;
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提醒" message:@"该操作将会删除当前标签，你确认这样做吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
@@ -122,7 +122,7 @@
         
         [imageArray addObject:[img compressedImage]];
     }
-    NSLog(@"updete,image=%d\n",imageArray.count);
+    NSLog(@"updete,image=%d",imageArray.count);
 }
 
 /**
@@ -137,7 +137,7 @@
         UIImage * img = [arry_old objectAtIndex:i];
         [imageArray addObject:img];
     }
-    NSLog(@"updete,image=%d\n",imageArray.count);
+    NSLog(@"updete,image=%d",imageArray.count);
     
 }
 
