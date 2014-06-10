@@ -14,6 +14,10 @@
 -(void)modifyStateEdit;
 -(BOOL)resetTitleviewState;
 @end
+
+/**
+ *  标签类
+ */
 @interface UITextLable : UIView<UITextFieldDelegate,UIAlertViewDelegate,UITextViewDelegate>
 {
     UIImageView * imageViewBg;
@@ -31,13 +35,14 @@
     NSMutableArray *lableArr;
     
 }
+
 @property(retain,nonatomic) UIView * maskTouch;
 @property(retain,nonatomic) UIImageView * imageViewBg;
 @property(retain,nonatomic) UITextView * _textView;
 @property(retain,nonatomic) id<GetParentChild>delegate;
 @property(assign)BOOL used;
  
--(id)initWithFrame:(CGRect)frame  initImage:(int)tag withFlagModel:(int)index withTextVArr:(NSMutableArray *)textVA withView:(UIScrollView *)sc;
+-(id)initWithFrame:(CGRect)frame initImage:(int)tag withFlagModel:(int)index withTextVArr:(NSMutableArray *)textVA withView:(UIScrollView *)sc;
 
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView;
 -(void)startPanHandle;//父视图转换

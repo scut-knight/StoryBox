@@ -331,7 +331,7 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex)
+    switch(buttonIndex)
     {//确定删除
         case 1:
         {

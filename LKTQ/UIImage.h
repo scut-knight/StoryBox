@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 /**
- *  扩充UIImage类，实现压缩图片功能
+ *  扩充UIImage类，实现图片尺寸规范化功能
  */
 @interface UIImage (Compess)
 - (UIImage *)compressedImage;

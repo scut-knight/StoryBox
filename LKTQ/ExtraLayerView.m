@@ -748,6 +748,11 @@ int Start_y_gemotry;//标签容器
 }
 
 
+/**
+ *  已停用
+ *
+ *  @param sender
+ */
 -(void)showBorder:(id)sender
 {
     UIButton * btn = (UIButton*)sender;
@@ -787,44 +792,71 @@ int Start_y_gemotry;//标签容器
     }
 }
 
+/**
+ *  委托方法。获取Scrollview y方向上的偏移量
+ *
+ *  @return 偏移量
+ */
 -(float)getScrollviewOffset
 {
     return scrollView.contentOffset.y;
 
 }
+
+/**
+ *  设定为编辑状态
+ */
 -(void)modifyStateEdit
 {
-    stateEdit=YES;
+    stateEdit = YES;
 }
-//设置当前激活的标题视图
+
+
+/**
+ *  委托方法。设置大标签视图为当前激活状态，并显示操作栏
+ *
+ *  @param titleView 大标签
+ */
 -(void)setCurrentTitleView:(UITitleLabel *)titleView
 {
     //修改后父视图为scrollview
-    if ((titleView==nil)||((actionTitleView!=nil)&&(![actionTitleView isEqual:titleView]))) {
-        for (int i=0; i<scrollView.subviews.count; ++i) {//titleView
-            UITitleLabel * _view=[scrollView.subviews objectAtIndex:i];
-            if ([_view isKindOfClass:[UITitleLabel class]]) {
-                printf("找到");
+    //如果传入titleView为空，则从已有大标签中选取第一个
+    if ((titleView == nil) || ((actionTitleView!=nil) && (![actionTitleView isEqual:titleView])))
+    {
+        for (int i=0; i<scrollView.subviews.count; ++i)
+        {
+            UITitleLabel * _view = [scrollView.subviews objectAtIndex:i];
+            if ([_view isKindOfClass:[UITitleLabel class]])
+            {
+//                printf("找到");
                 [_view hiddenBorder];
             }
         }
     }
-    if (titleView==nil) {
+    
+    //如果没有大标签，则返回
+    if (titleView == nil)
+    {
         return;
     }
     
+    //显示选中大标签的操作栏,并设为当前活动状态
     [titleView showBorder];
-    actionTitleView=titleView;
-
-}
--(void)deleteCurrentTitleView:(UITitleLabel*)titleView
-{
-    actionTitleView=titleView;
-    
+    actionTitleView = titleView;
 }
 
 /**
- *  取消所有titleview的选中状态
+ *  委托方法。设定当前活动的大标签
+ *
+ *  @param titleView 大标签
+ */
+-(void)deleteCurrentTitleView:(UITitleLabel*)titleView
+{
+    actionTitleView = titleView;
+}
+
+/**
+ *  取消所有大标签的选中状态
  *
  *  @return 是否执行了取消选中
  */
@@ -832,7 +864,7 @@ int Start_y_gemotry;//标签容器
 {
     for (int i=0; i<scrollView.subviews.count; ++i)
     {
-        UITitleLabel * view=[scrollView.subviews objectAtIndex:i];
+        UITitleLabel * view = [scrollView.subviews objectAtIndex:i];
         if ([view isKindOfClass:[UITitleLabel class]])
         {
             if (view.contorlBtn.hidden == NO)
@@ -845,16 +877,24 @@ int Start_y_gemotry;//标签容器
     }
     return NO;
 }
-//拼图分享后返回把标题移动到scrollview层
+
+
+/**
+ *  拼图分享后返回把大标签移动到scrollview层
+ */
 -(void)moveTitleViewToScrollView
 {
     printf("拼接后移动=%d",scrollView.subviews.count);
-    for (int i=scrollView.subviews.count-1;i>=0; --i) {
+    for (int i=scrollView.subviews.count-1;i>=0; --i)
+    {
         UIView *textView=[scrollView.subviews objectAtIndex:i];
-        if ([textView isKindOfClass:[UIView class]]) {
-            for (int j=textView.subviews.count-1; j>=0; --j) {
+        if ([textView isKindOfClass:[UIView class]])
+        {
+            for (int j=textView.subviews.count-1; j>=0; --j)
+            {
                 UITitleLabel * titleView=[textView.subviews objectAtIndex:j];
-                if ([titleView isKindOfClass:[UITitleLabel class]] ) {
+                if ([titleView isKindOfClass:[UITitleLabel class]] )
+                {
                     [titleView hiddenBorder];
  
                     float _y=titleView.superview.frame.origin.y+titleView.center.y;//计算坐标Y
@@ -868,19 +908,24 @@ int Start_y_gemotry;//标签容器
             }
 
         }
-        
     }
-    printf("结束");
+//    printf("结束");
 }
+
+/**
+ *  清除长图编辑界面的所有元素(包括相片素材,标签,视图)。一般拼接完成后继续制作时调用
+ */
 -(void)clearView
 {
-    printf("清除了");
+    NSLog(@"清除了");
     int num=imageViewArray.count;
-    for (int i=0; i<num; ++i) {
-        UIView *test1=[ imageViewArray objectAtIndex:i];
-        UIView *test2=[ textEditViewArray objectAtIndex:i];
-        for (int j=0; j<test2.subviews.count; ++j) {
-            UIView * test3=[test2.subviews objectAtIndex:j];
+    for (int i=0; i<num; ++i)
+    {
+        UIView *test1 = [imageViewArray objectAtIndex:i];
+        UIView *test2 = [textEditViewArray objectAtIndex:i];
+        for (int j=0; j<test2.subviews.count; ++j)
+        {
+            UIView * test3 = [test2.subviews objectAtIndex:j];
             [test3 removeFromSuperview];
         }
         
@@ -906,14 +951,14 @@ int Start_y_gemotry;//标签容器
         
     }
 }
+
 -(void)dealloc
 {
-    printf("extralar dealloc");
+//    printf("extralar dealloc");
     [self clearView];
     [LableArray release];
     [imageViewArray release];
     [textEditViewArray release];
-     printf(",ECC.");
     [super dealloc];
     
 }

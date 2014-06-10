@@ -15,7 +15,7 @@
 @end
 
 /**
- *  大标签
+ *  大标签类
  */
 @interface UITitleLabel: UIView<UITextFieldDelegate,UIAlertViewDelegate,UITextViewDelegate>
 {
