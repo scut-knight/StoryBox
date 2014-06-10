@@ -99,44 +99,51 @@
 }
 
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"触摸");
-//    CGPoint point= [[touches anyObject] locationInView:self.superview];
+//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"触摸");
+////    CGPoint point= [[touches anyObject] locationInView:self.superview];
+////    
+////    printf("=%f",point.x);
+////    printf("=%f",point.y);
+//}
+//
+//
+//-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"移动了");
 //    
-//    printf("=%f",point.x);
-//    printf("=%f",point.y);
-}
+//}
+//
+//-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//
+//}
 
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"移动了");
-    
-}
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-
-}
+/**
+ *  长时间点击手势捕捉
+ *
+ *  @param LG
+ */
 -(void)LongPress:(UILongPressGestureRecognizer * )LG
 {
     NSLog(@"LongPress");
     CGPoint point = [LG locationInView:self.superview];
+    //刚点击时，记录坐标
     if (LG.state == UIGestureRecognizerStateBegan)
     {
-        printf("beg");
-        tempPoint=CGPointMake(point.x, point.y);
+//        printf("beg");
+        tempPoint = CGPointMake(point.x, point.y);
         [contorlBtn setImage:[UIImage imageNamed:@"scaled.png"] forState:UIControlStateNormal];
     }
-    
+    //调整大标签的大小
     [self adjust:point];
+    //点击结束时，还原图标，隐藏操作栏
     if (LG.state == UIGestureRecognizerStateEnded)
     {
-        printf("end");
+//        printf("end");
         [contorlBtn setImage:[UIImage imageNamed:@"scale.png"] forState:UIControlStateNormal];
         [self hiddenBorder];
- 
     }
 }
 
@@ -277,9 +284,9 @@
     printf("end-------");
     
 //    [self showBorder];
-    int d=-1;
-    int num=textVArray.count;
-    int sum=0;
+    int d = -1;
+    int num = textVArray.count;
+    int sum = 0;
     float _x=self.center.x;
     float _y=self.center.y;
     UIView * _textV;
@@ -305,8 +312,8 @@
         
     }
     printf("sum=%d,d=%d,",sum,d);
-
 }
+
 
 /**
  *  单击手势捕捉
@@ -355,30 +362,40 @@
     
 }
 
+/**
+ *  隐藏大标签的操作栏
+ */
 -(void)hiddenBorder
 {
-    imageViewBg.layer.borderWidth=0;
-    contorlBtn.hidden=YES;
-    deleteBTn.hidden=YES;
+    imageViewBg.layer.borderWidth = 0;
+    contorlBtn.hidden = YES;
+    deleteBTn.hidden = YES;
 }
+
+/**
+ *  显示大标签的操作栏
+ *  bin?:这里作了一个判断,用于隐藏/显示操作栏，与hiddenBorder重复
+ */
 -(void)showBorder
 {
-    if (imageViewBg.layer.borderWidth==0) {
-        imageViewBg.layer.borderWidth=1;
-        contorlBtn.hidden=NO;
-        deleteBTn.hidden=NO;
+    if (imageViewBg.layer.borderWidth == 0)
+    {
+        imageViewBg.layer.borderWidth = 1;
+        contorlBtn.hidden = NO;
+        deleteBTn.hidden = NO;
     }
     else
     {
-        imageViewBg.layer.borderWidth=0;
-        contorlBtn.hidden=YES;
-        deleteBTn.hidden=YES;
- 
+        imageViewBg.layer.borderWidth = 0;
+        contorlBtn.hidden = YES;
+        deleteBTn.hidden = YES;
     }
 }
+
 -(void)clear
 {
-    for (int i=0; i<self.subviews.count; ++i) {
+    for (int i=0; i<self.subviews.count; ++i)
+    {
         UIView * _v=[self.subviews objectAtIndex:i];
         [_v removeFromSuperview];
     }

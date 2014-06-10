@@ -7,6 +7,7 @@
 //
 
 #import "TypeDevice.h"
+#include <sys/sysctl.h>
 
 @implementation TypeDevice
 

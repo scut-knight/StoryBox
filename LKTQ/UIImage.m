@@ -10,15 +10,17 @@
 #define MAX_IMAGEPIX 600.0          // max pix 640.0px
 @implementation UIImage(Compess)
 
-
-- (UIImage *)compressedImage {
+//压缩图片
+- (UIImage *)compressedImage
+{
     
 //        [imgV setImage:[UIImage imageWithData:UIImageJPEGRepresentation(img,640/img_w)]];
     CGSize imageSize = self.size;
     CGFloat width = imageSize.width;
     CGFloat height = imageSize.height;
     
-    if (width <= MAX_IMAGEPIX) {
+    if (width <= MAX_IMAGEPIX)
+    {
         // no need to compress.
         return self;
     }

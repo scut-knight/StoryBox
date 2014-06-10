@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+/**
+ *  扩充UIImage类，实现压缩图片功能
+ */
 @interface UIImage (Compess)
 - (UIImage *)compressedImage;
 @end
