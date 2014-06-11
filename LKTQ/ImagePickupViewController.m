@@ -18,32 +18,47 @@
 @synthesize extLayerView;
 @synthesize delegate;
 @synthesize addIS;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         // Custom initialization
-        current_index=0;//默认从0开始
-        pS=[[PositionSwitch alloc] init];
-        addIS=NO;
+        current_index = 0;//默认从0开始
+        pS = [[PositionSwitch alloc] init];
+        addIS = NO;
     }
     return self;
 }
 
-//返回相册添加
+/**
+ *  返回到相册选择界面，添加标签，之前选中的图片会初始时存在于选择列表中
+ *  bin?: bug:显示当前选中为0张而不是初始张数
+ *  @param sender
+ */
 -(void)clickBack:(id)sender
 {
-    printf("addpic");
+    NSLog(@"切换的选择图片界面");
     addIS=YES;
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提醒" message:@"该操作将会删除当前标签，你确认这样做吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
-    [alert release];
+    [alert release];        //bin?:delete when arc
 }
+
+/**
+ *  UIAlertView的委托
+ *
+ *  @param alertView
+ *  @param buttonIndex 用户点击按钮序号
+ */
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    switch (buttonIndex) {
+    switch (buttonIndex)
+    {
         case 1:
         {
+            //打开相片选中界面，传当前的imageArray来初始化
             [self.delegate clickPhotoPickup:imageArray];
             [self.view retain];
             [self.view removeFromSuperview];
@@ -53,23 +68,35 @@
             break;
     }
 }
-//拼图前把标题移动到相应的文字视图层
+
+/**
+ *  拼图前把标题移动到相应的文字视图层
+ */
 -(void)moveTitleViewFromScrollViewToTextView
 {
-    printf("拼接前开始移动");
-    for (int i=extLayerView.scrollView.subviews.count-1;i>=0; --i) {
+//    printf("拼接前开始移动");
+    NSLog(@"拼接前开始移动");
+    for (int i=extLayerView.scrollView.subviews.count-1;i>=0; --i)
+    {
         UITitleLabel *titleTemp=[extLayerView.scrollView.subviews objectAtIndex:i];
-        if ([titleTemp isKindOfClass:[UITitleLabel class]] ) {
+        if ([titleTemp isKindOfClass:[UITitleLabel class]] )
+        {
             [titleTemp hiddenBorder];
             [titleTemp endPanHandle];//移动到title
         }
     }
-    printf("结束");
+    NSLog(@"移动结束");
+//    printf("结束");
 }
 
-
+/**
+ *  编辑完成后点击保存，实现向分享界面的跳转
+ *
+ *  @param sender
+ */
 -(void)clickSave:(id)sender//分享保存跳转下一界面
 {
+    NSLog(@"binbincall");
     CGRect rect=[pS switchBound:CGRectMake(0, 0, 320, 480)];
     
     [self moveTitleViewFromScrollViewToTextView];//add
@@ -78,54 +105,87 @@
     [self.view addSubview:shareView];
     [shareView release];
 }
+
+
+/**
+ *  更新选择图片数组
+ *
+ *  @param arry 传来的新图片数组
+ */
 -(void)updateImageArray:(NSArray *)arry
 {
-    imageArray=[[NSMutableArray alloc]init];
-    for (int i=0; i<[arry count]; i++) {
+    imageArray = [[NSMutableArray alloc]init];
+    for (int i=0; i<[arry count]; i++)
+    {
 //          UIImage * img=[[arry objectAtIndex:i] objectForKey:@"UIImagePickerControllerOriginalImage"];
-        UIImage * img=[arry objectAtIndex:i];//new
+        UIImage * img = [arry objectAtIndex:i];//new
         
         [imageArray addObject:[img compressedImage]];
     }
     NSLog(@"updete,image=%d",imageArray.count);
- 
-    
 }
+
+/**
+ *  bin?:跟updateImageArray一样？
+ *  @param arry_old 旧图片数组
+ */
 -(void)addUpdateImageArray:(NSArray *)arry_old
 {
-    imageArray=[[NSMutableArray alloc]init];
-    for (int i=0; i<[arry_old count]; i++) {
-        UIImage * img=[arry_old objectAtIndex:i];
+    imageArray = [[NSMutableArray alloc]init];
+    for (int i=0; i<[arry_old count]; i++)
+    {
+        UIImage * img = [arry_old objectAtIndex:i];
         [imageArray addObject:img];
     }
     NSLog(@"updete,image=%d",imageArray.count);
     
 }
 
+/**
+ *  在旧图片数组上添加新图片
+ *
+ *  @param arry 新增图片数组
+ *
+ *  @return imageArray
+ *  bin?:该函数是对属性imageArray进行修改，而imageArray有get函数，为什么要返回imageArray？
+ */
 -(NSArray*)addImageToImageArray:(NSArray*)arry
 {
-    for (int i=0; i<[arry count]; i++) {
+    for (int i=0; i<[arry count]; i++)
+    {
 //        UIImage * img=[[arry objectAtIndex:i] objectForKey:@"UIImagePickerControllerOriginalImage"];
-        UIImage * img=[arry objectAtIndex:i];//new
+        UIImage * img = [arry objectAtIndex:i];//new
         
         [imageArray addObject:img];
     }
     NSLog(@"updete,image=%d",imageArray.count);
     
-    return  imageArray;
+    return imageArray;
     
 }
+
+/**
+ *  imageArray的get函数
+ *
+ *  @return imageArray
+ */
 -(NSMutableArray * )getImageArray
 {
     return self.imageArray;
 }
 
+/**
+ *  根据flag隐藏标题栏
+ *
+ *  @param flag
+ */
 -(void)hiddenTopView:(BOOL)flag
 {
     printf("隐藏标题栏");
     topView.hidden=flag;
    
 }
+
 -(void)accessPhotoAblum
 {
     [self.delegate clickPhotoPickup:nil];
@@ -135,16 +195,19 @@
 {
     [extLayerView initTextEditView];
 }
+
 -(void)resetTitleView
 {
     [extLayerView moveTitleViewToScrollView];
 }
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.imageView setImage:image];
     
+    //bin?:目测是标注层，还未细看
     extLayerView=[[ExtraLayerView alloc] initWithFrame:[pS switchBound:CGRectMake(0, 0, 320, 480)] withImageArray:imageArray ];
     extLayerView.delegate=self;
     [self.view addSubview:extLayerView];//附加层

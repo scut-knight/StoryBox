@@ -11,7 +11,12 @@
 @implementation ExtraLayerView(CustomAnimation)
 
 
--(void)scaleToSmall:(float )dis
+/**
+ *  缩小scrollView
+ *
+ *  @param dis <#dis description#>
+ */
+-(void)scaleToSmall:(float)dis
 {
     [UIView animateWithDuration:0.6 animations:^(void)
      {
@@ -30,8 +35,13 @@
     [scrollView bringSubviewToFront:imgv];
     [scrollView bringSubviewToFront:tV];
     [self bringSubviewToFront:gemomtryView];
-    
 }
+
+/**
+ *  放大scrollView
+ *
+ *  @param dis
+ */
 -(void)scaleToOrdinal:(float)dis;
 {
     [UIView animateWithDuration:0.6 animations:^(void)
@@ -39,14 +49,14 @@
      {
          printf("=====%f",dis);
          [scrollView setFrame:CGRectMake(scrollView.frame.origin.x, scrollView.frame.origin.y+dis, scrollView.frame.size.width, scrollView.frame.size.height-dis)];
-         scrollView.transform=CGAffineTransformIdentity;
+         scrollView.transform = CGAffineTransformIdentity;
          
-         UIImageView * imgv=[imageViewArray objectAtIndex:current_index];
+         UIImageView * imgv = [imageViewArray objectAtIndex:current_index];
          UIView * tV=[textEditViewArray objectAtIndex:current_index];
          [self changePaViewToOrdinal:imgv withT:tV];
          
-         imgv.alpha=1;
-         tV.alpha=1;
+         imgv.alpha = 1;
+         tV.alpha = 1;
 
      }];
     
@@ -54,7 +64,8 @@
 
 -(void)adjustALLwith_x:(float)d_x with_y:(float)d_y;
 {
-    if (current_index>=imageViewArray.count) {
+    if (current_index>=imageViewArray.count)
+    {
         printf("error");
         return;
     }
@@ -78,6 +89,14 @@
     }
 
 }
+
+/**
+ *  边界检测
+ *
+ *  @param _view <#_view description#>
+ *  @param _t    <#_t description#>
+ *  @param _d_y  <#_d_y description#>
+ */
 -(void)detectBoundWithImagev:(UIImageView *) _view withTexv:(UIView*)_t withY:(float)_d_y
 {
     //定义点的范围用四个点构成一个闭合的区域（可见区  x<320 Y<420）
@@ -85,32 +104,37 @@
     //标签运动感区域默认 宽 高区域320 420//当图片高度小于420时，已实际高度作为运动区域
     //    float _h=420;
 
-    float margin=15;
-    float _h=gemomtryView.frame.origin.y-margin;//区域高度
+    float margin = 15;
+    float _h = gemomtryView.frame.origin.y-margin;//区域高度
     
-    float v1=_view.frame.size.width;
-    float h1=_view.frame.size.height;
-    float x1=scrollView.frame.origin.x;
-    float y1=scrollView.frame.origin.y;
-    CGPoint point1=CGPointMake(x1+v1/2,y1+h1/2+margin);//10 不想拖动顶部栏的下面
+    float v1 = _view.frame.size.width;
+    float h1 = _view.frame.size.height;
+    float x1 = scrollView.frame.origin.x;
+    float y1 = scrollView.frame.origin.y;
+    CGPoint point1 = CGPointMake(x1+v1/2,y1+h1/2+margin);//10 不想拖动顶部栏的下面
 //    CGPoint point2=CGPointMake(320-v1/2,y1+h1/2+margin);
     //    CGPoint point3=CGPointMake(self.frame.size.width/2, 410-self.frame.size.height/2);
-    CGPoint point4=CGPointMake(x1+v1/2,_h-h1/2);//左下
+    CGPoint point4 = CGPointMake(x1+v1/2,_h-h1/2);//左下
     
     float _y1=0;//上界限
     float _y2=0;//下界限
     
-    if (_view.center.y<point1.y) {
+    if (_view.center.y<point1.y)
+    {
         _y1=1;
     }
-    if (_view.center.y>point4.y) {
+    if (_view.center.y>point4.y)
+    {
         _y2=1;
     }
     
-    if (_y1||_y2) {
+    if (_y1||_y2)
+    {
         printf("越界");
-        if (_y1==1&&_y2==1) {//有越界
-            if (_d_y) {
+        if (_y1==1&&_y2==1)
+        {//有越界
+            if (_d_y)
+            {
                 dire_up=NO;
             }
             else
@@ -126,9 +150,11 @@
             else
                 overBound=YES;
         }
-        else{
+        else
+        {
             dire_up=NO;
-            if (_d_y<0) {
+            if (_d_y<0)
+            {
                 dire_up=YES;
                 overBound=NO;
             }
@@ -151,16 +177,19 @@
             dire_up=YES;
             dis_y=t1;//上界
         }
-        else{
+        else
+        {
             dire_up=NO;
             dis_y=t2;
         }
         
-        if (dis_y<10&&dis_y>-10) {//开始移动标志
+        if (dis_y<10&&dis_y>-10)
+        {//开始移动标志
             overBound=YES;
 //            printf("移动");
         }
-        else{
+        else
+        {
             overBound=NO;
 //            printf("不移动");
             [self detectCenter];
@@ -170,8 +199,10 @@
 
 }
 
-
--(void)detectCenter//检测中点
+/**
+ *  检测中点
+ */
+-(void)detectCenter
 {
     //a  b 代表滑动方向的上下相邻序号
     int a =-1;//相邻的待视图序号
@@ -189,12 +220,14 @@
         b=empyt_index-1;
     }
     
-    if (a>=imageViewArray.count||a<0) {
+    if (a>=imageViewArray.count||a<0)
+    {
         overBound=NO;
 //        printf("rrrr=%d",a);
         return;
     }
-    if (b>=imageViewArray.count||b<0) {
+    if (b>=imageViewArray.count||b<0)
+    {
         b=-1;
     }
     
@@ -206,11 +239,14 @@
     float y_cu=imgv1.center.y;
     float y_compare=(imgv2.center.y-scrollView.contentOffset.y)*_scale+scrollView.frame.origin.y;
  
-    if (y_compare-y_cu<5&&y_compare-y_cu>-5) {//5
+    if (y_compare-y_cu<5&&y_compare-y_cu>-5)
+    {//5
         CGPoint _p;
-        if (b!=-1) {//存在
+        if (b!=-1)
+        {//存在
             UIImageView * imgv3=[imageViewArray objectAtIndex:b];
-            if (dire_up) {
+            if (dire_up)
+            {
                 printf("上~~~上");
                 _p=CGPointMake(scrollView.center.x, imgv3.frame.origin.y-8-imgv2.frame.size.height/2);
             }
@@ -223,7 +259,8 @@
         }
         else
         {
-            if (dire_up) {//上
+            if (dire_up)
+            {//上
                  printf("上~上");
                  _p=CGPointMake(scrollView.center.x, scrollView.contentSize.height-imgv2.frame.size.height/2);
             }
@@ -255,15 +292,18 @@
 {
 //    printf("开始计时");
     float _d_move=0;
-    if (dire_up==YES) {
+    if (dire_up==YES)
+    {
         _d_move=-0.5;
 //        printf("上");
     }
-    else{
+    else
+    {
         _d_move=0.5;
 //        printf("下");
     }
-    [UIView animateWithDuration:0.05 animations:^(void){
+    [UIView animateWithDuration:0.05 animations:^(void)
+    {
         CGPoint _p=CGPointMake(scrollView.contentOffset.x, scrollView.contentOffset.y+_d_move);//
         [scrollView setContentOffset:_p ];
     
@@ -278,6 +318,7 @@
         [tm invalidate];
     }
 }
+
 //改变视图的父视图  从scrollview  到 extralayerview
 -(void)changePaView:(UIView*)v withT:(UIView*)t
 {
@@ -301,9 +342,8 @@
     [self addSubview:t];
     
      empyt_index=current_index;
-    
-    
 }
+
 //改变视图的父视图  从extralayerview  到  scrollview
 -(void)changePaViewToOrdinal:(UIView*)v withT:(UIView*)t
 {
@@ -311,7 +351,8 @@
     t.transform=CGAffineTransformIdentity;
     CGPoint cen_new;
    
-    if (empyt_index-1!=-1) {
+    if (empyt_index-1!=-1)
+    {
         UIView *_v=[imageViewArray objectAtIndex:empyt_index-1];
         float _y= _v.center.y+_v.frame.size.height/2+8+v.frame.size.height/2;
         cen_new=CGPointMake(_v.center.x,_y);
@@ -334,21 +375,28 @@
     [self reloadScrollview];
 
 }
+
 -(void)reLoadTitleView
 {
-    for (int i=0; i<scrollView.subviews.count; ++i) {
+    for (int i=0; i<scrollView.subviews.count; ++i)
+    {
         UIView * titleV=[scrollView.subviews objectAtIndex:i];
-        if ([titleV isKindOfClass:[UITitleLabel class]]) {
+        if ([titleV isKindOfClass:[UITitleLabel class]])
+        {
             [scrollView bringSubviewToFront:titleV];
         }
     }
 }
-//scrollview刷新
+
+/**
+ *  刷新scrollview
+ */
 -(void)reloadScrollview
 {
     int height=0;
     int  _y=0;//two图片Y坐标
-    for (int i=0; i<imageViewArray.count; ++i) {
+    for (int i=0; i<imageViewArray.count; ++i)
+    {
         UIImageView * imgv;
         UIView *textv;
         imgv=[imageViewArray objectAtIndex:i];

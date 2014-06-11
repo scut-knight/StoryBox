@@ -8,27 +8,33 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  协议，用于获取多选图片的数组
+ */
 @protocol MHImagePickerMutilSelectorDelegate <NSObject>
 
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray*)imageArray;
 
 @end
 
+/**
+ *  从相册中选取多张图片
+ */
 @interface MHImagePickerMutilSelector : UIViewController<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
-    UIView* selectedPan;
-    UILabel* textlabel;
-    UIImagePickerController*    imagePicker;
-    NSMutableArray* pics;
-    UITableView*    tbv;
+    UIView * selectedPan;
+    UILabel * textlabel;
+    UIImagePickerController * imagePicker;
+    NSMutableArray * pics;
+    UITableView * tbv;
     id<MHImagePickerMutilSelectorDelegate>  delegate;
     
-    UIButton*   btn_done;//add
+    UIButton * btn_done;//add
 }
 
-@property (nonatomic,retain)UIImagePickerController*    imagePicker;
-@property(nonatomic,retain)id<MHImagePickerMutilSelectorDelegate>   delegate;
-@property(nonatomic,retain)UIView* selectedPan;
+@property (nonatomic,retain)UIImagePickerController * imagePicker;
+@property(nonatomic,retain)id<MHImagePickerMutilSelectorDelegate> delegate;
+@property(nonatomic,retain)UIView * selectedPan;
 
 +(void)showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *)vc  withArr:(NSArray*)arry;
 

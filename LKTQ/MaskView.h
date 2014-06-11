@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  裁剪界面的遮罩层（半透明）
+ */
 @interface MaskView : UIView
 {
     float width,height,orgin_x,orgin_y;

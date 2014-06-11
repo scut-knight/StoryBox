@@ -646,6 +646,7 @@
 		04426A5F184D5949003CAEF0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				045071E0185D8C5200FBA8F3 /* photoClasses */,
 				F04FF16C18D83E9800C2C230 /* UITitleLabel.h */,
 				F04FF16D18D83E9800C2C230 /* UITitleLabel.m */,
 				F02C9D1718D7507200710C5A /* SelectTitleView.h */,
@@ -654,7 +655,6 @@
 				048DBA26187D2D5F00A296F4 /* MaskView.m */,
 				04E8288818746E3E004970E1 /* ImageCropperView.h */,
 				04E8288918746E3E004970E1 /* ImageCropperView.m */,
-				045071E0185D8C5200FBA8F3 /* photoClasses */,
 				0421291F184E1F6500A3A95B /* ALAssetsLibrary+CustomPhotoAlbum.h */,
 				04212920184E1F6500A3A95B /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 				04426A5C184D5927003CAEF0 /* ExtraLayerView.h */,

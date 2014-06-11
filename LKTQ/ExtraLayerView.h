@@ -32,9 +32,7 @@
     UIView * textEditView;//每一张图片对应一个View
     UITextLable * textLable;
     UITitleLabel * actionTitleView;
-    NSMutableArray *textEditViewArray;//保存标注编辑层view数组
-    NSMutableArray * imageViewArray;//保存图片View数组
-    NSMutableArray * imageArray;//图片数组
+
     
     UIScrollView * scrollView;//显示currentImageView
     UIScrollView * scviewButton;//显示currentImageView
@@ -48,11 +46,15 @@
     BOOL overBound;//越界标志
     int empyt_index;//记录空的位置
     PositionSwitch *positionSwich;
-    CGPoint  history;
+    CGPoint  history;           //用于长按下的坐标记录
     float _scale;
-    
     float dis_pan;//sc平移量
+    
     NSMutableArray *LableArray;
+    NSMutableArray *textEditViewArray;//保存标注编辑层view数组
+    NSMutableArray * imageViewArray;//保存ImageView数组
+    NSMutableArray * imageArray;//图片数组
+    
     
     BOOL stateEdit;//记录标签的编辑状态
     
@@ -61,7 +63,7 @@
 @property(retain,nonatomic) UIView * textEditView;
 @property(retain,nonatomic) NSMutableArray *textEditViewArray;;
 @property(retain,nonatomic) NSMutableArray * imageViewArray;
-@property(retain,nonatomic) UIScrollView * scrollView;
+@property(retain,nonatomic) UIScrollView * scrollView;      //放置相片的view
 @property(retain,nonatomic) id<HiddenTopViewDelegate>delegate;
 @property(retain,nonatomic) PositionSwitch *positionSwich;
 

@@ -10,9 +10,10 @@
 
 #import "ExtraLayerView.h"
  
-
+/**
+ *  实现缩略动画和次序调整。拓展了ExtraLayerView类
+ */
 @interface ExtraLayerView (CustomAnimation)
-
 
 -(void)scaleToSmall:(float )dis;
 

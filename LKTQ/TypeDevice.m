@@ -7,6 +7,7 @@
 //
 
 #import "TypeDevice.h"
+#include <sys/sysctl.h>
 
 @implementation TypeDevice
 
@@ -16,11 +17,12 @@
     NSString * str1=[[UIDevice currentDevice] systemVersion];
     NSString * str2=[[UIDevice currentDevice] systemName];
     NSString * str3 =[[UIDevice currentDevice] name];
-    NSLog(@"st1=%@,st2=%@,,str3=%@",str1,str2,str3);
+    NSLog(@"当前设备:系统版本:%@,系统名称：%@,,名称%@",str1,str2,str3);
     
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     char *machine = malloc(size);
+    //使用系统函数sysctlbyname 来获取设备名称
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
     NSLog(@"platform=%@",platform);
@@ -64,10 +66,17 @@
     
     
 }
+
+/**
+ *  类方法，返回设备类型
+ *
+ *  @return 设备类型
+ */
 +(NSString *)returnTypeName
 {
     NSString * str=[self detectDevice];
-    if ([str isEqualToString:@"iPhone4"]) {
+    if ([str isEqualToString:@"iPhone4"])
+    {
         return @"Type4";
     }
     else if ([str isEqualToString:@"iPhone5"]||[str isEqualToString:@"iPod Touch"]||[str isEqualToString:@"x86_64"]||[str isEqualToString:@"iPhone5s"])

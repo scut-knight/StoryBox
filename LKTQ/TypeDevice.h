@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  返回设备类型
+ */
 @interface TypeDevice : NSObject
-+(NSString *)returnTypeName;//返回类型
++(NSString *)returnTypeName;                    //返回类型
+
 @end
