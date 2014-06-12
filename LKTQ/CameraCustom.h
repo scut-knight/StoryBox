@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+
 @interface CameraCustom : NSObject
 +(UIImage*)photoMerge:(NSMutableArray *)imageViewArr textViewArray:(NSMutableArray*)textViewArr;//返回拼接图片
 

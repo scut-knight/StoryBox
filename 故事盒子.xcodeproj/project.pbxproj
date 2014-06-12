@@ -1638,7 +1638,7 @@
 		04C7F398184CAEF6009067E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guang Zhou Wu Xiang Digital Technology Co., Ltd. (Y7M4K3AU56)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1693,7 +1693,7 @@
 		04C7F399184CAEF6009067E3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guang Zhou Wu Xiang Digital Technology Co., Ltd. (Y7M4K3AU56)";
 				FRAMEWORK_SEARCH_PATHS = (

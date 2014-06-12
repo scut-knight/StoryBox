@@ -16,6 +16,7 @@
 @end
 
 @implementation HomeViewController
+
 @synthesize picker;
 @synthesize imagePkViewC;
 @synthesize startBtn,homeBgV;
@@ -121,18 +122,15 @@
 -(void)jumpToImagePkVC:(NSArray*)array
 {
     NSLog(@"跳转页面");
-//    printf("跳转页面\n");
     NSArray * array_temp;
     array_temp = array;
     NSLog(@"选中图片数目:%d",array_temp.count);
-//    printf("最后图片===%d,",array_temp.count);
     
     self.imagePkViewC = [[ImagePickupViewController alloc] initWithNibName:@"ImagePickupView" bundle:nil];    //实例化ImagePickupViewController
     [imagePkViewC updateImageArray:array_temp];
     //设置代理
     imagePkViewC.delegate = self;
     [self.view addSubview:imagePkViewC.view];   //把imagePkViewC作为当前视图的子视图（遮盖）
-    [imagePkViewC.view release];                //bin?:为何释放?
     
   
 }
@@ -157,9 +155,5 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
--(void)dealloc
-{
-    [super dealloc];
 }
 @end

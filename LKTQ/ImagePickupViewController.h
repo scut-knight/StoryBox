@@ -29,10 +29,10 @@
     BOOL addIS;
 }
 
-@property(retain,nonatomic) ExtraLayerView * extLayerView;
-@property(retain,nonatomic)NSMutableArray* imageArray;
-@property(retain,nonatomic)UIImageView *imageView;
-@property(retain,nonatomic)id<AccessHomeDelegate>delegate;
+@property(strong,nonatomic) ExtraLayerView * extLayerView;
+@property(strong,nonatomic) NSMutableArray* imageArray;
+@property(strong,nonatomic) UIImageView *imageView;
+@property(strong,nonatomic) id<AccessHomeDelegate>delegate;
 @property(assign,nonatomic) BOOL addIS;
 
 

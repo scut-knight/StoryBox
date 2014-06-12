@@ -84,12 +84,10 @@ int Start_y_gemotry;//标签容器
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
         tapG.numberOfTapsRequired=1;
         [scrollView addGestureRecognizer:tapG];
-        [tapG release];
  
         UILongPressGestureRecognizer * tapG2=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
         tapG2.minimumPressDuration=0.7;
         [self addGestureRecognizer:tapG2];
-        [tapG2 release];
         
         current_index = -1;
         _scale = 0.7;
@@ -130,7 +128,7 @@ int Start_y_gemotry;//标签容器
     for (int i=s;i<num;i++)
     {
         UIImage *img = [imageArray objectAtIndex:i];
-        NSLog(@"img size%f,%f",img.size.width,img.size.height);
+        NSLog(@"img size %f,%f",img.size.width,img.size.height);
         float img_w=img.size.width;
         float img_h=img.size.height;
         img_h = img_h*_width/img_w;//转换
@@ -142,16 +140,14 @@ int Start_y_gemotry;//标签容器
         //设立tag标识
         [imgV setTag:i];
         [imageViewArray addObject:imgV];
-        [imgV release];
         
         //新建用于标注编辑的textEditView
         textEditView = [[UIView alloc] initWithFrame:CGRectMake(0,_y, imgV.frame.size.width,imgV.frame.size.height)];
         [textEditView setTag:i];
         [textEditView setCenter:imgV.center];
         [textEditViewArray addObject:textEditView];
-        [textEditView release];
         
-        _y = _y+imgV.frame.size.height+8;
+        _y = _y+imgV.frame.size.height + 8;
 
     }
 
@@ -252,17 +248,14 @@ int Start_y_gemotry;//标签容器
     
     gemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, 320, 49)];
     [self addSubview:gemomtryView];
-    [gemomtryView release];
     
     UIImageView* imgBg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0,gemomtryView.frame.size.width,gemomtryView.frame.size.height)];
     [imgBg setImage:[UIImage imageNamed:@"colorbg.png"]];
     [gemomtryView addSubview:imgBg];
-    [imgBg release];
     
     scviewButton = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0,320, gemomtryView.frame.size.height)];
     [scviewButton setContentSize:CGSizeMake(gemomtryView.frame.size.width, gemomtryView.frame.size.height)];
     [gemomtryView addSubview:scviewButton];
-    [scviewButton release];
     
     
     //大标签功能按钮
@@ -291,24 +284,20 @@ int Start_y_gemotry;//标签容器
     subGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, height_gemotry)];
     subGemomtryView.hidden = YES;
     [self addSubview:subGemomtryView];
-    [subGemomtryView release];
 
     subGemomtryViewBg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,85)];
     [subGemomtryView addSubview:subGemomtryViewBg];
-    [subGemomtryViewBg release];
    
     //同类标签面板
     
     _y = subGemomtryView.frame.origin.y-50;
     simlarGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 50)];
     [self addSubview:simlarGemomtryView];
-    [simlarGemomtryView release];
     
     UIImageView * similarGVBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320,50)];
     [similarGVBg setImage:[UIImage imageNamed:@"colorbg1.png"]];
     simlarGemomtryView.hidden = YES;
     [simlarGemomtryView addSubview:similarGVBg];//和颜色面板相同背景视图
-    [similarGVBg release];
 }
 
 /**
@@ -334,7 +323,7 @@ int Start_y_gemotry;//标签容器
                 UIImageView * img = [imageViewArray objectAtIndex: i];
                 float t = img.frame.origin.y+img.frame.size.height;
                 float p = img.frame.origin.y;
-                if (point.y<=t&&point.y>=p)
+                if (point.y <= t && point.y >= p)
                 {
                     //找到点击对应的视图序号
                     d_index = i;
@@ -342,11 +331,14 @@ int Start_y_gemotry;//标签容器
                     break;
                 }
             }
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"要编辑当前图片吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示"
+                                                         message:@"要处理当前图片吗?"
+                                                        delegate:self
+                                               cancelButtonTitle:@"取消"
+                                               otherButtonTitles:@"确定",nil];
             [alert setTag:d_index];
             alert.alertViewStyle=UIAlertViewStyleDefault;
             [alert show];
-            [alert release];
             
         }
     }
@@ -434,10 +426,8 @@ int Start_y_gemotry;//标签容器
         {
             ModifyImageView * modifyV = [[ModifyImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
             modifyV.delegate = self.delegate;
-            [modifyV  initWithImageView:[imageViewArray objectAtIndex:[alertView tag]] withTextView:[textEditViewArray objectAtIndex: [alertView tag]] withIndex:[alertView tag] withScrollView:scrollView withTextArray:imageViewArray withImageArray:textEditViewArray];
+            modifyV = [modifyV  initWithImageView:[imageViewArray objectAtIndex:[alertView tag]] withTextView:[textEditViewArray objectAtIndex: [alertView tag]] withIndex:[alertView tag] withScrollView:scrollView withTextArray:imageViewArray withImageArray:textEditViewArray];
             [self addSubview:modifyV];
-            //bin?:arc
-            [modifyV release];
             [self.delegate hiddenTopView:YES];
             break;
         }
@@ -472,7 +462,6 @@ int Start_y_gemotry;//标签容器
     SelectTitleView *selectTitle = [[SelectTitleView alloc] initWithScrollView:self.scrollView withTextArr:self.textEditViewArray];
     selectTitle.delegate=self.delegate;
     [self addSubview:selectTitle];
-    [selectTitle release];
     [self.delegate hiddenTopView:YES];
     [self setCurrentTitleView:nil];
    
@@ -717,7 +706,6 @@ int Start_y_gemotry;//标签容器
     [scrollView addSubview:textLable];
     [LableArray addObject:textLable];//管理标签
     [textLable endPanHandle];
-    [textLable release];
    
     if(flag_model==0)
     {
@@ -741,8 +729,6 @@ int Start_y_gemotry;//标签容器
                              };//@3
         
         textLable._textView.attributedText =[[NSAttributedString alloc]initWithString:@"" attributes:dict];
-        
-        [shadow release];
     }
    
 }
@@ -956,10 +942,5 @@ int Start_y_gemotry;//标签容器
 {
 //    printf("extralar dealloc");
     [self clearView];
-    [LableArray release];
-    [imageViewArray release];
-    [textEditViewArray release];
-    [super dealloc];
-    
 }
 @end

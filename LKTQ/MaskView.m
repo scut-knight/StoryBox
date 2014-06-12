@@ -24,11 +24,6 @@
     return self;
 }
 
-// bin?:无关注释?
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-
-
 /**
  *  设置drawRect
  *

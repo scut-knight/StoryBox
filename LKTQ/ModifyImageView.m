@@ -12,6 +12,8 @@
 
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
+static  ClipViewController * clipViewC = nil;
+
 //界面布局
 int Start_y_ColorPanel;//410功能容器
 #define _width 320
@@ -32,13 +34,11 @@ int Start_y_ColorPanel;//410功能容器
 @synthesize delegate;
 -(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(UIScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray
 {
-    
     self = [super init];
     if (self)
     {
         if(IS_IPHONE_5)
         {
-            
             Start_y_ColorPanel=524;
             [self setFrame:CGRectMake(0, 0, 320, 568)];
         }
@@ -92,8 +92,6 @@ int Start_y_ColorPanel;//410功能容器
     UIImageView *NavigationViewBg= [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 45) ] initWithImage:[UIImage imageNamed:@"editTopView.png"]];
     [NavigationView addSubview:NavigationViewBg];
     [self addSubview:NavigationView];
-    [NavigationViewBg release];
-    [NavigationView release];
     
     UIButton* back=[UIButton buttonWithType:UIButtonTypeCustom];
     [back setFrame:CGRectMake(10, 15, 88,16)];
@@ -135,7 +133,6 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)finishEdit:(id)sender
 {
-   
     [self reSetImgView];
     [_sc addSubview:currentImageView];
     [_sc addSubview:_textV];
@@ -145,8 +142,6 @@ int Start_y_ColorPanel;//410功能容器
     
     [self.delegate hiddenTopView:NO];
     [self removeFromSuperview];
-    
-    
 }
 
 /**
@@ -154,7 +149,6 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)reSetImgView
 {
-    
     UIView * temp_textView=[textViewArr objectAtIndex:imageIndex];
     for (int i=0; i<temp_textView.subviews.count; ++i) {
         UIView * temp=[temp_textView.subviews objectAtIndex:i];
@@ -245,7 +239,6 @@ int Start_y_ColorPanel;//410功能容器
     imageBarView=[[UIView alloc] initWithFrame:CGRectMake(0,Start_y_ColorPanel, _width, 44)];//功能面板背景
     [imageBarView setBackgroundColor:[UIColor clearColor]];
     [self addSubview:imageBarView];
-    [imageBarView release];
 
     
     UIImageView *imgV=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _width, 44)];
@@ -341,9 +334,11 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)clickCutting:(id)sender
 {
+    NSLog(@"裁剪");
+    if (clipViewC == nil) {
+        clipViewC = [[ClipViewController alloc] initWithNibName:@"ClipViewController_iPhone" bundle:nil];
+    }
     
-    printf("裁剪\n");
-    ClipViewController * clipViewC = [[ClipViewController alloc] initWithNibName:@"ClipViewController_iPhone" bundle:nil];
     [clipViewC initWith:currentImageView.image with:self withDelegate:self];
     //进入裁剪界面
     [self.superview addSubview:clipViewC.view];
@@ -600,11 +595,6 @@ int Start_y_ColorPanel;//410功能容器
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return  NO;
-}
-
--(void)dealloc
-{
-    [super dealloc];
 }
 
 @end

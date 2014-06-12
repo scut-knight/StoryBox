@@ -15,7 +15,6 @@
 @interface ImageCropperView : UIScrollView
 {
 	UIImageView *imageView;
-
 }
 
 @property (nonatomic, retain) UIImage *image;
