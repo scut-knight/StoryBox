@@ -38,7 +38,6 @@
         
         [self addSubview:imageView];
         self.imageView = imageView;
-        [imageView release];
         
         // Overlay Image View
         UIImageView *overlayImageView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -50,7 +49,6 @@
         
         [self addSubview:overlayImageView];
         self.overlayImageView = overlayImageView;
-        [overlayImageView release];
     }
     
     return self;
@@ -58,9 +56,6 @@
 
 - (void)setAsset:(ALAsset *)asset
 {
-    [_asset release];
-    _asset = [asset retain];
-    
     // Set thumbnail image
     self.imageView.image = [self thumbnail];
 }
@@ -74,17 +69,6 @@
 {
     return !self.overlayImageView.hidden;
 }
-
-- (void)dealloc
-{
-    [_asset release];
-    
-    [_imageView release];
-    [_overlayImageView release];
-    
-    [super dealloc];
-}
-
 
 #pragma mark - Touch Events
 

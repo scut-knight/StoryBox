@@ -28,9 +28,6 @@
 
 - (void)setAssets:(NSArray *)assets
 {
-    [_assets release];
-    _assets = [assets retain];
-    
     // Set assets
     for(NSUInteger i = 0; i < self.numberOfAssets; i++) {
         QBImagePickerAssetView *assetView = (QBImagePickerAssetView *)[self.contentView viewWithTag:(1 + i)];
@@ -44,14 +41,6 @@
         }
     }
 }
-
-- (void)dealloc
-{
-    [_assets release];
-    
-    [super dealloc];
-}
-
 
 #pragma mark - Instance Methods
 
@@ -77,7 +66,6 @@
         assetView.autoresizingMask = UIViewAutoresizingNone;
         
         [self.contentView addSubview:assetView];
-        [assetView release];
     }
 }
 

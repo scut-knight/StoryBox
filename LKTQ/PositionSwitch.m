@@ -116,8 +116,4 @@
     return rect;
 }
 
--(void)dealloc
-{
-    [super dealloc];
-}
 @end

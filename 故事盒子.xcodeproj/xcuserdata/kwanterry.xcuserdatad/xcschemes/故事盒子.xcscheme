@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "04C7F36A184CAEF5009067E3"
-               BuildableName = "&#25925;&#20107;&#30418;&#23376;.app"
-               BlueprintName = "&#25925;&#20107;&#30418;&#23376;"
-               ReferencedContainer = "container:&#25925;&#20107;&#30418;&#23376;.xcodeproj">
+               BuildableName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;.app"
+               BlueprintName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;"
+               ReferencedContainer = "container:&#x6545;&#x4e8b;&#x76d2;&#x5b50;.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04C7F36A184CAEF5009067E3"
-            BuildableName = "&#25925;&#20107;&#30418;&#23376;.app"
-            BlueprintName = "&#25925;&#20107;&#30418;&#23376;"
-            ReferencedContainer = "container:&#25925;&#20107;&#30418;&#23376;.xcodeproj">
+            BuildableName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;.app"
+            BlueprintName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;"
+            ReferencedContainer = "container:&#x6545;&#x4e8b;&#x76d2;&#x5b50;.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,11 +52,23 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04C7F36A184CAEF5009067E3"
-            BuildableName = "&#25925;&#20107;&#30418;&#23376;.app"
-            BlueprintName = "&#25925;&#20107;&#30418;&#23376;"
-            ReferencedContainer = "container:&#25925;&#20107;&#30418;&#23376;.xcodeproj">
+            BuildableName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;.app"
+            BlueprintName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;"
+            ReferencedContainer = "container:&#x6545;&#x4e8b;&#x76d2;&#x5b50;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "MallocStackLogging"
+            value = "YES"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,9 +82,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "04C7F36A184CAEF5009067E3"
-            BuildableName = "&#25925;&#20107;&#30418;&#23376;.app"
-            BlueprintName = "&#25925;&#20107;&#30418;&#23376;"
-            ReferencedContainer = "container:&#25925;&#20107;&#30418;&#23376;.xcodeproj">
+            BuildableName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;.app"
+            BlueprintName = "&#x6545;&#x4e8b;&#x76d2;&#x5b50;"
+            ReferencedContainer = "container:&#x6545;&#x4e8b;&#x76d2;&#x5b50;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

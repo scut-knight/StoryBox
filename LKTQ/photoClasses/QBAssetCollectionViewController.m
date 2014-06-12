@@ -72,7 +72,7 @@
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:tableView];
         self.tableView = tableView;
-        [tableView release];
+//        [tableView release];
         
         
         //预览被选中的缩略图
@@ -87,7 +87,6 @@
         [bgSc setImage:[UIImage imageNamed:@"selectImageBg.png"]];
         //[bgSc addSubview:finishButton];
         [self.view addSubview:bgSc];
-        [bgSc release];
         [self.view addSubview:finishButton];
         [self.view addSubview:selectedState];
         [self.view addSubview:selectedState2];
@@ -102,9 +101,6 @@
         [scrollView setBounces:YES];
         [scrollView setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:scrollView];
-        [scrollView release];
-        
-       
     }
     
     return self;
@@ -150,18 +146,18 @@
     [self updateRightBarButtonItem];
 }
 
-- (void)dealloc
-{
-    [_assetsGroup release];
-    [selectedState release];
-    [selectedState2 release];
-    [_assets release];
-    [_selectedAssets release];
-    [finishButton release];
-    [_tableView release];
-    
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [_assetsGroup release];
+//    [selectedState release];
+//    [selectedState2 release];
+//    [_assets release];
+//    [_selectedAssets release];
+//    [finishButton release];
+//    [_tableView release];
+//    
+//    [super dealloc];
+//}
 
 
 #pragma mark - Instance Methods
@@ -263,7 +259,8 @@
                 NSInteger numberOfAssetsInRow = self.view.bounds.size.width / self.imageSize.width;
                 CGFloat margin = round((self.view.bounds.size.width - self.imageSize.width * numberOfAssetsInRow) / (numberOfAssetsInRow + 1));
                 
-                cell = [[[QBImagePickerAssetCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier imageSize:self.imageSize numberOfAssets:numberOfAssetsInRow margin:margin] autorelease];
+//                cell = [[[QBImagePickerAssetCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier imageSize:self.imageSize numberOfAssets:numberOfAssetsInRow margin:margin] autorelease];
+                cell = [[QBImagePickerAssetCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier imageSize:self.imageSize numberOfAssets:numberOfAssetsInRow margin:margin];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 [(QBImagePickerAssetCell *)cell setDelegate:self];
             }
@@ -422,7 +419,7 @@
         NSString *title =[[NSString alloc] initWithFormat:@"已经选择了 %d 张",self.selectedAssets.count];
     [selectedState setText:(title)];
         [selectedState2 setText:@""];
-        [title release];
+//        [title release];
     }
     else
     {
