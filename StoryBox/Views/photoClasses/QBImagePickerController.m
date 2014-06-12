@@ -48,7 +48,6 @@
         
         ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
         self.assetsLibrary = assetsLibrary;
-        [assetsLibrary release];
         
         self.assetsGroups = [NSMutableArray array];
         
@@ -60,7 +59,6 @@
         
         [self.view addSubview:tableView];
         self.tableView = tableView;
-        [tableView release];
         //[self.navigationController.navigationBar setBackgroundImage: [UIImage imageNamed:@"title.png"] forBarMetrics:UIBarMetricsDefault];//add
 //
 //        UIImageView *imgbgtop=[[UIImageView alloc]initWithFrame:CGRectMake(100, 60, 141, 35)];
@@ -226,24 +224,9 @@
             
             
             [self presentViewController:picker animated:YES completion:^{}];
-            
-            
-            [picker release];
-            
         }
-        
     }
 }
-- (void)dealloc
-{
-    [_assetsLibrary release];
-    [_assetsGroups release];
-    
-    [_tableView release];
-    
-    [super dealloc];
-}
-
 
 #pragma mark - Instance Methods
 
@@ -284,7 +267,7 @@
     QBImagePickerGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if(cell == nil) {
-        cell = [[[QBImagePickerGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[QBImagePickerGroupCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -296,7 +279,6 @@
     
     return cell;
 }
-
 
 #pragma mark - UITableViewDelegate
 
@@ -342,7 +324,6 @@
     
     [self.navigationController pushViewController:assetCollectionViewController animated:YES];
     
-    [assetCollectionViewController release];
 }
 
 

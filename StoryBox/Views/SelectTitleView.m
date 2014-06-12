@@ -46,7 +46,6 @@
     textEditViewArray = arr;
     [selectView setBackgroundColor:[UIColor colorWithRed:(38.0/255) green:(43.0/255) blue:49.0/255 alpha:0.9]];;
     [self addSubview:selectView];
-    [selectView release];
     
     [self  setBackgroundColor:[UIColor blackColor]];
     [self initNavigationBar];
@@ -63,7 +62,6 @@
     NavigationView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
     [NavigationView setBackgroundColor:[UIColor colorWithRed:(28.0/255) green:(33.0/255) blue:39.0/255 alpha:0.95]];
     [self addSubview:NavigationView];
-    [NavigationView release];
     
     UIButton* back=[UIButton buttonWithType:UIButtonTypeCustom];
     [back setFrame:CGRectMake(20, 15, 40,15)];
@@ -118,8 +116,6 @@
     [_sc addSubview:label];
   
     [self.delegate hiddenTopView:NO];
-    //bin?:arc
-    [label release];
     //移除本视图
     [self removeFromSuperview];
 }
@@ -153,8 +149,5 @@
 {
 //    printf("titled dealloc");
     [self clear];
-    [positionSwich release];
-    
-    [super dealloc];
 }
 @end

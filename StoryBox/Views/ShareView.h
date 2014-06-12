@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PositionSwitch.h"
+
 #import <ShareSDK/ShareSDK.h>
+
+#import "PositionSwitch.h"
+
 @protocol AccessHomeDelegate <NSObject>
 -(void)clickPhotoPickup:(id)sender;
 -(void)accessPhotoAblum;            //相册
@@ -26,12 +29,9 @@
     UIButton * outputBtn;
     
     UIButton * outputAllBtn;
-    UIView  *pannerShareView;      
     
     NSMutableArray * imageVArr;
     NSMutableArray * textEditVArr;
-    UIImage *img_Merged;
-    NSString* pathImageM;
     ShareType shareTypeSocial;
     
     UIImageView * bg;
@@ -39,10 +39,10 @@
     
 }
 
-@property(assign,nonatomic) id<AccessHomeDelegate> delegate;
-@property(nonatomic,assign) NSString * pathImageM;              //合成图路径
-@property(nonatomic,assign) UIImage * img_Merged;                //社会化分享容器
-@property(nonatomic,assign) UIView  * pannerShareView;           //社会化分享容器
+@property(nonatomic,strong) id<AccessHomeDelegate> delegate;
+@property(nonatomic,strong) NSString * pathImageM;              //合成图路径
+@property(nonatomic,strong) UIImage * img_Merged;                //社会化分享容器
+@property(nonatomic,strong) UIView  * pannerShareView;           //社会化分享容器
 - (id)initWithFrame:(CGRect)frame  withImageVA:(NSMutableArray*)imageVA withTextEditVA:(NSMutableArray *)textEVA;
 
  

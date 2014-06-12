@@ -9,6 +9,14 @@
 #import "MHImagePickerMutilSelector.h"
 #import <QuartzCore/QuartzCore.h>
 
+/**
+ *  这里需要提出一个静态的变量MHImagePickerMutilSelector。
+ *  因为showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *) withArr中需要使用这个变量。原来无ARC版本，如果不release该变量就没事。
+ *  但是现在改成ARC后，没法不release，所以只好提出来作为静态变量。
+ *  还有，上面那个方法的设计是在糟透了，应该放在HomeViewController里面的。
+ */
+static MHImagePickerMutilSelector *imagePickerMutilSelector = nil;
+
 @interface MHImagePickerMutilSelector ()
 
 @end
@@ -57,8 +65,6 @@
     [textlabel setText:@"当前选中0张(最多10张)"];
     
     [selectedPan addSubview:textlabel];
-    //bin?:arc
-    [textlabel release];
     
     //制作按钮
     btn_done = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -91,7 +97,6 @@
     [tbv setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     [selectedPan addSubview:tbv];
-    [tbv release];
 }
 
 /**
@@ -140,10 +145,6 @@
         UIView *custom = [[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithCustomView:custom];
         [viewController.navigationItem setRightBarButtonItem:btn animated:NO];
-        
-        //bin?:arc
-        [btn release];
-        [custom release];
         
         [self setWantsFullScreenLayout:YES];
         NSLog(@"选择图片子视图");
@@ -209,7 +210,6 @@
         rotateView.transform = CGAffineTransformMakeRotation(M_PI * 90 / 180);
         rotateView.center = CGPointMake(45, 45);
         [cell.contentView addSubview:rotateView];
-        [rotateView release];
         
         UIImageView * imv =[[UIImageView alloc] initWithImage:[pics objectAtIndex:row]];
         [imv setBackgroundColor:[UIColor clearColor]];
@@ -222,7 +222,6 @@
         [imv.layer setBorderWidth:2.0f];
         
         [rotateView addSubview:imv];
-        [imv release];
         
         //删除选中按钮（红色圈的叉）
         UIButton * btn_delete=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -335,7 +334,6 @@
 //    [imagePicker dismissModalViewControllerAnimated:YES];
     [imagePicker dismissViewControllerAnimated:YES completion:NULL];
     [self.view removeFromSuperview];
-    [self release];
 }
 
 
@@ -348,7 +346,7 @@
 
 -(void)dealloc
 {
-    printf("相册dealloc");
+    NSLog(@"相册dealloc");
     for (int i=0; i<self.view.subviews.count; ++i)
     {
         UIView * _v=[self.view.subviews objectAtIndex:i];
@@ -360,13 +358,11 @@
         [_v removeFromSuperview];
     }
     
-    [delegate release],delegate=nil;
+    delegate=nil;
     [pics removeAllObjects];//add
-    [pics release];
     
     [imagePicker.view removeFromSuperview];
-    [imagePicker release],imagePicker=nil;
-    [super dealloc];
+    imagePicker=nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -397,7 +393,8 @@
  */
 +(void)showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *)vc  withArr:(NSArray*)arry
 {
-    MHImagePickerMutilSelector * imagePickerMutilSelector = [[MHImagePickerMutilSelector alloc] init];
+//    MHImagePickerMutilSelector *
+    imagePickerMutilSelector = [[MHImagePickerMutilSelector alloc] init];
     //设置代理
     imagePickerMutilSelector.delegate = vc;
     //如果已选中图片列表不为空，则用该列表来初始化
@@ -417,7 +414,6 @@
     imagePickerMutilSelector.imagePicker = picker;
 
     [picker.view addSubview:imagePickerMutilSelector.selectedPan];
-    [imagePickerMutilSelector.selectedPan release];
     
     [vc presentViewController:picker animated:YES completion:NULL];
 }
