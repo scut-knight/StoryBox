@@ -2,8 +2,6 @@
 #import <QuartzCore/QuartzCore.h>
 #include <math.h>
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
 @interface ImageCropperView()
 {
     @private

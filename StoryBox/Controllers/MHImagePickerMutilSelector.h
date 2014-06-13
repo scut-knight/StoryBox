@@ -18,7 +18,9 @@
 @end
 
 /**
- *  从相册中选取多张图片
+ *  从相册中选取多张图片.
+ *
+ *  实现成一个singleton
  */
 @interface MHImagePickerMutilSelector : UIViewController<UITableViewDataSource,UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {

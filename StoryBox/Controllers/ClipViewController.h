@@ -14,5 +14,6 @@
  */
 @interface ClipViewController: UIViewController<UpdateCurrentImageDelegate>
 
++(ClipViewController *)sharedInstance;
 -(void)initWith:(UIImage*)img with:(UIView *)VC withDelegate:(id)parent;
 @end

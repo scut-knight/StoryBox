@@ -12,7 +12,6 @@
 #define title_width 100
 #define title_height 123
 #define title_gar 103
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @implementation SelectTitleView
 @synthesize delegate;

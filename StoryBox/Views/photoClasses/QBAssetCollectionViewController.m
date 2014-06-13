@@ -127,7 +127,8 @@
         self.tableView.contentInset = UIEdgeInsetsMake(top, 0, widthBtn+52, 0);
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(top, 0, 0, 0);
         
-        [self setWantsFullScreenLayout:YES];
+//        [self setWantsFullScreenLayout:YES]; // depreciated in iOS 7.0
+        self.extendedLayoutIncludesOpaqueBars = YES; // use this one to replace it
     }
 }
 

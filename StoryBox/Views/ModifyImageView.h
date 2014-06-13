@@ -20,6 +20,8 @@
 
 /**
  *  编辑单张图片的主界面
+ *
+ *  实现成一个singleton
  */
 @interface ModifyImageView : UIView<UpdateCurrentImageDelegate,UITextFieldDelegate,HiddenTopViewDelegate >
 {
@@ -36,8 +38,8 @@
     UIView * NavigationView;
     UIView * subFunctionView;
     UITextLable * textEditView;
-    BOOL state_V;           //记录镜像垂直状态
-    BOOL state_H;           //记录镜像水平状态
+    BOOL state_V;           /// 记录镜像垂直状态
+    BOOL state_H;           /// 记录镜像水平状态
     int imageIndex;
     CGImageRef imageCG;
     
@@ -46,4 +48,5 @@
 @property(retain,nonatomic) id<HiddenTopViewDelegate>delegate;
 
 -(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(UIScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray;
+
 @end

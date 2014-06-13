@@ -3,7 +3,7 @@
 #import "ImageCropperView.h"
 #import "MaskView.h"
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+static ClipViewController * sharedSingleton_ = nil;
 
 @interface ClipViewController ()
 
@@ -36,6 +36,22 @@
  *  合成cropper的接口函数
  */
 @synthesize cropper;
+
+#pragma mark implement singleton
+
++ (ClipViewController *)sharedInstance
+{
+    if (sharedSingleton_ == nil) {
+        sharedSingleton_ = [[super allocWithZone:NULL]
+                            initWithNibName:@"ClipViewController_iPhone" bundle:nil];
+    }
+    return sharedSingleton_;
+}
+
++(id)allocWithZone:(NSZone *)zone
+{
+    return [ClipViewController sharedInstance];
+}
 
 -(void)initWith:(UIImage*)img with:(UIView *)VC withDelegate:(id)parent;
 {

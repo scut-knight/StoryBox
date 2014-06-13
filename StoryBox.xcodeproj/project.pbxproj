@@ -253,6 +253,7 @@
 		34B2781A1949711800E8700B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B278191949711800E8700B /* QuartzCore.framework */; };
 		34B2781C194971B500E8700B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781B194971B500E8700B /* SystemConfiguration.framework */; };
 		34B2781E1949720200E8700B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781D1949720200E8700B /* CoreTelephony.framework */; };
+		A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A321A7BF194ACE89005218DB /* QBImagePicker.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -551,6 +552,7 @@
 		34B278191949711800E8700B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		34B2781B194971B500E8700B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		34B2781D1949720200E8700B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		A321A7BF194ACE89005218DB /* QBImagePicker.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = QBImagePicker.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1197,6 +1199,7 @@
 				34B278081949705700E8700B /* QBImagePickerController.m */,
 				34B278091949705700E8700B /* QBImagePickerGroupCell.h */,
 				34B2780A1949705700E8700B /* QBImagePickerGroupCell.m */,
+				A321A7BF194ACE89005218DB /* QBImagePicker.rtf */,
 			);
 			name = photoClasses;
 			path = Views/photoClasses;
@@ -1347,6 +1350,7 @@
 				34B2779519496FDE00E8700B /* 1color.png in Resources */,
 				34B2777D19496FDE00E8700B /* editTopView.png in Resources */,
 				34B277AB19496FDE00E8700B /* 243.png in Resources */,
+				A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */,
 				34B2761819496E4C00E8700B /* ClipViewController_iPhone.xib in Resources */,
 				34B277F319496FDE00E8700B /* titleNavigation.png in Resources */,
 				34B2779219496FDE00E8700B /* 12.png in Resources */,
@@ -1631,7 +1635,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StoryBox/Views/ShareSDK/Connection",
@@ -1663,7 +1667,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StoryBox/Views/ShareSDK/Connection",
@@ -1749,6 +1753,7 @@
 				34B2760119496BD100E8700B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		34B2760219496BD100E8700B /* Build configuration list for PBXNativeTarget "StoryBoxTests" */ = {
 			isa = XCConfigurationList;
@@ -1757,6 +1762,7 @@
 				34B2760419496BD100E8700B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

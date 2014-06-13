@@ -10,12 +10,9 @@
 #import "ClipViewController.h"
 #import "CameraCustom.h"
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
-static  ClipViewController * clipViewC = nil;
-
 //界面布局
 int Start_y_ColorPanel;//410功能容器
+
 #define _width 320
 #define width_btn_bar 160
 #define Height_btn_bar 44
@@ -31,7 +28,9 @@ int Start_y_ColorPanel;//410功能容器
 #define y_imgView 80//100
 
 @implementation ModifyImageView
+
 @synthesize delegate;
+
 -(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(UIScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray
 {
     self = [super init];
@@ -335,13 +334,10 @@ int Start_y_ColorPanel;//410功能容器
 -(void)clickCutting:(id)sender
 {
     NSLog(@"裁剪");
-    if (clipViewC == nil) {
-        clipViewC = [[ClipViewController alloc] initWithNibName:@"ClipViewController_iPhone" bundle:nil];
-    }
     
-    [clipViewC initWith:currentImageView.image with:self withDelegate:self];
+    [[ClipViewController sharedInstance] initWith:currentImageView.image with:self withDelegate:self];
     //进入裁剪界面
-    [self.superview addSubview:clipViewC.view];
+    [self.superview addSubview:[ClipViewController sharedInstance].view];
     
     [self removeFromSuperview];
 
@@ -483,7 +479,7 @@ int Start_y_ColorPanel;//410功能容器
     NSLog(@"垂直翻转");
     CGPoint  center = currentImageView.center;
     int flag = currentImageView.tag;
-    UIImageOrientation  imageOrientation;
+    UIImageOrientation  imageOrientation = UIImageOrientationDownMirrored;
     switch (flag)
     {
         case 0://竖着
@@ -515,7 +511,6 @@ int Start_y_ColorPanel;//410功能容器
     }
     
     currentImageView.center=center;
-//    printf("垂直over");
 }
 
 /**
@@ -528,7 +523,7 @@ int Start_y_ColorPanel;//410功能容器
     NSLog(@"水平翻转");
     CGPoint center = currentImageView.center;
     int flag = currentImageView.tag;
-    UIImageOrientation  imageOrientation;
+    UIImageOrientation  imageOrientation = UIImageOrientationUpMirrored;
     switch (flag)
     {
         case 0://竖着

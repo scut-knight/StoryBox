@@ -384,7 +384,9 @@
     for (int i=0; i<textView.text.length; ++i)
     {
         str=[NSString stringWithFormat:@"%C",[textView.text characterAtIndex:i]];
-        s=[str sizeWithFont:[textView font]];
+        s=[str sizeWithAttributes:
+           @{NSFontAttributeName:[textView font]}];
+        
         height_text=height_text>s.height?height_text:s.height;
         if ([str isEqualToString:@"\n"])
         {
@@ -463,7 +465,6 @@
     [self bringSubviewToFront:maskTouch];
     
 //    printf("失效");
-    
     return YES;
 }
 

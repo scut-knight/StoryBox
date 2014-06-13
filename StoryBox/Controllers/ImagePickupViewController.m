@@ -15,11 +15,11 @@
 
 @implementation ImagePickupViewController
 
-//@synthesize imageView;
-//@synthesize imageArray;
-//@synthesize extLayerView;
-//@synthesize delegate;
-//@synthesize addIS;
+@synthesize imageView;
+@synthesize imageArray;
+@synthesize extLayerView;
+@synthesize delegate;
+@synthesize addIS;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

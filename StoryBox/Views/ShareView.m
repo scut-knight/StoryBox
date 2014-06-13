@@ -9,7 +9,6 @@
 #import "ShareView.h"
 #import "CameraCustom.h"
 #import "UITitleLabel.h"
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @implementation ShareView
 

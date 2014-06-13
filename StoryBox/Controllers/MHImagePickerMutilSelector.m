@@ -10,12 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 /**
- *  这里需要提出一个静态的变量MHImagePickerMutilSelector。
- *  因为showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *) withArr中需要使用这个变量。原来无ARC版本，如果不release该变量就没事。
- *  但是现在改成ARC后，没法不release，所以只好提出来作为静态变量。
- *  还有，上面那个方法的设计是在糟透了，应该放在HomeViewController里面的。
+ *  我是一个Singleton >_<
  */
-static MHImagePickerMutilSelector *imagePickerMutilSelector = nil;
+static MHImagePickerMutilSelector *sharedSingleton_ = nil;
 
 @interface MHImagePickerMutilSelector ()
 
@@ -26,6 +23,26 @@ static MHImagePickerMutilSelector *imagePickerMutilSelector = nil;
 @synthesize imagePicker;
 @synthesize delegate;
 @synthesize selectedPan;
+
+#pragma mark - singleton
+
+/**
+ *  获取一个singleton。如果需要，调用构造函数。
+ *
+ *  @return 一个singleton
+ */
++ (MHImagePickerMutilSelector *) sharedInstance
+{
+    if (sharedSingleton_ == nil) {
+        sharedSingleton_ = [[super allocWithZone:NULL] init];
+    }
+    return sharedSingleton_;
+}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+    return [MHImagePickerMutilSelector sharedInstance];
+}
 
 - (id)init
 {
@@ -146,7 +163,8 @@ static MHImagePickerMutilSelector *imagePickerMutilSelector = nil;
         UIBarButtonItem *btn = [[UIBarButtonItem alloc] initWithCustomView:custom];
         [viewController.navigationItem setRightBarButtonItem:btn animated:NO];
         
-        [self setWantsFullScreenLayout:YES];
+//      [self setWantsFullScreenLayout:YES]; // depreciated in iOS 7.0
+        self.extendedLayoutIncludesOpaqueBars = YES; // use this one to replace it
         NSLog(@"选择图片子视图");
     }
     else
@@ -393,27 +411,33 @@ static MHImagePickerMutilSelector *imagePickerMutilSelector = nil;
  */
 +(void)showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *)vc  withArr:(NSArray*)arry
 {
-//    MHImagePickerMutilSelector *
-    imagePickerMutilSelector = [[MHImagePickerMutilSelector alloc] init];
+    /**
+     *  这里需要使用MHImagePickerMutilSelector的Singleton
+     *  因为
+     *  showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *) withArr
+     *  中需要使用这个变量。原来无ARC版本，如果不release该变量就没事。
+     *  但是现在改成ARC后，没法不release，所以只好提出来作为静态变量。
+     *  还有，上面那个方法的设计是在糟透了，应该放在HomeViewController里面的。
+     */
     //设置代理
-    imagePickerMutilSelector.delegate = vc;
+    [MHImagePickerMutilSelector sharedInstance].delegate = vc;
     //如果已选中图片列表不为空，则用该列表来初始化
-    if (arry != Nil)
+    if (arry != nil)
     {
-        [imagePickerMutilSelector addImageToArray:arry];
+        [[MHImagePickerMutilSelector sharedInstance] addImageToArray:arry];
     }
     UIImagePickerController * picker=[[UIImagePickerController alloc] init];
     //将UIImagePicker的代理指向到imagePickerMutilSelector
-    picker.delegate = imagePickerMutilSelector;
+    picker.delegate = [MHImagePickerMutilSelector sharedInstance];
     [picker setAllowsEditing:NO];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     //将UIImagePicker的导航代理指向到imagePickerMutilSelector
-    picker.navigationController.delegate = imagePickerMutilSelector;
+    picker.navigationController.delegate = [MHImagePickerMutilSelector sharedInstance];
     //使imagePickerMutilSelector得知其控制的UIImagePicker实例，为释放时需要。
-    imagePickerMutilSelector.imagePicker = picker;
+    [MHImagePickerMutilSelector sharedInstance].imagePicker = picker;
 
-    [picker.view addSubview:imagePickerMutilSelector.selectedPan];
+    [picker.view addSubview:[MHImagePickerMutilSelector sharedInstance].selectedPan];
     
     [vc presentViewController:picker animated:YES completion:NULL];
 }

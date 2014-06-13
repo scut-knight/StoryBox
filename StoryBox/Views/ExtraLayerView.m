@@ -8,7 +8,6 @@
 
 #import "ExtraLayerView.h"
 #import "UITextLable.h"
-#import "ClipViewController.h"
 #import "PositionSwitch.h"
 #import "ModifyImageView.h"
 #import "CustomAnimation.h"
@@ -19,9 +18,11 @@
 #import<CoreText/CoreText.h>
 
 @implementation ExtraLayerView
+
 @synthesize gemomtryView,textEditView, scrollView;
 @synthesize imageViewArray,textEditViewArray;
 @synthesize positionSwich;
+
 #define _width 320
 #define _height 480
 #define width_gemotry 320//标签容器宽度
@@ -31,14 +32,13 @@
 
 
 #define MAX_IMAGEPIX 640.0          // max pix 640.0px
-int Start_y_gemotry;//标签容器
-
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 #define gap_btn_bar 80
 
 #define x_imgView 0
 #define y_imgView 80//100
+
+int Start_y_gemotry;//标签容器
 
 - (id)initWithFrame:(CGRect)frame withImageArray:(NSMutableArray*)arr
 {
@@ -638,13 +638,13 @@ int Start_y_gemotry;//标签容器
 //    printf("initG=%d",flag_model);
     int temp = [sender tag];
     int num = 0;//个数
-    int start_point;
-    int label_height;
-    int label_width;
-    int label_gar;
+    int start_point = 0;
+    int label_height = 0;
+    int label_width = 0;
+    int label_gar = 0;
     
     //如果是气泡
-    if (flag_model==2)
+    if (flag_model == 2)
     {
         num = 4;
         start_point = 20;
@@ -710,10 +710,10 @@ int Start_y_gemotry;//标签容器
  
     float offset=scrollView.contentOffset.y;
     
-    printf("test==%d,",flag_model);
+    NSLog(@"test==%d,",flag_model);
     if (flag_model==2)
     {
-        printf("新");
+        NSLog(@"新");
         textLable=[[UITextLable alloc]initWithFrame:CGRectMake(0, offset+80, 40, 25) initImage:flag_color withFlagModel:flag_mid withTextVArr:textEditViewArray withView:self.scrollView];//100
     }
     else
@@ -787,11 +787,11 @@ int Start_y_gemotry;//标签容器
     {
         UIView * v = [self.textEditViewArray objectAtIndex:j];
         int num = [v.subviews count];
-        printf("标签失去焦点all=%d",num);
+        NSLog(@"标签失去焦点all=%d",num);
         UITextLable * lab;
-        for(int i=0; i<num; ++i)
+        for(int i = 0; i < num; ++i)
         {
-            lab=[v.subviews objectAtIndex:i];
+            lab = [v.subviews objectAtIndex:i];
             //取消编辑焦点
             [lab._textView resignFirstResponder];
         }
