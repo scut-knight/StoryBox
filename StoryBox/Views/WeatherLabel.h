@@ -14,10 +14,13 @@
 {
     CLLocationManager *_currentLoaction;
     NSString * _country;
+    NSString * _province;
     NSString * _city;
+    NSString *_cityCode;
+    
 }
 
--(void)getLocation;
+-(void)getWeather;
 
 
 @end

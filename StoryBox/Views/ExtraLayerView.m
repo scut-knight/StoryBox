@@ -329,7 +329,7 @@ int Start_y_gemotry;//标签容器
 -(void)clickWeatherButton:(id)sender
 {
     WeatherLabel * t = [[WeatherLabel alloc] init];
-    [t getLocation];
+    [t getWeather];
 }
 /**
  *  处理单击手势，实现到编辑单张图片的跳转
