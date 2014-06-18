@@ -13,9 +13,31 @@
 #import "CustomAnimation.h"
 #import "SelectTitleView.h"
 #import "UIImage.h"
+#import "SBPen.h"
+#import "SBPenPanel.h"
 #import "WeatherLabel.h"
 
 #import<CoreText/CoreText.h>
+
+@interface ExtraLayerView ()
+
+-(void)initImageViewFromArray:(NSMutableArray *)arr;//图片和文字
+-(void)initSubGemomtryView;
+-(void)initGeometryModelBtn;
+
+-(void)loadAllImageAddTextView;
+-(void)reLoadTitleView;
+-(void)LongPress:(UILongPressGestureRecognizer *)longG;
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+
+-(void)clickWeatherButton:(id)sender;
+-(void)clickTitle:(id)sender;
+-(void)clickDoodleModel:(id)sender;
+-(void)clickColorInitGemo:(id)sender;
+
+@property (nonatomic) SBPen * pen; /// 画笔
+@property (nonatomic) SBPenPanel * penPanel; /// 画笔修改面板
+@end
 
 @implementation ExtraLayerView
 
@@ -39,6 +61,8 @@
 #define y_imgView 80//100
 
 int Start_y_gemotry;//标签容器
+
+#pragma mark - init
 
 - (id)initWithFrame:(CGRect)frame withImageArray:(NSMutableArray*)arr
 {
@@ -95,7 +119,6 @@ int Start_y_gemotry;//标签容器
         _scale = 0.7;
         stateEdit = NO;
         actionTitleView = nil;
-        
     }
     return self;
 }
@@ -156,52 +179,14 @@ int Start_y_gemotry;//标签容器
 }
 
 /**
- *  目测是对图片进行压缩?已在UIImage中实现，该处已没有使用
- */
-//-(UIImage*)imageCom:(UIImage*)_img
-//{
-//    CGSize imageSize = _img.size;
-//    CGFloat width = imageSize.width;
-//    CGFloat height = imageSize.height;
-//    
-//    if (width <= MAX_IMAGEPIX)
-//    {
-//        return 0;
-//    }
-//    
-//    UIImage *newImage = nil;
-//    CGFloat widthFactor = MAX_IMAGEPIX / width;
-////    CGFloat heightFactor = MAX_IMAGEPIX / height;
-//    CGFloat scaleFactor = 0.0;
-//    
-//    scaleFactor = widthFactor;//width
-//    CGFloat scaledWidth  = width * scaleFactor;
-//    CGFloat scaledHeight = height * scaleFactor;
-//    
-//    CGSize targetSize = CGSizeMake(scaledWidth, scaledHeight);
-//    UIGraphicsBeginImageContext(targetSize); // this will crop
-//    
-//    CGRect thumbnailRect = CGRectZero;
-//    thumbnailRect.size.width  = scaledWidth;
-//    thumbnailRect.size.height = scaledHeight;
-//    printf("w=%f,h=%f",scaledWidth,scaledHeight);
-//    
-//    [_img drawInRect:thumbnailRect];
-//    
-//    newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    
-//    //pop the context to get back to the default
-//    UIGraphicsEndImageContext();
-//    return newImage;
-//}
-
-/**
  *  初始化scrollView
  */
 -(void)initTextEditView
 {
     [self loadAllImageAddTextView];
 }
+
+#pragma mark - loadView
 
 /**
  *  把imageView和textEditView排版加入到scrollView中
@@ -218,7 +203,6 @@ int Start_y_gemotry;//标签容器
         [scrollView addSubview:imgv];
         [scrollView addSubview:textv];
     }
-//    printf("计算==%d",height);
     
     [scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     [self reLoadTitleView];
@@ -241,11 +225,11 @@ int Start_y_gemotry;//标签容器
 
 /**
  *  初始化底部功能按钮层gemomtryView及相应的面板
+ *
+ *  添加四个标签tag  0~3
  */
 -(void)initGeometryModelBtn
-{//添加五个标签tag  0~4
-   
-
+{
     float _y = scrollView.frame.origin.y+scrollView.frame.size.height-49;
     
     gemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, 320, 49)];
@@ -269,7 +253,8 @@ int Start_y_gemotry;//标签容器
     [modelBtn addTarget:self action:@selector(clickTitle:) forControlEvents:UIControlEventTouchUpInside];
     [scviewButton addSubview:modelBtn];
     
-    //标签按钮，tag0,1,2分别对应字幕，瓷片，气泡
+    //标签按钮，tag0,1,2分别对应涂鸦，字幕，气泡
+    //原来是大标签，字幕，瓷片，气泡；现在将瓷片和字幕合作一类，另开一个涂鸦。
     for (int i=0; i<3; i++)
     {
         UIButton * modelBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -301,18 +286,27 @@ int Start_y_gemotry;//标签容器
     subGemomtryViewBg = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,85)];
     [subGemomtryView addSubview:subGemomtryViewBg];
    
-    //同类标签面板
-    
-    _y = subGemomtryView.frame.origin.y-50;
-    simlarGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 50)];
-    [self addSubview:simlarGemomtryView];
-    
     UIImageView * similarGVBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320,50)];
     [similarGVBg setImage:[UIImage imageNamed:@"colorbg1.png"]];
-    simlarGemomtryView.hidden = YES;
+    
+    //同类标签面板
+    _y = subGemomtryView.frame.origin.y - 50;
+    simlarGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 50)];
     [simlarGemomtryView addSubview:similarGVBg];//和颜色面板相同背景视图
+    simlarGemomtryView.hidden = YES;
+    [self addSubview:simlarGemomtryView];
+    
+    // 初始化画笔
+    self.pen = [[SBPen alloc] init];
+    
+    _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
+    self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
+    [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
+    [self.penPanel updateStatus:[self.pen description]];
+    [self addSubview:self.penPanel];
 }
 
+#pragma mark - 手势与交互
 
 //bin test
 -(void)clickWeatherButton:(id)sender
@@ -320,6 +314,19 @@ int Start_y_gemotry;//标签容器
     WeatherLabel * t = [[WeatherLabel alloc] init];
     [t getLocation];
 }
+
+/**
+ *  由于底下的按钮的触发，展开涂鸦面板
+ *
+ *  @param sender 触发按钮
+ */
+-(void)clickDoodleModel:(id)sender
+{
+    NSLog(@"Doodle");
+    [self.penPanel fillPenColorPanel];
+    [self.penPanel prepareForSelectPen];
+}
+
 /**
  *  处理单击手势，实现到编辑单张图片的跳转
  *
@@ -327,8 +334,10 @@ int Start_y_gemotry;//标签容器
  */
 -(void)tapHandle:(UIGestureRecognizer *)tapD
 {
-//    printf("tap\n\n\n\n");
     BOOL isExisted = [self resetTitleviewState];
+    // 先隐藏编辑面板
+    [self hideAllButtomPanel];
+    
     //如果没有处于编辑状态的标签，则询问是否编辑当前图片
     if (stateEdit == NO)
     {
@@ -368,8 +377,6 @@ int Start_y_gemotry;//标签容器
         stateEdit = NO;
         [self resignTextLable];
         [self reStatusModel];//回复按钮
-        subGemomtryView.hidden = YES;
-        simlarGemomtryView.hidden = YES;
     }
 }
 
@@ -425,7 +432,7 @@ int Start_y_gemotry;//标签容器
     }
     else
     {
-        printf("end");
+        printf("end\n");
         overBound = NO;
         [self scaleToOrdinal:dis_pan];
     }
@@ -444,9 +451,21 @@ int Start_y_gemotry;//标签容器
     {//确定编辑
         case 1:
         {
-            ModifyImageView * modifyV = [[ModifyImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+            CGRect modifyImageRect;
+            if (IS_IPHONE_5) {
+                modifyImageRect = CGRectMake(0, 0, 320, 568);
+            } else {
+                modifyImageRect = CGRectMake(0, 0, 320, 480);
+            }
+            ModifyImageView * modifyV = [[ModifyImageView alloc] initWithFrame:modifyImageRect];
             modifyV.delegate = self.delegate;
-            modifyV = [modifyV  initWithImageView:[imageViewArray objectAtIndex:[alertView tag]] withTextView:[textEditViewArray objectAtIndex: [alertView tag]] withIndex:[alertView tag] withScrollView:scrollView withTextArray:imageViewArray withImageArray:textEditViewArray];
+            modifyV = [modifyV  initWithImageView:
+                                [imageViewArray objectAtIndex:[alertView tag]]
+                                    withTextView:[textEditViewArray objectAtIndex: [alertView tag]]
+                                    withIndex:[alertView tag]
+                                   withScrollView:scrollView
+                                    withTextArray:imageViewArray
+                                   withImageArray:textEditViewArray];
             [self addSubview:modifyV];
             [self.delegate hiddenTopView:YES];
             break;
@@ -455,21 +474,6 @@ int Start_y_gemotry;//标签容器
             break;
     }
     
-}
-
-/**
- *  bin?:已停用？
- */
--(void)hiddleTitleVieWBorder
-{
-    for (int i=0; i<scrollView.subviews.count; ++i)
-    {
-        UITitleLabel * view=[scrollView.subviews objectAtIndex:i];
-        if([view isKindOfClass:[UITitleLabel class]])
-        {
-            [view showBorder];
-        }
-    }
 }
 
 /**
@@ -486,8 +490,43 @@ int Start_y_gemotry;//标签容器
     [self setCurrentTitleView:nil];
    
     [self  resetButtonImage:nil];
-    subGemomtryView.hidden = YES;
-    simlarGemomtryView.hidden = YES;
+    [self hideAllButtomPanel];
+}
+
+-(void)initSubGemomtryView
+{
+    for (UIView *view in subGemomtryView.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+    //初始化颜色按钮
+    if (flag_model != TEXT) { // 如果不是字幕
+        for (int i=0; i<5; ++i)
+        {
+            UIButton * modelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [modelBtn setTag:i];
+            [modelBtn setFrame:CGRectMake(28+i*58,26, 33, 33)];//60 //36
+            [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dcolor.png",i]] forState:UIControlStateNormal];
+            [modelBtn addTarget:self action:@selector(clickColorInitGemo:) forControlEvents:UIControlEventTouchUpInside];
+            [subGemomtryView addSubview:modelBtn];
+        }
+    }
+    else {
+        for (int i = 0; i < 6; ++i)
+        {
+            UIButton * modelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [modelBtn setTag:i];
+            [modelBtn setFrame:CGRectMake(28+i*48,26, 33, 33)];
+            // 等会将最后一张图片替换成没有颜色，表示不会添加背景颜色
+            [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dcolor.png",i]] forState:UIControlStateNormal];
+            
+            [modelBtn addTarget:self action:@selector(clickGemotryModel:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [subGemomtryView addSubview:modelBtn];
+        }
+    }
 }
 
 /**
@@ -497,67 +536,43 @@ int Start_y_gemotry;//标签容器
  */
 -(void)clickModel:(id)sender
 {
-//    printf("选择模型");
     [self resetTitleviewState];
-    int fla_o = flag_model;
+    LAYER_MODE fla_o = flag_model;
     
     flag_model = [sender tag];
     [self resetButtonImage:sender];
     
-    //如果是字幕,切换到字幕编辑状态
-    if(flag_model == 0)
-    {
-        stateEdit = YES;
-        [self clickGemotryModel:sender];
-        return;
-    }
+    subGemomtryView.hidden = NO;
+    simlarGemomtryView.hidden=YES;
+    [self.penPanel showPanel:NO];
     
-    //如果子按钮栏为隐藏，显示子按钮栏，否则隐藏
-    if (subGemomtryView.hidden)
-    {
-        subGemomtryView.hidden = NO;
-        //如果是气泡，显示气泡选择栏，否则隐藏
-        if (flag_model == 2)
-        {
+    switch (flag_model) {
+        case DOODLE:
+            subGemomtryView.hidden = YES;
+            [self clickDoodleModel:sender];
+            break;
+        case TEXT:
+            [self initSubGemomtryView];
+            break;
+        case BUBBLE:
+            [self initSubGemomtryView];
             simlarGemomtryView.hidden = NO;
-        }
-        else
-        {
-            simlarGemomtryView.hidden = YES;
-        }
-      
-    }
-    else
-    {
-        subGemomtryView.hidden=YES;
-        simlarGemomtryView.hidden=YES;
+            break;
+        case Big_LABEL:
+            subGemomtryView.hidden = YES;
+            break;
+        default:
+            break;
     }
     
-    //初始化颜色按钮
-    for (int i=0; i<5; ++i)
-    {
-        UIButton * modelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [modelBtn setTag:i];
-        [modelBtn setFrame:CGRectMake(28+i*58,26, 33, 33)];//60 //36
-        [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dcolor.png",i]] forState:UIControlStateNormal];
-        //为颜色按钮是属于瓷片和气泡两种情况设立不同的触发
-        if (flag_model == 2)
-        {
-            [modelBtn addTarget:self action:@selector(clickColorInitGemo:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        else
-        {
-            [modelBtn addTarget:self action:@selector(clickGemotryModel:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        [subGemomtryView addSubview:modelBtn];
-    }
+    
  
     //从按钮到按钮的选中切换
-    if (fla_o != flag_model)
+    if (fla_o != flag_model && flag_model != DOODLE)
     {
         [self clickColorInitGemo:(id)0];
         subGemomtryView.hidden = NO;
-        if (flag_model!=1)
+        if (flag_model == BUBBLE)
         {
              simlarGemomtryView.hidden = NO;
         }
@@ -567,7 +582,7 @@ int Start_y_gemotry;//标签容器
     if (subGemomtryView.hidden == YES)
     {
         [(UIButton* )sender setSelected:NO];
-        [self resetButtonImage:Nil];
+        [self resetButtonImage:nil];
     }
     
     //设定子按钮栏背景
@@ -584,7 +599,7 @@ int Start_y_gemotry;//标签容器
 {
     NSLog(@"当前选中按钮:%d",flag_model);
     [self reStatusModel];
-    if (flag_model==1 || flag_model==2)
+    if (flag_model == TEXT || flag_model == BUBBLE)
     {
         UIButton * btn = (UIButton *)sender;
         if ([btn isSelected] == NO)
@@ -621,18 +636,10 @@ int Start_y_gemotry;//标签容器
 }
 
 /**
- *  bin:?已停用
+ *  设置对应的气泡样式。在simlarGemomtryView中的按钮被点击后触发
  *
- *  @param sender
+ *  @param sender 触发事件的按钮
  */
-//-(void)clickColorSure:(id)sender
-//{
-//    subGemomtryView.hidden = YES;
-//    simlarGemomtryView.hidden = YES;
-//    [textLable._textView becomeFirstResponder];
-//   
-//}
-
 -(void)clickColorInitGemo:(id)sender
 {
 //    printf("initG=%d",flag_model);
@@ -662,6 +669,7 @@ int Start_y_gemotry;//标签容器
             [btn removeFromSuperview];
         }
     }
+    printf("\n");
     
     flag_mid = flag_model*10 + temp;
     //重新建立气泡按钮栏的所有按钮
@@ -678,21 +686,8 @@ int Start_y_gemotry;//标签容器
    
 }
 
-/**
- *  清除所有没有文字的标签
- */
--(void)clearNullLable
-{
-    for (int i=0;i<LableArray.count ; ++i)
-    {
-        UITextLable * _lable=[LableArray objectAtIndex:i];
-        if ([_lable._textView.text isEqualToString:@""]||[_lable._textView.text isEqualToString:@"@"])
-        {
-            [LableArray removeObjectAtIndex:i];
-            [_lable removeFromSuperview];
-        }
-    }
-}
+#pragma mark - 标签
+
 
 /**
  *  添加标签到view
@@ -701,17 +696,18 @@ int Start_y_gemotry;//标签容器
  */
 -(void)clickGemotryModel:(id)sender
 {
+    [self resignTextLable];
     NSLog(@"添加标签");
-    stateEdit=YES;
+    stateEdit = YES;
     
     int flag_color=[sender tag];
     //清除空标签
     [self clearNullLable];
  
-    float offset=scrollView.contentOffset.y;
+    float offset = scrollView.contentOffset.y;
     
     NSLog(@"test==%d,",flag_model);
-    if (flag_model==2)
+    if (flag_model == BUBBLE)
     {
         NSLog(@"新");
         textLable=[[UITextLable alloc]initWithFrame:CGRectMake(0, offset+80, 40, 25) initImage:flag_color withFlagModel:flag_mid withTextVArr:textEditViewArray withView:self.scrollView];//100
@@ -727,7 +723,7 @@ int Start_y_gemotry;//标签容器
     [LableArray addObject:textLable];//管理标签
     [textLable endPanHandle];
    
-    if(flag_model==0)
+    if(flag_model == TEXT && flag_color == 5) // 如果是原来的字幕那种情况
     {
         NSShadow * shadow = [[NSShadow alloc] init];
         // 定义阴影的颜色
@@ -743,8 +739,6 @@ int Start_y_gemotry;//标签容器
                             NSForegroundColorAttributeName:[UIColor whiteColor],
                             NSStrokeWidthAttributeName:@3,
                             NSStrokeColorAttributeName:[UIColor blackColor],
-//                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone),
-//                            NSShadowAttributeName:shadow,
                             NSVerticalGlyphFormAttributeName:@(0)
                              };//@3
         
@@ -752,31 +746,6 @@ int Start_y_gemotry;//标签容器
     }
    
 }
-
-
-/**
- *  已停用
- *
- *  @param sender
- */
--(void)showBorder:(id)sender
-{
-    UIButton * btn = (UIButton*)sender;
-    for (UIButton *b in btn.superview.subviews)
-    {
-        [b.layer setBorderWidth:0];
-    }
-    if (btn.layer.borderWidth == 0)
-    {
-        btn.layer.borderWidth = 1;
-    }
-    else
-    {
-        btn.layer.borderWidth = 0;
-    }
-    
-}
-
 
 /**
  *  取消所有标签的焦点
@@ -817,6 +786,7 @@ int Start_y_gemotry;//标签容器
     stateEdit = YES;
 }
 
+#pragma mark - 大标签
 
 /**
  *  委托方法。设置大标签视图为当前激活状态，并显示操作栏
@@ -834,7 +804,6 @@ int Start_y_gemotry;//标签容器
             UITitleLabel * _view = [scrollView.subviews objectAtIndex:i];
             if ([_view isKindOfClass:[UITitleLabel class]])
             {
-//                printf("找到");
                 [_view hiddenBorder];
             }
         }
@@ -915,7 +884,34 @@ int Start_y_gemotry;//标签容器
 
         }
     }
-//    printf("结束");
+}
+
+#pragma mark - clear
+
+/**
+ *  隐藏所有底部的面板
+ */
+-(void)hideAllButtomPanel
+{
+    subGemomtryView.hidden = YES;
+    simlarGemomtryView.hidden = YES;
+    [self.penPanel showPanel:NO];
+}
+
+/**
+ *  清除所有没有文字的标签
+ */
+-(void)clearNullLable
+{
+    for (int i=0;i<LableArray.count ; ++i)
+    {
+        UITextLable * _lable=[LableArray objectAtIndex:i];
+        if ([_lable._textView.text isEqualToString:@""]||[_lable._textView.text isEqualToString:@"@"])
+        {
+            [LableArray removeObjectAtIndex:i];
+            [_lable removeFromSuperview];
+        }
+    }
 }
 
 /**
@@ -960,7 +956,6 @@ int Start_y_gemotry;//标签容器
 
 -(void)dealloc
 {
-//    printf("extralar dealloc");
     [self clearView];
 }
 @end

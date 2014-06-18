@@ -254,6 +254,9 @@
 		34B2781C194971B500E8700B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781B194971B500E8700B /* SystemConfiguration.framework */; };
 		34B2781E1949720200E8700B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781D1949720200E8700B /* CoreTelephony.framework */; };
 		A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A321A7BF194ACE89005218DB /* QBImagePicker.rtf */; };
+		A38BD12C194F05C9006045A1 /* 5color.png in Resources */ = {isa = PBXBuildFile; fileRef = A38BD12B194F05C9006045A1 /* 5color.png */; };
+		A38BD130194F0E7C006045A1 /* SBPen.m in Sources */ = {isa = PBXBuildFile; fileRef = A38BD12F194F0E7C006045A1 /* SBPen.m */; };
+		A38BD139194F18A0006045A1 /* SBPenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A38BD138194F18A0006045A1 /* SBPenPanel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +556,11 @@
 		34B2781B194971B500E8700B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		34B2781D1949720200E8700B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A321A7BF194ACE89005218DB /* QBImagePicker.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = QBImagePicker.rtf; sourceTree = "<group>"; };
+		A38BD12B194F05C9006045A1 /* 5color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5color.png; sourceTree = "<group>"; };
+		A38BD12E194F0E7C006045A1 /* SBPen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPen.h; path = Models/SBPen.h; sourceTree = "<group>"; };
+		A38BD12F194F0E7C006045A1 /* SBPen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPen.m; path = Models/SBPen.m; sourceTree = "<group>"; };
+		A38BD137194F18A0006045A1 /* SBPenPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPenPanel.h; path = Views/SBPenPanel.h; sourceTree = "<group>"; };
+		A38BD138194F18A0006045A1 /* SBPenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBPenPanel.m; path = Views/SBPenPanel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -690,6 +698,7 @@
 		34B2760519496C8D00E8700B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A38BD12D194F0DE1006045A1 /* Models */,
 				34B2760819496D1B00E8700B /* Controllers */,
 				34B2760719496D1000E8700B /* Xibs */,
 				34B2760619496D0100E8700B /* Views */,
@@ -734,6 +743,8 @@
 				34B2767019496E5500E8700B /* UITitleLabel.m */,
 				34B2767119496E5500E8700B /* WeatherLabel.h */,
 				34B2767219496E5500E8700B /* WeatherLabel.m */,
+				A38BD137194F18A0006045A1 /* SBPenPanel.h */,
+				A38BD138194F18A0006045A1 /* SBPenPanel.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1023,6 +1034,7 @@
 		34B276E019496FDE00E8700B /* label */ = {
 			isa = PBXGroup;
 			children = (
+				A38BD12B194F05C9006045A1 /* 5color.png */,
 				34B276E119496FDE00E8700B /* 0.png */,
 				34B276E219496FDE00E8700B /* 00.png */,
 				34B276E319496FDE00E8700B /* 0color.png */,
@@ -1205,6 +1217,15 @@
 			path = Views/photoClasses;
 			sourceTree = "<group>";
 		};
+		A38BD12D194F0DE1006045A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A38BD12E194F0E7C006045A1 /* SBPen.h */,
+				A38BD12F194F0E7C006045A1 /* SBPen.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1323,6 +1344,7 @@
 				34B277BC19496FDE00E8700B /* Mergesave.png in Resources */,
 				34B277A219496FDE00E8700B /* 222.png in Resources */,
 				34B2776119496FDE00E8700B /* icon-110.png in Resources */,
+				A38BD12C194F05C9006045A1 /* 5color.png in Resources */,
 				34B2778119496FDE00E8700B /* frontMoveBtn.png in Resources */,
 				34B277E919496FDE00E8700B /* button22.png in Resources */,
 				34B2777219496FDE00E8700B /* scaled.png in Resources */,
@@ -1495,12 +1517,14 @@
 				34B2780D1949705700E8700B /* QBImagePickerAssetView.m in Sources */,
 				34B276A219496E5600E8700B /* UITextLable.m in Sources */,
 				34B2767819496E5500E8700B /* MaskView.m in Sources */,
+				A38BD139194F18A0006045A1 /* SBPenPanel.m in Sources */,
 				34B2761319496E3F00E8700B /* ImagePickupViewController.m in Sources */,
 				34B2767619496E5500E8700B /* ExtraLayerView.m in Sources */,
 				34B275E319496BD100E8700B /* main.m in Sources */,
 				34B278101949705700E8700B /* QBImagePickerGroupCell.m in Sources */,
 				34B2767419496E5500E8700B /* CameraCustom.m in Sources */,
 				34B276A319496E5600E8700B /* UITitleLabel.m in Sources */,
+				A38BD130194F0E7C006045A1 /* SBPen.m in Sources */,
 				34B2767919496E5500E8700B /* ModifyImageView.m in Sources */,
 				34B276A019496E5600E8700B /* UICliper.m in Sources */,
 				34B2767A19496E5500E8700B /* PositionSwitch.m in Sources */,
