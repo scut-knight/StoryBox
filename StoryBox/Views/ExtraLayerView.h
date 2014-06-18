@@ -12,6 +12,8 @@
 #import "ClipViewController.h"
 #import "PositionSwitch.h"
 #import "UITitleLabel.h"
+#import "WeatherLabel.h"
+
 
 @protocol HiddenTopViewDelegate <NSObject>
 
@@ -51,7 +53,7 @@
     float dis_pan;//sc平移量
     
     NSMutableArray *LableArray;
-    NSMutableArray *textEditViewArray;//保存标注编辑层view数组
+    NSMutableArray *textEditViewArray;//用于放标签的view数组，一个相片对应一个view，所有该相片上的标签都放在这个view
     NSMutableArray * imageViewArray;//保存ImageView数组
     NSMutableArray * imageArray;//图片数组
     

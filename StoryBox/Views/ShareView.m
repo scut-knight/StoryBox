@@ -25,7 +25,7 @@
         
         [CameraCustom photoMerge:imageVArr textViewArray:textEditVArr];     //合成
         NSLog(@"path1=%@",pathImageM);
-       
+
         [self viewLoad];
         [self initIconShare];                                               //添加社会化分享按钮
         
@@ -152,6 +152,8 @@
     
     [self.delegate reloadimageView];
     [self.delegate resetTitleView];
+    
+
    
     [self removeFromSuperview];
 }

@@ -14,7 +14,7 @@
 #import "CustomAnimation.h"
 #import "SelectTitleView.h"
 #import "UIImage.h"
-#import "WeatherLabel.h"
+#import "SBWeatherSelectViewController.h"
 
 #import<CoreText/CoreText.h>
 
@@ -299,6 +299,8 @@ int Start_y_gemotry;//标签容器
     [weatherBtn addTarget:self action:@selector(clickWeatherButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:weatherBtn];
     
+    
+    
     //子模板view颜色面板
      _y = gemomtryView.frame.origin.y - height_gemotry;
     subGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, height_gemotry)];
@@ -325,12 +327,7 @@ int Start_y_gemotry;//标签容器
 }
 
 
-//bin test
--(void)clickWeatherButton:(id)sender
-{
-    WeatherLabel * t = [[WeatherLabel alloc] init];
-    [t getWeather];
-}
+
 /**
  *  处理单击手势，实现到编辑单张图片的跳转
  *
@@ -482,6 +479,22 @@ int Start_y_gemotry;//标签容器
     }
 }
 
+
+//bin test
+-(void)clickWeatherButton:(id)sender
+{
+    NSLog(@"bin call");
+    //    WeatherLabel * t = [[WeatherLabel alloc] init];
+    //    [t getWeather];
+    SBWeatherSelectViewController *weatherSelect = [[SBWeatherSelectViewController alloc] init];
+    weatherSelect.delegate = self.delegate;
+    [weatherSelect setParentView:self.scrollView withTextArr:self.textEditViewArray];
+    [self.delegate hiddenTopView:YES];
+    
+    [self addSubview:weatherSelect.view];
+}
+
+
 /**
  *  大标签按钮触发，切换到大标签选择界面
  *
@@ -496,7 +509,7 @@ int Start_y_gemotry;//标签容器
     [self.delegate hiddenTopView:YES];
     [self setCurrentTitleView:nil];
    
-    [self  resetButtonImage:nil];
+    [self resetButtonImage:nil];
     subGemomtryView.hidden = YES;
     simlarGemomtryView.hidden = YES;
 }
@@ -913,12 +926,13 @@ int Start_y_gemotry;//标签容器
             for (int j=textView.subviews.count-1; j>=0; --j)
             {
                 UITitleLabel * titleView=[textView.subviews objectAtIndex:j];
+                
                 if ([titleView isKindOfClass:[UITitleLabel class]] )
                 {
                     [titleView hiddenBorder];
  
                     float _y=titleView.superview.frame.origin.y+titleView.center.y;//计算坐标Y
-                    [titleView setCenter:CGPointMake(self.center.x, _y)];
+                    [titleView setCenter:CGPointMake(titleView.center.x, _y)];
                     
                     [scrollView  addSubview:titleView];
                     [scrollView bringSubviewToFront:titleView];

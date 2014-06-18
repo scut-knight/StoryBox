@@ -78,10 +78,13 @@
         [tapL release];
         
         tempPoint = CGPointMake(0, 0);
+        
  
     }
+    
     return self;
 }
+
 
 /**
  *  加载大标签图片
@@ -234,6 +237,8 @@
  */
 -(void)panHandle:(UIPanGestureRecognizer * )panG
 {
+    NSLog(@"x=%f,y=%f",self.center.x,self.center.y);
+
     //如果是开始拖动,调用startPanHandle
     if (panG.state == UIGestureRecognizerStateBegan)
     {
@@ -245,7 +250,6 @@
     CGPoint newCenter = CGPointMake(center.x+point.x, center.y+point.y);
     
     [self setCenter:newCenter];
-//    NSLog(@"x=%f,y=%f",self.center.x,self.center.y);
    [panG setTranslation:CGPointZero inView:self];
 
 //    if (panG.state == UIGestureRecognizerStateEnded)
@@ -270,14 +274,14 @@
     }
     else
     {
-        NSLog(@"在sc 中");
+        NSLog(@"在sc 中:%f",self.center.y);
     }
 }
 
 
 /**
  *  把标签从scrollView移除，放入对应的textView
- *  bin?:意义不明。已停止使用?
+ *
  */
 -(void)endPanHandle
 {//把标签从scrollView移除，放入对应的textView

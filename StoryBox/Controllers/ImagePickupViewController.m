@@ -71,6 +71,7 @@
 
 /**
  *  拼图前把标题移动到相应的文字视图层
+ *  bin attention:这里通过endPanHandle()把大标签加入到了textEditViewArray中
  */
 -(void)moveTitleViewFromScrollViewToTextView
 {
@@ -79,9 +80,13 @@
     for (int i=extLayerView.scrollView.subviews.count-1;i>=0; --i)
     {
         UITitleLabel *titleTemp=[extLayerView.scrollView.subviews objectAtIndex:i];
-        if ([titleTemp isKindOfClass:[UITitleLabel class]] )
+        if ([titleTemp isKindOfClass:[UITitleLabel class]])
         {
             [titleTemp hiddenBorder];
+            [titleTemp endPanHandle];//移动到title
+        }
+        if ([titleTemp isKindOfClass:[WeatherLabel class]])
+        {
             [titleTemp endPanHandle];//移动到title
         }
     }

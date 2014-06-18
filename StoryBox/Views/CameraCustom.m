@@ -9,6 +9,9 @@
 #import "CameraCustom.h"
 #import "UITextLable.h"
 #import "UIImage.h"
+#import "WeatherLabel.h"
+#import "UITitleLabel.h"
+
 @implementation CameraCustom
 
 /*拼接图片并自动保存到沙盒指定目录*/
@@ -18,8 +21,8 @@
     printf("自动保存沙盒%d",num);
     UIImageView *testImageV;
     UIView * testTextEditV;
-    UIView *panner=[[UIView alloc] init];
-    UIView * textPanner=[[UIView alloc]init];
+    UIView *panner = [[UIView alloc] init];
+    UIView * textPanner = [[UIView alloc] init];
     float  _height=0;
     float  _width=640;
     float _height_textv=0;
@@ -28,10 +31,12 @@
 //    NSMutableArray* _centerA=[self saveCenterArray:imageViewArr];//保存原始中点
     NSMutableArray *_centerA=[[NSMutableArray alloc]init];
     
-    int margin=8;//图片间隔
-    for (int i=0; i< num; ++i) {
-        testImageV=[imageViewArr objectAtIndex:i];
-        testTextEditV=[textViewArr objectAtIndex:i];
+    int margin = 8;//图片间隔
+    for (int i=0; i< num; ++i)
+    {
+        testImageV = [imageViewArr objectAtIndex:i];
+        testTextEditV = [textViewArr objectAtIndex:i];
+        
         //保存位置，大小
         [self saveCenterArray:_centerA withView:testImageV];
         
@@ -39,7 +44,9 @@
         [testImageV setFrame:CGRectMake(0, _height,testImageV.frame.size.width*2,testImageV.frame.size.height*2)];//图片放大二倍
  
         [testTextEditV setFrame:CGRectMake(0,_height_textv, testImageV.frame.size.width, testImageV.frame.size.height)];//文本view自动适应图片的大小
+        
         [self adjustTextLableTolarge:testTextEditV];//调整文字层标签，字号和文字背景图片
+        
         _height=_height + testImageV.frame.size.height+margin;//累加总高度
         _height_textv=_height_textv +testTextEditV.frame.size.height+margin;
         //排列依次添加
@@ -56,11 +63,14 @@
     [self adjustIamgeViewAndTextView:imageViewArr textView:textViewArr WithCenterOrdinal:_centerA];//还原图片大小
     [self adjustTextLableTosmall:textPanner];//还原文字view
     
+    
     [_centerA removeAllObjects];//add
     [_centerA release];//add
     
     [panner release];
     [textPanner release];
+    
+
     return  img;
 
 }
@@ -256,7 +266,8 @@
     int num=[imageViewArr count];
     UIImageView *testImageV;
     UIView * testTextEditV;
-    for (int i=0; i< num; ++i) {
+    for (int i=0; i< num; ++i)
+    {
         testImageV=[imageViewArr objectAtIndex:i];
         testTextEditV=[textViewArr objectAtIndex:i];
      
@@ -265,10 +276,10 @@
         NSNumber * y=[_rect objectForKey:@"y"];
         NSNumber * w=[_rect objectForKey:@"w"];
         NSNumber * h=[_rect objectForKey:@"h"];
-        float _x=[x floatValue ];
-        float _y=[y floatValue ];
-        float _w=[w floatValue ];
-        float _h=[h floatValue ];
+        float _x=[x floatValue];
+        float _y=[y floatValue];
+        float _w=[w floatValue];
+        float _h=[h floatValue];
        [testImageV setFrame:CGRectMake(_x,_y,_w,_h)];
         
         [testTextEditV setFrame:testImageV.frame];
@@ -279,22 +290,48 @@
 +(void)adjustTextLableTolarge:(UIView *)textview//textview 表示文字层
 {
     //放大标签尺寸
-    int num=textview.subviews.count;
+    int num = textview.subviews.count;
     printf("调整=:%d",num);
   
+    //bin?:需要进一步抽象！！！
     UITextLable * temp;
-    for (int i=0; i<num; ++i) {
-        printf("=%d,",i);
-        temp=[textview.subviews objectAtIndex:i];
-        float x=temp.frame.origin.x*2;
-        float y=temp.frame.origin.y*2;
+    for (int i=0; i<num; ++i)
+    {
+        temp = [textview.subviews objectAtIndex:i];
+
+//        float x = temp.frame.origin.x * 2;
+//        float y = temp.frame.origin.y * 2;
         
-        [temp setFrame:CGRectMake(x, y, temp.frame.size.width*2, temp.frame.size.height*2)];
+//        [temp setFrame:CGRectMake(temp.frame.origin.x * 2, temp.frame.origin.y * 2, temp.frame.size.width*2, temp.frame.size.height*2)];
       
-        temp._textView.font=[UIFont fontWithName:@"Arial" size:24.0];//12;
-        [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width*2, temp._textView.frame.size.height*2)];
+//        temp._textView.font=[UIFont fontWithName:@"Arial" size:24.0];//12;
+//        [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width*2, temp._textView.frame.size.height*2)];
+//        [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, temp.imageViewBg.frame.size.width*2-20, temp.imageViewBg.frame.size.height*2-20)];
         
-        [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, temp.imageViewBg.frame.size.width*2-20, temp.imageViewBg.frame.size.height*2-20)];//
+        if([temp isKindOfClass:[WeatherLabel class]])
+        {
+            [temp setFrame:CGRectMake(temp.frame.origin.x * 2, temp.frame.origin.y * 2, temp.frame.size.width*2, temp.frame.size.height*2)];
+
+            WeatherLabel * temp = [textview.subviews objectAtIndex:i];
+            temp.cityLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:22.0];
+            temp.tempLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0];
+            [temp.cityLabel setFrame:CGRectMake(temp.cityLabel.frame.origin.x + 45, temp.cityLabel.frame.origin.y, temp.cityLabel.frame.size.width*2, temp.cityLabel.frame.size.height*2)];
+            [temp.tempLabel setFrame:CGRectMake(temp.tempLabel.frame.origin.x + 35, temp.tempLabel.frame.origin.y, temp.tempLabel.frame.size.width*2, temp.tempLabel.frame.size.height*2)];
+
+            [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, temp.imageViewBg.frame.size.width*2, temp.imageViewBg.frame.size.height*2)];
+
+        }
+        else
+        {
+            [temp setFrame:CGRectMake(temp.frame.origin.x*2,temp.frame.origin.y*2, temp.frame.size.width*2, temp.frame.size.height*2)];
+            
+            
+            temp._textView.font=[UIFont fontWithName:@"Arial" size:24.0];//12;
+            [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width*2, temp._textView.frame.size.height*2)];
+            
+            [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, temp.imageViewBg.frame.size.width*2-20, temp.imageViewBg.frame.size.height*2-20)];
+            
+        }
         
     }
     
@@ -303,20 +340,44 @@
 +(void)adjustTextLableTosmall:(UIView *)textview
 {
     //还原标签尺寸
-    int num=textview.subviews.count;
+    int num = textview.subviews.count;
     printf("调整=:%d",num);
-    UIView * temp;
-    for (int i=0; i<num; ++i) {
+    UIView * tempV;
+    for (int i=0; i<num; ++i)
+    {
         printf("还原=%d,",i);
-        temp=[textview.subviews objectAtIndex:i];
-        UITextLable *lableView;
-        for (int j=0; j<temp.subviews.count; ++j) {
-            lableView=[temp.subviews objectAtIndex:j];
-            [lableView setFrame:CGRectMake(lableView.frame.origin.x/2, lableView.frame.origin.y/2, lableView.frame.size.width/2, lableView.frame.size.height/2)];
-            lableView._textView.font=[UIFont fontWithName:@"Arial" size:12.0];//12;
-            [lableView._textView setFrame:CGRectMake(lableView._textView.frame.origin.x, lableView._textView.frame.origin.y, lableView._textView.frame.size.width/2, lableView._textView.frame.size.height/2)];
+        tempV = [textview.subviews objectAtIndex:i];
+        UITextLable *temp;
+        for (int j=0; j<tempV.subviews.count; ++j)
+        {
+            temp = [tempV.subviews objectAtIndex:j];
+//            [temp setFrame:CGRectMake(temp.frame.origin.x/2, temp.frame.origin.y/2, temp.frame.size.width/2, temp.frame.size.height/2)];
+//            temp._textView.font=[UIFont fontWithName:@"Arial" size:12.0];//12;
+//            [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width/2, temp._textView.frame.size.height/2)];
+//            
+//            [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, (temp.imageViewBg.frame.size.width+20)/2, (temp.imageViewBg.frame.size.height+20)/2)];
             
-            [lableView.imageViewBg setFrame:CGRectMake(lableView.imageViewBg.frame.origin.x, lableView.imageViewBg.frame.origin.y, (lableView.imageViewBg.frame.size.width+20)/2, (lableView.imageViewBg.frame.size.height+20)/2)];
+            if([temp isKindOfClass:[WeatherLabel class]])
+            {
+                WeatherLabel * temp = [tempV.subviews objectAtIndex:j];
+                [temp setFrame:CGRectMake(temp.frame.origin.x/2, temp.frame.origin.y/2, temp.frame.size.width/2, temp.frame.size.height/2)];
+                temp.cityLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:11.0];
+                temp.tempLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10.0];
+                [temp.cityLabel setFrame:CGRectMake(temp.cityLabel.frame.origin.x - 45, temp.cityLabel.frame.origin.y, temp.cityLabel.frame.size.width/2, temp.cityLabel.frame.size.height/2)];
+                [temp.tempLabel setFrame:CGRectMake(temp.tempLabel.frame.origin.x - 35, temp.tempLabel.frame.origin.y, temp.tempLabel.frame.size.width/2, temp.tempLabel.frame.size.height/2)];
+
+                [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, temp.imageViewBg.frame.size.width/2, temp.imageViewBg.frame.size.height/2)];
+            }
+            else
+            {
+                [temp setFrame:CGRectMake(temp.frame.origin.x/2, temp.frame.origin.y/2, temp.frame.size.width/2, temp.frame.size.height/2)];
+                
+                temp._textView.font=[UIFont fontWithName:@"Arial" size:12.0];
+                [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width/2, temp._textView.frame.size.height/2)];
+                [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, (temp.imageViewBg.frame.size.width+20)/2, (temp.imageViewBg.frame.size.height+20)/2)];
+
+            }
+
         }
         
         
@@ -330,7 +391,8 @@
     int num=textview.subviews.count;
     printf("调整=:%d",num);
     UITextLable * temp;
-    for (int i=0; i<num; ++i) {
+    for (int i=0; i<num; ++i)
+    {
         printf("还原=%d,",i);
         temp=[textview.subviews objectAtIndex:i];
         float x=temp.frame.origin.x/2;
