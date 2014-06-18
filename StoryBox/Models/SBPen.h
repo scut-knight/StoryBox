@@ -14,5 +14,5 @@
 @interface SBPen : NSObject
 
 @property (nonatomic) int color;
-@property (nonatomic) float radius;
+@property (nonatomic) unsigned int radius;
 @end

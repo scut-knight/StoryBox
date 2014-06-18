@@ -84,6 +84,7 @@ typedef enum : NSUInteger {
 -(void)initImageArray:(NSMutableArray*)arr;//初始化图片数组
 -(void)setCurrentTitleView:(UITitleLabel *)titleView;
 -(void)clearView;
+-(void)hideAllButtomPanel;
 
 //拼图分享后返回把标题移动到scrollview层
 -(void)moveTitleViewToScrollView;

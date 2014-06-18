@@ -29,7 +29,6 @@
 -(void)reLoadTitleView;
 -(void)LongPress:(UILongPressGestureRecognizer *)longG;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
--(void)hideAllButtomPanel;
 
 -(void)clickWeatherButton:(id)sender;
 -(void)clickTitle:(id)sender;
@@ -120,9 +119,6 @@ int Start_y_gemotry;//标签容器
         _scale = 0.7;
         stateEdit = NO;
         actionTitleView = nil;
-        
-        // 初始化画笔
-        self.pen = [[SBPen alloc] init];
     }
     return self;
 }
@@ -300,13 +296,13 @@ int Start_y_gemotry;//标签容器
     simlarGemomtryView.hidden = YES;
     [self addSubview:simlarGemomtryView];
     
+    // 初始化画笔
+    self.pen = [[SBPen alloc] init];
+    
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
-    UIImageView *tmp = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320,100)];
-    [tmp setImage:[UIImage imageNamed:@"colorbg1.png"]];
-    self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 100)
-                                       WithBackground:tmp];
+    self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 150)];
+    [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
-    [self setPen:self.pen];
     [self addSubview:self.penPanel];
 }
 
@@ -328,7 +324,8 @@ int Start_y_gemotry;//标签容器
 {
     NSLog(@"Doodle");
     simlarGemomtryView.hidden = YES;
-    [self.penPanel showPanel:YES];
+    [self.penPanel fillPenColorPanel];
+    [self.penPanel prepareForSelectPen];
 }
 
 /**
@@ -436,7 +433,7 @@ int Start_y_gemotry;//标签容器
     }
     else
     {
-        printf("end");
+        printf("end\n");
         overBound = NO;
         [self scaleToOrdinal:dis_pan];
     }
@@ -513,13 +510,7 @@ int Start_y_gemotry;//标签容器
             [modelBtn setTag:i];
             [modelBtn setFrame:CGRectMake(28+i*58,26, 33, 33)];//60 //36
             [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dcolor.png",i]] forState:UIControlStateNormal];
-            if (flag_model == BUBBLE) {
-                [modelBtn addTarget:self action:@selector(clickColorInitGemo:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else { // 涂鸦
-               [modelBtn addTarget:self action:@selector(clickColorForPen:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            
+            [modelBtn addTarget:self action:@selector(clickColorInitGemo:) forControlEvents:UIControlEventTouchUpInside];
             [subGemomtryView addSubview:modelBtn];
         }
     }
@@ -558,7 +549,6 @@ int Start_y_gemotry;//标签容器
     
     switch (flag_model) {
         case DOODLE:
-            [self initSubGemomtryView];
             [self clickDoodleModel:sender];
             break;
         case TEXT:
@@ -642,23 +632,6 @@ int Start_y_gemotry;//标签容器
             [modelBtn setSelected:NO];
             [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%d.png",f]] forState:UIControlStateNormal];
         }
-    }
-}
-
-/**
- *  设置画笔的颜色。在subGemomtryView中的按钮被点击后触发
- *
- *  @param sender 触发事件的按钮
- */
--(void)clickColorForPen:(id)sender
-{
-    int color = [sender tag];
-    if (color > 4 || color < 0) {
-        NSLog(@"画笔颜色面板中的触发按钮标签有误，不应该是%d", color);
-    }
-    else {
-        self.pen.color = color;
-        [self.penPanel updateStatus:[self.pen description]];
     }
 }
 

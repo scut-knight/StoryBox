@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         self.color = 1;
-        self.radius = 1.0;
+        self.radius = 10;
     }
     return self;
 }
@@ -25,6 +25,9 @@
     NSString *colorDescription = @"";
     // 绿白蓝红黑
     switch (self.color) {
+        case -1:
+            colorDescription = @"橡皮";
+            break;
         case 0:
             colorDescription = @"绿色";
             break;
@@ -44,6 +47,6 @@
             break;
     }
     
-    return [NSString stringWithFormat:@"%@ 半径:%02f", colorDescription, self.radius];
+    return [NSString stringWithFormat:@"%@       半径:%u", colorDescription, self.radius];
 }
 @end
