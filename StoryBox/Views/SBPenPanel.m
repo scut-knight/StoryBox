@@ -25,14 +25,17 @@ typedef enum : NSUInteger {
 -(void) initStatusLabel;
 -(void) initRadiusSlider;
 -(void) initOkBtnForDoodle;
+-(void) initOkBtnForErase;
 -(void) initLeaveBtn;
+-(void) initReselectBtn;
 
 @property (nonatomic) CGFloat panelWidth; /// 面板的最大宽度
 @property (nonatomic) CGFloat panelHeight; /// 单个面板的高度
 @property (nonatomic) UISlider *radiusSlider;
 @property (nonatomic) UILabel *statusLabel;
-@property (nonatomic) UIButton *okBtn;
-@property (nonatomic) UIButton *leaveBtn;
+@property (nonatomic) UIButton *okBtn; /// 涂鸦或橡皮
+@property (nonatomic) UIButton *leaveBtn; /// 离开画笔面板
+@property (nonatomic) UIButton *reselectBtn; /// 重新选择画笔
 @property (nonatomic) SBPen *delegate;
 @property (nonatomic) PEN_PANEL_STATE state;
 
@@ -76,7 +79,10 @@ typedef enum : NSUInteger {
 
         [self showPanel:NO];
 
-        [self paintBackGroundViewForView:self.penColorView];
+        UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320, 85)];
+        [view setImage:[UIImage imageNamed:@"colorbg1.png"]];
+        [self.penColorView addSubview:view]; // 注意penColorView的高度与其他面板不一样
+        
         [self paintBackGroundViewForView:self.penRadiusView];
         [self paintBackGroundViewForView:self.penStatusView];
         
@@ -97,6 +103,9 @@ typedef enum : NSUInteger {
 -(void) initStatusLabel
 {
     self.statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, self.panelWidth / 2, self.panelHeight)];
+    if (self.delegate != nil) {
+        [self updateStatus:[self.delegate description]];
+    }
 }
 
 /**
@@ -107,7 +116,11 @@ typedef enum : NSUInteger {
     self.radiusSlider = [[UISlider alloc] initWithFrame:CGRectMake(10, 10, self.panelWidth - 20, 30)];
     self.radiusSlider.minimumValue = 1.0;
     self.radiusSlider.maximumValue = 50.0;
-    [self.radiusSlider setValue:10.0 animated:NO];
+    if (self.delegate != nil) {
+        self.radiusSlider.value = (float)self.delegate.radius;
+    } else {
+        self.radiusSlider.value = 10.0;
+    }
     [self.radiusSlider addTarget:self
                           action:@selector(sliderValueChanged:)
                           forControlEvents:UIControlEventValueChanged];
@@ -122,11 +135,31 @@ typedef enum : NSUInteger {
          forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(void) initOkBtnForErase
+{
+    self.okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.okBtn setFrame:CGRectMake(self.panelWidth - 110, 10, 40, 30)];
+    [self.okBtn setTitle:@"橡皮" forState:UIControlStateNormal];
+    [self.okBtn addTarget:self action:@selector(prepareForErase)
+         forControlEvents:UIControlEventTouchUpInside];
+}
+
 -(void) initLeaveBtn
 {
     self.leaveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.leaveBtn setFrame:CGRectMake(self.panelWidth - 50, 10, 40, 30)];
-    [self.leaveBtn setTitle:@"暂停" forState:UIControlStateNormal];
+    [self.leaveBtn setTitle:@"离开" forState:UIControlStateNormal];
+    [self.leaveBtn addTarget:self action:@selector(prepareForLeave)
+            forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void) initReselectBtn
+{
+    self.reselectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.reselectBtn setFrame:CGRectMake(self.panelWidth - 170, 10, 40, 30)];
+    [self.reselectBtn setTitle:@"选笔" forState:UIControlStateNormal];
+    [self.reselectBtn addTarget:self action:@selector(prepareForSelectPen)
+               forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -148,7 +181,9 @@ typedef enum : NSUInteger {
         [modelBtn setFrame:CGRectMake(28+i*58,26, 33, 33)];//60 //36
         [modelBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%dcolor.png",i]] forState:UIControlStateNormal];
          // 涂鸦
-        [modelBtn addTarget:self action:@selector(clickColorForPen:) forControlEvents:UIControlEventTouchUpInside];
+        [modelBtn addTarget:self
+                     action:@selector(clickColorForPen:)
+                     forControlEvents:UIControlEventTouchUpInside];
         [self.penColorView addSubview:modelBtn];
     }
 }
@@ -171,6 +206,11 @@ typedef enum : NSUInteger {
 -(void) updateStatus:(NSString *)status
 {
     self.statusLabel.text = status;
+    // 如果是橡皮，设置成白色
+    if (self.delegate.color == -1) {
+        self.statusLabel.textColor = [UIColor colorWithRed:255.0 green:255.0 blue:255.0 alpha:1.0];
+        return;
+    }
     // 根据图片的颜色来设置说明文字的颜色
     self.statusLabel.textColor = [UIColor colorWithPatternImage:
                                     [UIImage imageNamed:
@@ -242,6 +282,12 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark - about switch from status
+/**
+ *  状态变迁的说明： 选择画笔是每次打开画笔面板都切换到的状态。从选择画笔可以到离开状态和涂鸦状态。
+ *  从涂鸦状态可以到选择画笔（选笔）、擦除状态（橡皮）、离开状态（离开）。
+ *  从擦除状态可以到选择画笔和涂鸦状态、离开状态。
+ *  离开状态下，隐藏画笔面板，重置状态到选择画笔。
+ */
 
 /**
  *  切换到准备选择画笔的状态
@@ -249,6 +295,78 @@ typedef enum : NSUInteger {
 -(void)prepareForSelectPen
 {
     [self showPanel:YES];
+    [self.delegate transformBackToPen]; // 不管之前是否设置了橡皮，这个函数都会进行判断，所以调用的时候就不需要判断了。
+    // 前一个状态是怎么样的
+    switch (self.state) {
+        case DOODLING:
+            [self.penStatusView removeFromSuperview];
+            
+            self.penStatusView = [[UIView alloc]
+                                  initWithFrame:CGRectMake(0, 0, self.panelWidth, self.panelHeight)];
+            
+            [self initStatusLabel];
+            [self initOkBtnForDoodle];
+            [self initLeaveBtn];
+            
+            [self.penStatusView addSubview:self.statusLabel];
+            [self.penStatusView addSubview:self.okBtn];
+            [self.penStatusView addSubview:self.leaveBtn];
+            [self paintBackGroundViewForView:self.penStatusView];
+            [self addSubview:self.penStatusView];
+            
+            self.penRadiusView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, self.panelWidth, self.panelHeight)];
+            
+            [self initRadiusSlider];
+            [self.penRadiusView addSubview:self.radiusSlider];
+            [self paintBackGroundViewForView:self.penRadiusView];
+            [self addSubview:self.penRadiusView];
+            break;
+            
+        case ERASER:
+            [self.penRadiusView removeFromSuperview];
+            [self.penStatusView removeFromSuperview];
+            self.penColorView.hidden = NO;
+            
+            self.penRadiusView = [[UIView alloc]
+                                  initWithFrame:CGRectMake(0, 50, self.panelWidth, self.panelHeight)];
+            
+            [self initRadiusSlider];
+            [self.penRadiusView addSubview:self.radiusSlider];
+            
+            self.penStatusView = [[UIView alloc]
+                                  initWithFrame:CGRectMake(0, 0, self.panelWidth, self.panelHeight)];
+            
+            [self initStatusLabel];
+            [self initOkBtnForDoodle];
+            [self initLeaveBtn];
+            
+            [self.penStatusView addSubview:self.statusLabel];
+            [self.penStatusView addSubview:self.okBtn];
+            [self.penStatusView addSubview:self.leaveBtn];
+            
+            [self paintBackGroundViewForView:self.penRadiusView];
+            [self paintBackGroundViewForView:self.penStatusView];
+            
+            [self addSubview:self.penRadiusView];
+            [self addSubview:self.penStatusView];
+            break;
+            
+        default:
+            break;
+    }
+    
+    self.state = PEN;
+}
+
+/**
+ *  由离开按钮触发的离开动作
+ */
+-(void) prepareForLeave
+{
+    // 先恢复到准备选择画笔的状态
+    [self prepareForSelectPen];
+    // 然后离开
+    [self showPanel:NO];
 }
 
 /**
@@ -256,17 +374,53 @@ typedef enum : NSUInteger {
  */
 -(void)prepareForDoodle
 {
-    // 首先，是面板的形态要发生改变
-    
+    // 面板的形态要发生改变
     [self.penStatusView removeFromSuperview];
-    for (UIView *view in self.subviews) {
-        view.hidden = YES;
-    }
+    [self.penRadiusView removeFromSuperview];
+    self.penColorView.hidden = YES;
     
-    // 只填充状态框
-    self.penStatusView = [[UIView alloc] initWithFrame:CGRectMake(0, 50, self.panelWidth, self.panelHeight)];
+    // 只填充状态面板
+    // 总高度 185 状态面板高度 50 面板宽度 320
+    self.penStatusView = [[UIView alloc] initWithFrame:CGRectMake(0, 135, self.panelWidth, self.panelHeight)];
+    
+    self.statusLabel = [[UILabel alloc]
+                        initWithFrame:CGRectMake(10, 0, self.panelWidth / 3 + 20, self.panelHeight)];
+    if (self.delegate != nil) {
+        [self.delegate transformBackToPen];
+        [self updateStatus:[self.delegate description]];
+    }
+    [self initOkBtnForErase];
+    [self initLeaveBtn];
+    [self initReselectBtn];
+    [self.penStatusView addSubview:self.statusLabel];
+    [self.penStatusView addSubview:self.okBtn];
+    [self.penStatusView addSubview:self.leaveBtn];
+    [self.penStatusView addSubview:self.reselectBtn];
+    [self paintBackGroundViewForView:self.penStatusView];
     [self addSubview:self.penStatusView];
     
     self.state = DOODLING;
+}
+
+/**
+ *  切换到擦除状态
+ */
+-(void) prepareForErase
+{
+    [self.okBtn removeFromSuperview];
+    [self initOkBtnForDoodle];
+    [self.penStatusView addSubview:self.okBtn];
+    
+    self.penRadiusView = [[UIView alloc] initWithFrame:CGRectMake(0, 85, self.panelWidth, self.panelHeight)];
+    
+    [self.delegate transformToEraser];
+    [self updateStatus:[self.delegate description]];
+    
+    [self initRadiusSlider];
+    [self.penRadiusView addSubview:self.radiusSlider];
+    [self paintBackGroundViewForView:self.penRadiusView];
+    [self addSubview:self.penRadiusView];
+    
+    self.state = ERASER;
 }
 @end

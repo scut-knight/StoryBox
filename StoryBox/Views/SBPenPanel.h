@@ -24,6 +24,8 @@
 -(void) setPenDelegate:(SBPen *)pen;
 -(void) fillPenColorPanel;
 -(void) prepareForDoodle;
+-(void) prepareForErase;
 -(void) prepareForSelectPen;
+-(void) prepareForLeave;
 
 @end

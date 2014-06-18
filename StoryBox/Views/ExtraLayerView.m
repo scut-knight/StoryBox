@@ -300,7 +300,7 @@ int Start_y_gemotry;//标签容器
     self.pen = [[SBPen alloc] init];
     
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
-    self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 150)];
+    self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
     [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
     [self addSubview:self.penPanel];
@@ -323,7 +323,6 @@ int Start_y_gemotry;//标签容器
 -(void)clickDoodleModel:(id)sender
 {
     NSLog(@"Doodle");
-    simlarGemomtryView.hidden = YES;
     [self.penPanel fillPenColorPanel];
     [self.penPanel prepareForSelectPen];
 }
@@ -549,6 +548,7 @@ int Start_y_gemotry;//标签容器
     
     switch (flag_model) {
         case DOODLE:
+            subGemomtryView.hidden = YES;
             [self clickDoodleModel:sender];
             break;
         case TEXT:
@@ -568,7 +568,7 @@ int Start_y_gemotry;//标签容器
     
  
     //从按钮到按钮的选中切换
-    if (fla_o != flag_model)
+    if (fla_o != flag_model && flag_model != DOODLE)
     {
         [self clickColorInitGemo:(id)0];
         subGemomtryView.hidden = NO;

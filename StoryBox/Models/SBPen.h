@@ -13,6 +13,11 @@
  */
 @interface SBPen : NSObject
 
+- (void) transformToEraser;
+- (void) transformBackToPen;
+
 @property (nonatomic) int color;
+@property (nonatomic) unsigned int precolor;
 @property (nonatomic) unsigned int radius;
+@property (nonatomic) unsigned int preradius;
 @end

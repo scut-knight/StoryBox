@@ -14,8 +14,10 @@
 {
     self = [super init];
     if (self) {
-        self.color = 1;
+        self.color = 0;
         self.radius = 10;
+        self.precolor = self.color;
+        self.preradius = self.radius;
     }
     return self;
 }
@@ -48,5 +50,32 @@
     }
     
     return [NSString stringWithFormat:@"%@       半径:%u", colorDescription, self.radius];
+}
+
+/**
+ *  转换成橡皮模式
+ */
+- (void) transformToEraser
+{
+    if (self.color >= 0) {
+        self.precolor = self.color;
+        self.color = -1;
+        int tmp = self.preradius;
+        self.preradius = self.radius;
+        self.radius = tmp;
+    }
+}
+
+/**
+ *  从橡皮模式转回画笔模式
+ */
+- (void) transformBackToPen
+{
+    if (self.color == -1) {
+        self.color = self.precolor;
+        int tmp = self.preradius;
+        self.preradius = self.radius;
+        self.radius = tmp;
+    }
 }
 @end
