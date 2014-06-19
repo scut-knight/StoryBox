@@ -16,6 +16,7 @@
 #import "SBPen.h"
 #import "SBPenPanel.h"
 #import "WeatherLabel.h"
+#import "SBWeatherSelectViewController.h"
 
 #import<CoreText/CoreText.h>
 
@@ -37,6 +38,7 @@
 
 @property (nonatomic) SBPen * pen; /// 画笔
 @property (nonatomic) SBPenPanel * penPanel; /// 画笔修改面板
+@property (nonatomic) SBWeatherSelectViewController *weatherSelect; /// 天气标签选择器
 @end
 
 @implementation ExtraLayerView
@@ -277,6 +279,8 @@ int Start_y_gemotry;//标签容器
     [weatherBtn addTarget:self action:@selector(clickWeatherButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:weatherBtn];
     
+    
+    
     //子模板view颜色面板
      _y = gemomtryView.frame.origin.y - height_gemotry;
     subGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, height_gemotry)];
@@ -307,13 +311,6 @@ int Start_y_gemotry;//标签容器
 }
 
 #pragma mark - 手势与交互
-
-//bin test
--(void)clickWeatherButton:(id)sender
-{
-    WeatherLabel * t = [[WeatherLabel alloc] init];
-    [t getLocation];
-}
 
 /**
  *  由于底下的按钮的触发，展开涂鸦面板
@@ -688,6 +685,17 @@ int Start_y_gemotry;//标签容器
 
 #pragma mark - 标签
 
+-(void)clickWeatherButton:(id)sender
+{
+    NSLog(@"bin call");
+
+    self.weatherSelect = [[SBWeatherSelectViewController alloc] init];
+    self.weatherSelect.delegate = self.delegate;
+    [self.weatherSelect setParentView:self.scrollView withTextArr:self.textEditViewArray];
+    [self.delegate hiddenTopView:YES];
+    
+    [self addSubview:self.weatherSelect.view];
+}
 
 /**
  *  添加标签到view
@@ -868,12 +876,13 @@ int Start_y_gemotry;//标签容器
             for (int j=textView.subviews.count-1; j>=0; --j)
             {
                 UITitleLabel * titleView=[textView.subviews objectAtIndex:j];
+                
                 if ([titleView isKindOfClass:[UITitleLabel class]] )
                 {
                     [titleView hiddenBorder];
  
                     float _y=titleView.superview.frame.origin.y+titleView.center.y;//计算坐标Y
-                    [titleView setCenter:CGPointMake(self.center.x, _y)];
+                    [titleView setCenter:CGPointMake(titleView.center.x, _y)];
                     
                     [scrollView  addSubview:titleView];
                     [scrollView bringSubviewToFront:titleView];
