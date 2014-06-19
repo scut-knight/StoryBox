@@ -13,8 +13,6 @@
 
 /**
  *  缩小scrollView
- *
- *  @param dis <#dis description#>
  */
 -(void)scaleToSmall:(float)dis
 {

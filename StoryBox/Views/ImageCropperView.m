@@ -2,8 +2,6 @@
 #import <QuartzCore/QuartzCore.h>
 #include <math.h>
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
 @interface ImageCropperView()
 {
     @private
@@ -25,8 +23,8 @@
     self.showsHorizontalScrollIndicator = NO;
     self.showsVerticalScrollIndicator = NO;
     self.backgroundColor = [UIColor blackColor];
-    //图片显示区域初始化，bin?: arc中无autorelease
-    self.imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)] autorelease];
+    //图片显示区域初始化
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height)];
     imageView.userInteractionEnabled = YES;
     
     [self addSubview:imageView];
@@ -34,8 +32,6 @@
     //注册缩放手势
     UIPinchGestureRecognizer *scaleGes = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scaleImage:)];
     [imageView addGestureRecognizer:scaleGes];
-    //bin?: arc
-    [scaleGes release];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -45,7 +41,6 @@
     {
 		self.frame = frame;
         [self setup];
-        
 	}
 	return self;
 }
@@ -58,7 +53,8 @@
  */
 -(void)setWidthAndHeight:(NSInteger)width withHeight:(NSInteger)height
 {
-    NSLog(@"%f,%f,is the w/h",self.contentSize.width,self.contentSize.height);
+    NSLog(@"ImageCropperView的ScrollView大小： %f,%f,is the w/h",
+          self.contentSize.width,self.contentSize.height);
     if(self.contentSize.width/self.contentSize.height >= 1)
     {
         if(self.contentSize.width/self.contentSize.height > width*1.0/height)
@@ -85,6 +81,7 @@
 }
 
 float _lastScale = 1.0;
+
 /**
  *  缩放图片
  *
@@ -125,14 +122,14 @@ float _lastScale = 1.0;
     if (_image != image)
     {
         //bin?:arc
-        _image = [image retain];
+        _image = image;
     }
     
     //图片适应屏幕的放缩比
     float  _imageScale = 320 / image.size.width;
     self.imageView.frame = CGRectMake(0, 0, image.size.width*_imageScale, image.size.height*_imageScale);
     _originalImageViewSize = CGSizeMake(image.size.width*_imageScale, image.size.height*_imageScale);
-    
+    // _image为nil
     //设置scrollView的contentSize值
     self.contentSize = CGSizeMake(_image.size.width*_imageScale, _image.size.height*_imageScale);
      [self setContentOffset:CGPointMake((self.contentSize.width-self.frame.size.width)/2,(self.contentSize.height-self.frame.size.height)/2) animated:false];
@@ -191,8 +188,6 @@ float _lastScale = 1.0;
     self.image = nil;
 	self.croppedImage = nil;
 	self.imageView = nil;
-
-    [super dealloc];
 }
 
 @end

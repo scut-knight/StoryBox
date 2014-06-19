@@ -6,11 +6,13 @@
 //  Copyright (c) 2013年 sony. All rights reserved.
 //
 
+#import <ShareSDK/ShareSDK.h>
+
 #import "ImagePickupViewController.h"
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
-#import <ShareSDK/ShareSDK.h>
 #import "PositionSwitch.h"
 #import "UIImage.h"
+
 @implementation ImagePickupViewController
 
 @synthesize imageView;
@@ -43,7 +45,6 @@
     addIS=YES;
     UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提醒" message:@"该操作将会删除当前标签，你确认这样做吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
-    [alert release];        //bin?:delete when arc
 }
 
 /**
@@ -60,7 +61,6 @@
         {
             //打开相片选中界面，传当前的imageArray来初始化
             [self.delegate clickPhotoPickup:imageArray];
-            [self.view retain];
             [self.view removeFromSuperview];
              break;
         }
@@ -91,7 +91,6 @@
         }
     }
     NSLog(@"移动结束");
-//    printf("结束");
 }
 
 /**
@@ -108,7 +107,6 @@
     shareView=[[ShareView alloc] initWithFrame:rect withImageVA:extLayerView.imageViewArray withTextEditVA:extLayerView.textEditViewArray];
     shareView.delegate=self;
     [self.view addSubview:shareView];
-    [shareView release];
 }
 
 
@@ -132,6 +130,7 @@
 
 /**
  *  bin?:跟updateImageArray一样？
+ *
  *  @param arry_old 旧图片数组
  */
 -(void)addUpdateImageArray:(NSArray *)arry_old
@@ -186,9 +185,8 @@
  */
 -(void)hiddenTopView:(BOOL)flag
 {
-    printf("隐藏标题栏");
+    NSLog(@"隐藏标题栏");
     topView.hidden=flag;
-   
 }
 
 -(void)accessPhotoAblum
@@ -216,16 +214,13 @@
     extLayerView=[[ExtraLayerView alloc] initWithFrame:[pS switchBound:CGRectMake(0, 0, 320, 480)] withImageArray:imageArray ];
     extLayerView.delegate=self;
     [self.view addSubview:extLayerView];//附加层
-    [extLayerView release];
     
     topView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 45)];
     [self.view addSubview:topView];
-    [topView release];
     
     imgVBg=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, topView.frame.size.width, topView.frame.size.height)];
     [imgVBg setImage:[UIImage imageNamed:@"topBg_ImagePick.png"]];
     [topView addSubview: imgVBg];
-    [imgVBg release];
     
     UIButton * backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn setImage:[UIImage imageNamed:@"backBtn_ImagePick.png"] forState:UIControlStateNormal];
@@ -256,18 +251,15 @@
     [shareView removeFromSuperview];
     
     [imageArray removeAllObjects];
-    [imageArray release];
     
     [topView removeFromSuperview];
     [imgVBg removeFromSuperview];
     
-    [pS release];
     [self.view removeFromSuperview];
     
 }
 -(void)dealloc
 {
-    printf("pickupC dealloc");
-    [super dealloc];
+    NSLog(@"pickupC dealloc");
 }
 @end

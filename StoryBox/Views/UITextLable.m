@@ -73,24 +73,18 @@
         [self addSubview:imageViewBg];
         [self addSubview: _textView];
 
-        [_textView release];
-        [imageViewBg release];
-        
         //触摸屏蔽层
         maskTouch = [[UIView alloc] initWithFrame:CGRectMake(0,0,imageViewBg.frame.size.width,imageViewBg.frame.size.height)];
         [maskTouch setBackgroundColor:[UIColor clearColor]];
         [self addSubview:maskTouch];
-        [maskTouch release];
         
         [self setFrame:CGRectMake(frame.origin.x, frame.origin.y,imageViewBg.frame.size.width,imageViewBg.frame.size.height)];
         
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapHandle:)];
         [maskTouch addGestureRecognizer:tapG];
-        [tapG release];
         
         UIPanGestureRecognizer * panG=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panHandle:)];
         [self addGestureRecognizer:panG];
-        [panG release];
        
         used = YES;
     }
@@ -187,7 +181,7 @@
     float _y=self.frame.origin.y;
     float _w=self.frame.size.width;
     float _h=self.frame.size.height;
-    int d=-1;
+//    int d=-1;
     int num=textVArray.count;
     int sum=0;
     UIView * _textV;
@@ -201,7 +195,7 @@
         sum=min;//min
         if (_y<=max&&_y>=min)
         {
-            d=i;//找到点击对应的视图序号
+//            d=i;//找到点击对应的视图序号
             _y=_y-sum;
             [self setFrame:CGRectMake( _x,_y,_w,_h)];
             [_textV addSubview:self];
@@ -320,7 +314,6 @@
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"要删除吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",@"编辑",nil];
         alert.alertViewStyle=UIAlertViewStyleDefault;
         [alert show];
-        [alert release];
     }
 }
 
@@ -391,7 +384,9 @@
     for (int i=0; i<textView.text.length; ++i)
     {
         str=[NSString stringWithFormat:@"%C",[textView.text characterAtIndex:i]];
-        s=[str sizeWithFont:[textView font]];
+        s=[str sizeWithAttributes:
+           @{NSFontAttributeName:[textView font]}];
+        
         height_text=height_text>s.height?height_text:s.height;
         if ([str isEqualToString:@"\n"])
         {
@@ -470,7 +465,6 @@
     [self bringSubviewToFront:maskTouch];
     
 //    printf("失效");
-    
     return YES;
 }
 
@@ -500,6 +494,5 @@
 {
 //    printf("lable release");
     [self clearView];
-    [super dealloc];
 }
 @end

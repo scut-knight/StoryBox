@@ -9,6 +9,7 @@
 #import "CameraCustom.h"
 #import "UITextLable.h"
 #import "UIImage.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "WeatherLabel.h"
 #import "UITitleLabel.h"
 
@@ -65,14 +66,8 @@
     
     
     [_centerA removeAllObjects];//add
-    [_centerA release];//add
-    
-    [panner release];
-    [textPanner release];
-    
 
     return  img;
-
 }
 
 //new 保存拼接前的位置和大小
@@ -85,10 +80,8 @@
     [centerTemp setObject:[NSNumber numberWithFloat:imageV.frame.size.width] forKey:@"w"];
     [centerTemp setObject:[NSNumber numberWithFloat:imageV.frame.size.height] forKey:@"h"];
     [centerArray addObject:centerTemp];
-    [centerTemp release];
     
     return centerArray;
-    
 }
 
 ////保存拼接前的位置和大小
@@ -135,10 +128,8 @@
             NSLog(@"Big error: %@", [error description]);
         }
     }];
-
-    [library release];
-
 }
+
 /* 循环保存单独图片到本地LKTQ目录*/
 +(void)saveAllImageOneByOne:(NSMutableArray *)imageViewArr textViewArray:(NSMutableArray*)textViewArr
 {
@@ -160,8 +151,6 @@
         }];
         
     }
-    [library release];
-
 }
 
 //单张图片生成uiimage
@@ -198,8 +187,6 @@
     [self changeTextLableTosmall:testTextEditV];//还原标签
     [testImageV removeFromSuperview];
     [testTextEditV removeFromSuperview];
-   
-    [panner release];//
     
     return img;
 
@@ -403,9 +390,6 @@
         [temp._textView setFrame:CGRectMake(temp._textView.frame.origin.x, temp._textView.frame.origin.y, temp._textView.frame.size.width/2, temp._textView.frame.size.height/2)];
         
         [temp.imageViewBg setFrame:CGRectMake(temp.imageViewBg.frame.origin.x, temp.imageViewBg.frame.origin.y, (temp.imageViewBg.frame.size.width+20)/2, (temp.imageViewBg.frame.size.height+20)/2)];//
-        
-        
     }
-    
 }
 @end

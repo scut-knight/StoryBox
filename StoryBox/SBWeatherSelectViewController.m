@@ -81,7 +81,6 @@
     NavigationView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 45)];
     [NavigationView setBackgroundColor:[UIColor colorWithRed:(28.0/255) green:(33.0/255) blue:39.0/255 alpha:0.95]];
     [self.view addSubview:NavigationView];
-    [NavigationView release];
     
     UIButton* back=[UIButton buttonWithType:UIButtonTypeCustom];
     [back setFrame:CGRectMake(20, 15, 40,15)];
@@ -175,17 +174,6 @@
 {
     [self.delegate hiddenTopView:NO];
     [self.view removeFromSuperview];
-}
-
-- (void)dealloc
-{
-    [_LocationActivityIndictor release];
-    [_WeatherActivityIndictor release];
-    [_TempActivityIndictor release];
-    [_LocationLabel release];
-    [_WeatherLabel release];
-    [_TempLabel release];
-    [super dealloc];
 }
 
 - (IBAction)addButtonPressed:(UIButton *)sender

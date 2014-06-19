@@ -29,7 +29,6 @@
         
         UIPanGestureRecognizer * panG = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panHandle:)];
         [self addGestureRecognizer:panG];
-        [panG release];
         
         //添加背景，用于放置所有元素
         imageViewBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,weatherLabel_width,weatherLabel_height)];

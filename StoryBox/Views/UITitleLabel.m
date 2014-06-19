@@ -37,22 +37,18 @@
         [self initImage:tag withflag:index];
       
         [self addSubview:imageViewBg];
-        [imageViewBg release];
         
         [self setFrame:CGRectMake(frame.origin.x, frame.origin.y,imageViewBg.frame.size.width+40, imageViewBg.frame.size.height+40)];//重新设置
         
         maskTouch=[[UIView alloc] initWithFrame:CGRectMake(0, 0,self.frame.size.width,self.frame.size.height)];
         [maskTouch setBackgroundColor:[UIColor clearColor]];
         [self addSubview:maskTouch];
-        [maskTouch release];
         
         //手势捕捉
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(tapHandle:)];
         [maskTouch addGestureRecognizer:tapG];
-        [tapG release];
         UIPanGestureRecognizer * panG=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panHandle:)];
         [self addGestureRecognizer:panG];
-        [panG release];
         
         //拉伸按钮，点击时反色
         contorlBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -75,7 +71,6 @@
         UILongPressGestureRecognizer * tapL=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
         tapL.minimumPressDuration=0.0;//0.7
         [contorlBtn addGestureRecognizer:tapL];
-        [tapL release];
         
         tempPoint = CGPointMake(0, 0);
         
@@ -158,9 +153,6 @@
  */
 -(void)adjust:(CGPoint)point
 {
-    CGPoint center1,center2;
-    center1 = contorlBtn.center;
-    center2 = deleteBTn.center;
     float _x=point.x-tempPoint.x;
     float _y=point.y-tempPoint.y;
    
@@ -181,13 +173,6 @@
     
     }
     
-//    float scale_x=(_x_new+self.frame.size.width)/self.frame.size.width;
-//    float scale_y=(_y_new+self.frame.size.height)/self.frame.size.height;
-//    float _scale=scale_x>scale_y?scale_x:scale_y;
-//    float rotate1=atan2f(point.y, point.x);
-//    float rotate2=atan2f(tempPoint.y, tempPoint.x);
-//    float r=rotate1-rotate2;
-    
     if (_x_new+_w<150)
     {
         return;
@@ -202,8 +187,6 @@
     [maskTouch setFrame:CGRectMake(0, 0,self.frame.size.width,self.frame.size.height)];
  
     tempPoint = CGPointMake(point.x, point.y);//add
-    
-//    NSLog(@"==%@",self.superview);
     
 }
 
@@ -281,7 +264,6 @@
 
 /**
  *  把标签从scrollView移除，放入对应的textView
- *
  */
 -(void)endPanHandle
 {//把标签从scrollView移除，放入对应的textView
@@ -408,8 +390,6 @@
 }
 -(void)dealloc
 {
-    printf("title dealloc");
-    
-    [super dealloc];
+    NSLog(@"title dealloc");
 }
 @end

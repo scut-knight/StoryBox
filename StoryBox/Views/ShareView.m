@@ -9,12 +9,9 @@
 #import "ShareView.h"
 #import "CameraCustom.h"
 #import "UITitleLabel.h"
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @implementation ShareView
-@synthesize pannerShareView;
-@synthesize img_Merged;
-@synthesize pathImageM;
+
 - (id)initWithFrame:(CGRect)frame  withImageVA:(NSMutableArray*)imageVA withTextEditVA:(NSMutableArray *)textEVA
 {
     self = [super initWithFrame:frame];
@@ -24,8 +21,7 @@
         textEditVArr = textEVA;
         
         [CameraCustom photoMerge:imageVArr textViewArray:textEditVArr];     //合成
-        NSLog(@"path1=%@",pathImageM);
-
+        NSLog(@"path1=%@",_pathImageM);
         [self viewLoad];
         [self initIconShare];                                               //添加社会化分享按钮
         
@@ -38,13 +34,11 @@
     bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 568)];
     [bg setImage:[UIImage imageNamed:@"shareView_bg-color.png"]];
     [self addSubview:bg];
-    [bg release];
     
     //顶部导航栏
     topView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     [topView setImage:[UIImage imageNamed:@"Navigation.png"]];
     [self addSubview:topView];
-    [topView release];
 
     //返回按钮
     UIButton *backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -78,17 +72,13 @@
     [self addSubview:outputAllBtn];
     
     //社会化分享按钮容器
-    pannerShareView = [[UIView alloc]initWithFrame:CGRectMake(0, 238, 320, 220)];
-    pannerShareView.alpha = 0.8;
-    [self addSubview:pannerShareView];
-    [pannerShareView release];
- 
+    self.pannerShareView = [[UIView alloc]initWithFrame:CGRectMake(0, 238, 320, 220)];
+    self.pannerShareView.alpha = 0.8;
+    [self addSubview:self.pannerShareView];
     
     label = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 28)];
     [label setImage:[UIImage imageNamed:@"labale_shareView.png"]];
-    [pannerShareView addSubview:label];
-    [label release];
-
+    [self.pannerShareView addSubview:label];
 }
 
 /**
@@ -120,8 +110,8 @@
         [iconBtn addTarget:self action:@selector(clickIcon:) forControlEvents:UIControlEventTouchUpInside];
       
         //把按钮添加到容器中并置于前端
-        [pannerShareView addSubview:iconBtn];
-        [pannerShareView bringSubviewToFront:iconBtn];
+        [self.pannerShareView addSubview:iconBtn];
+        [self.pannerShareView bringSubviewToFront:iconBtn];
         
     }
 }
@@ -136,7 +126,7 @@
     int flag = [sender tag];
     NSLog(@"分享方式:%d",flag);
     //获取分享相片
-    pathImageM = [CameraCustom pathOfImageOfBox];
+    self.pathImageM = [CameraCustom pathOfImageOfBox];
     [self getShareTypeSocial:flag];
     [self initCustomShareInter];
 }
@@ -191,10 +181,10 @@
     NSLog(@"output");
 
     //获取拼接后的图片
-    pathImageM = [CameraCustom pathOfImageOfBox];
-    img_Merged = [UIImage imageWithContentsOfFile:pathImageM];
+    self.pathImageM = [CameraCustom pathOfImageOfBox];
+    self.img_Merged = [UIImage imageWithContentsOfFile:self.pathImageM];
     //保存到相册
-    [CameraCustom saveImage_merged:img_Merged];
+    [CameraCustom saveImage_merged:self.img_Merged];
     
     //更改保存按钮样式并使其失效
     [sender setImage:[UIImage imageNamed:@"Mergefinish.png"] forState:UIControlStateNormal];
@@ -277,17 +267,17 @@
         }
         id<ISSContent> publishContent = [ShareSDK content:@"分享内容:该消息来自故事盒子，分享瞬间美好，留住回忆人生"
                                            defaultContent:@"默认分享内容，没内容时显示"
-                                                    image:[ShareSDK imageWithPath: pathImageM]
+                                                    image:[ShareSDK imageWithPath: self.pathImageM]
                                                     title:@"故事盒子"
                                                       url:@"http://www.sharesdk.cn"
                                               description:@"这是一条测试信息"
                                                 mediaType:mediaType];
         
         //授权选项
-        id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES allowCallback:YES authViewStyle:SSAuthViewStyleFullScreenPopup viewDelegate:nil authManagerViewDelegate:nil];
+//        id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES allowCallback:YES authViewStyle:SSAuthViewStyleFullScreenPopup viewDelegate:nil authManagerViewDelegate:nil];
         
         //判断
-        id<ISSPlatformUser> userAuth=[ShareSDK currentAuthUserWithType:shareTypeSocial];
+//        id<ISSPlatformUser> userAuth=[ShareSDK currentAuthUserWithType:shareTypeSocial];
      
         //    [ShareSDK cancelAuthWithType:shareTypeSocial];
         //    if ([ShareSDK hasAuthorizedWithType:shareTypeSocial]) {
@@ -343,7 +333,6 @@
                  UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享成功" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                  [alert setTag:0];
                  [alert show];
-                 [alert release];
             }
             else if (state == SSPublishContentStateFail)
             {
@@ -351,7 +340,6 @@
                  UIAlertView * alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"分享失败，重试" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
                  [alert setTag:1];
                  [alert show];
-                 [alert release];
              
             }
         }];
@@ -403,7 +391,7 @@
     [bg removeFromSuperview];
     [topView removeFromSuperview];
     [label removeFromSuperview];
-    [pannerShareView removeFromSuperview];
+    [self.pannerShareView removeFromSuperview];
 
 //    for (int j=0; j<self.subviews.count;++j) {
 //        UIView * _v=[self.subviews objectAtIndex:j];
@@ -418,11 +406,8 @@
 
 -(void)dealloc
 {
-    
     [self clearView];
     printf("shareviw dealloc,");
-    [super dealloc];
- 
 }
 
 @end
