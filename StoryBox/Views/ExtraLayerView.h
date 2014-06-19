@@ -12,6 +12,8 @@
 #import "ClipViewController.h"
 #import "PositionSwitch.h"
 #import "UITitleLabel.h"
+#import "WeatherLabel.h"
+
 
 /**
  *  标签类型
@@ -64,7 +66,6 @@ typedef enum : NSUInteger {
     NSMutableArray *textEditViewArray;/// 保存标注编辑层view数组
     NSMutableArray * imageViewArray;/// 保存ImageView数组
     NSMutableArray * imageArray;/// 图片数组
-    
     
     BOOL stateEdit;/// 记录标签的编辑状态
     

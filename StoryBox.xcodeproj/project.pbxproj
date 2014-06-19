@@ -253,6 +253,10 @@
 		34B2781A1949711800E8700B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B278191949711800E8700B /* QuartzCore.framework */; };
 		34B2781C194971B500E8700B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781B194971B500E8700B /* SystemConfiguration.framework */; };
 		34B2781E1949720200E8700B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781D1949720200E8700B /* CoreTelephony.framework */; };
+		A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */; };
+		A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */; };
+		A31DB92D195296FD00860D19 /* cityCode.json in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92C195296FD00860D19 /* cityCode.json */; };
+		A31DB9301952977600860D19 /* weather-0.png in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92F1952977600860D19 /* weather-0.png */; };
 		A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A321A7BF194ACE89005218DB /* QBImagePicker.rtf */; };
 		A38BD12C194F05C9006045A1 /* 5color.png in Resources */ = {isa = PBXBuildFile; fileRef = A38BD12B194F05C9006045A1 /* 5color.png */; };
 		A38BD130194F0E7C006045A1 /* SBPen.m in Sources */ = {isa = PBXBuildFile; fileRef = A38BD12F194F0E7C006045A1 /* SBPen.m */; };
@@ -555,6 +559,11 @@
 		34B278191949711800E8700B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		34B2781B194971B500E8700B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		34B2781D1949720200E8700B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWeatherSelectViewController.h; sourceTree = "<group>"; };
+		A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWeatherSelectViewController.m; sourceTree = "<group>"; };
+		A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBWeatherSelectViewController.xib; sourceTree = "<group>"; };
+		A31DB92C195296FD00860D19 /* cityCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cityCode.json; sourceTree = "<group>"; };
+		A31DB92F1952977600860D19 /* weather-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0.png"; sourceTree = "<group>"; };
 		A321A7BF194ACE89005218DB /* QBImagePicker.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = QBImagePicker.rtf; sourceTree = "<group>"; };
 		A38BD12B194F05C9006045A1 /* 5color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5color.png; sourceTree = "<group>"; };
 		A38BD12E194F0E7C006045A1 /* SBPen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPen.h; path = Models/SBPen.h; sourceTree = "<group>"; };
@@ -668,6 +677,7 @@
 		34B275DD19496BD100E8700B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A31DB92C195296FD00860D19 /* cityCode.json */,
 				34B276A519496FDE00E8700B /* Images */,
 				34B275DE19496BD100E8700B /* StoryBox-Info.plist */,
 				34B275DF19496BD100E8700B /* InfoPlist.strings */,
@@ -709,6 +719,9 @@
 		34B2760619496D0100E8700B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */,
+				A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */,
+				A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */,
 				34B277FC1949705700E8700B /* photoClasses */,
 				34B2761B19496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.h */,
 				34B2761C19496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.m */,
@@ -929,6 +942,7 @@
 		34B276A519496FDE00E8700B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A31DB92E1952977600860D19 /* Weather */,
 				34B276A619496FDE00E8700B /* AlbumGroup */,
 				34B276AD19496FDE00E8700B /* homePage */,
 				34B276B219496FDE00E8700B /* icon */,
@@ -1217,6 +1231,14 @@
 			path = Views/photoClasses;
 			sourceTree = "<group>";
 		};
+		A31DB92E1952977600860D19 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				A31DB92F1952977600860D19 /* weather-0.png */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
 		A38BD12D194F0DE1006045A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1308,6 +1330,7 @@
 				34B277F019496FDE00E8700B /* button8.png in Resources */,
 				34B277C619496FDE00E8700B /* 312.png in Resources */,
 				34B2775C19496FDE00E8700B /* title.png in Resources */,
+				A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */,
 				34B2778D19496FDE00E8700B /* 00.png in Resources */,
 				34B277E519496FDE00E8700B /* button19.png in Resources */,
 				34B2775E19496FDE00E8700B /* homeBg2.png in Resources */,
@@ -1425,6 +1448,7 @@
 				34B277EA19496FDE00E8700B /* button23.png in Resources */,
 				34B2777919496FDE00E8700B /* clipBtn.png in Resources */,
 				34B2775A19496FDE00E8700B /* close-circled.png in Resources */,
+				A31DB92D195296FD00860D19 /* cityCode.json in Resources */,
 				34B277B419496FDE00E8700B /* Default-568h@2x.png in Resources */,
 				34B277AE19496FDE00E8700B /* 3.png in Resources */,
 				34B277F619496FDE00E8700B /* shareIcon2.png in Resources */,
@@ -1471,6 +1495,7 @@
 				34B277CA19496FDE00E8700B /* 316.png in Resources */,
 				34B277D219496FDE00E8700B /* 323.png in Resources */,
 				34B277D919496FDE00E8700B /* 39.png in Resources */,
+				A31DB9301952977600860D19 /* weather-0.png in Resources */,
 				34B2776419496FDE00E8700B /* Icon-72@2x.png in Resources */,
 				34B2768719496E5500E8700B /* PinterestSDKResources.bundle in Resources */,
 				34B277BD19496FDE00E8700B /* Navigation.png in Resources */,
@@ -1533,6 +1558,7 @@
 				34B2761219496E3F00E8700B /* HomeViewController.m in Sources */,
 				34B2767719496E5500E8700B /* ImageCropperView.m in Sources */,
 				34B2767B19496E5500E8700B /* SelectTitleView.m in Sources */,
+				A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */,
 				34B2780C1949705700E8700B /* QBImagePickerAssetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
