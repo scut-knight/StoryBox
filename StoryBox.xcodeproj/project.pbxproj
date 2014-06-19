@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		343745C619533DBD00BE3F6D /* weather-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 343745C219533DBD00BE3F6D /* weather-1.png */; };
+		343745C719533DBD00BE3F6D /* weather-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 343745C319533DBD00BE3F6D /* weather-2.png */; };
+		343745C819533DBD00BE3F6D /* weather-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 343745C419533DBD00BE3F6D /* weather-3.png */; };
+		343745C919533DBD00BE3F6D /* weather-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 343745C519533DBD00BE3F6D /* weather-4.png */; };
 		34B275D719496BD100E8700B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D619496BD100E8700B /* Foundation.framework */; };
 		34B275D919496BD100E8700B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D819496BD100E8700B /* CoreGraphics.framework */; };
 		34B275DB19496BD100E8700B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275DA19496BD100E8700B /* UIKit.framework */; };
@@ -274,6 +278,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		343745C219533DBD00BE3F6D /* weather-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather-1.png"; path = "../../../../../../LKTQ1.0/StoryBox/Images/Weather/weather-1.png"; sourceTree = "<group>"; };
+		343745C319533DBD00BE3F6D /* weather-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather-2.png"; path = "../../../../../../LKTQ1.0/StoryBox/Images/Weather/weather-2.png"; sourceTree = "<group>"; };
+		343745C419533DBD00BE3F6D /* weather-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather-3.png"; path = "../../../../../../LKTQ1.0/StoryBox/Images/Weather/weather-3.png"; sourceTree = "<group>"; };
+		343745C519533DBD00BE3F6D /* weather-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather-4.png"; path = "../../../../../../LKTQ1.0/StoryBox/Images/Weather/weather-4.png"; sourceTree = "<group>"; };
 		34B275D319496BD100E8700B /* StoryBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B275D619496BD100E8700B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34B275D819496BD100E8700B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1235,6 +1243,10 @@
 			isa = PBXGroup;
 			children = (
 				A31DB92F1952977600860D19 /* weather-0.png */,
+				343745C219533DBD00BE3F6D /* weather-1.png */,
+				343745C319533DBD00BE3F6D /* weather-2.png */,
+				343745C419533DBD00BE3F6D /* weather-3.png */,
+				343745C519533DBD00BE3F6D /* weather-4.png */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -1331,6 +1343,7 @@
 				34B277C619496FDE00E8700B /* 312.png in Resources */,
 				34B2775C19496FDE00E8700B /* title.png in Resources */,
 				A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */,
+				343745C619533DBD00BE3F6D /* weather-1.png in Resources */,
 				34B2778D19496FDE00E8700B /* 00.png in Resources */,
 				34B277E519496FDE00E8700B /* button19.png in Resources */,
 				34B2775E19496FDE00E8700B /* homeBg2.png in Resources */,
@@ -1343,6 +1356,7 @@
 				34B2777A19496FDE00E8700B /* deleteBtn.png in Resources */,
 				34B2775719496FDE00E8700B /* 1title.png in Resources */,
 				34B2776D19496FDE00E8700B /* circled.png in Resources */,
+				343745C919533DBD00BE3F6D /* weather-4.png in Resources */,
 				34B277EE19496FDE00E8700B /* button6.png in Resources */,
 				34B2779919496FDE00E8700B /* 201.png in Resources */,
 				34B277C019496FDE00E8700B /* Singlesave.png in Resources */,
@@ -1458,6 +1472,7 @@
 				34B277EF19496FDE00E8700B /* button7.png in Resources */,
 				34B2776F19496FDE00E8700B /* colorbg1.png in Resources */,
 				34B277BA19496FDE00E8700B /* labale_shareView.png in Resources */,
+				343745C719533DBD00BE3F6D /* weather-2.png in Resources */,
 				34B277B119496FDE00E8700B /* 55.png in Resources */,
 				34B2778E19496FDE00E8700B /* 0color.png in Resources */,
 				34B2776C19496FDE00E8700B /* backBtn_ImagePick.png in Resources */,
@@ -1487,6 +1502,7 @@
 				34B2769B19496E5600E8700B /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
 				34B277E019496FDE00E8700B /* button14.png in Resources */,
 				34B277B219496FDE00E8700B /* titleBackBtn.png in Resources */,
+				343745C819533DBD00BE3F6D /* weather-3.png in Resources */,
 				34B2776E19496FDE00E8700B /* colorbg.png in Resources */,
 				34B277A119496FDE00E8700B /* 221.png in Resources */,
 				34B277AC19496FDE00E8700B /* 2color.png in Resources */,

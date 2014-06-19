@@ -157,7 +157,14 @@
     NSDictionary *weatherInfo = [weatherDic objectForKey:@"weatherinfo"];
     
     _weather = [weatherInfo objectForKey:@"weather"];
-    _temperature = [NSString stringWithFormat:@"%@ - %@",[weatherInfo objectForKey:@"temp2"],[weatherInfo objectForKey:@"temp1"]];
+    
+    NSString *temp1 = [weatherInfo objectForKey:@"temp1"];
+    NSString *temp2 = [weatherInfo objectForKey:@"temp2"];
+    
+    if([temp1 compare:temp2])
+        _temperature = [NSString stringWithFormat:@"%@ - %@",[weatherInfo objectForKey:@"temp1"],[weatherInfo objectForKey:@"temp2"]];
+    else
+        _temperature = [NSString stringWithFormat:@"%@ - %@",[weatherInfo objectForKey:@"temp2"],[weatherInfo objectForKey:@"temp1"]];
 
     NSLog(@"温度:%@",_temperature);
     NSLog(@"天气:%@",_weather);
@@ -168,12 +175,23 @@
     self.WeatherLabel.text = _weather;
     
     
+    [self updateWeatherLabel];
+    
 }
 
 -(void)backEdit:(id)sender
 {
     [self.delegate hiddenTopView:NO];
     [self.view removeFromSuperview];
+}
+
+- (void)updateWeatherLabel
+{
+    WeatherLabel *label = [[WeatherLabel alloc] initPreview:CGRectMake(30, 300, 90, 30)];
+    
+    [label initWeather:_city withWeather:_weather withTemp:_temperature];
+    
+    [self.view addSubview:label];
 }
 
 - (IBAction)addButtonPressed:(UIButton *)sender

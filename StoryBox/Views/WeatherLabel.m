@@ -12,6 +12,7 @@
 #define weatherLabel_width 90
 #define weatherLabel_height 30
 
+
 @implementation WeatherLabel
 @synthesize _textView,imageViewBg,cityLabel,tempLabel;
 
@@ -20,10 +21,6 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        // Initialization code
-//        _currentLoaction = [[CLLocationManager alloc] init];
-//        _currentLoaction.delegate = self;
-//        [_currentLoaction startUpdatingLocation];
         scView = sc;
         textEditViewArray = textVA;
         
@@ -40,18 +37,36 @@
     return self;
 }
 
+- (id)initPreview:(CGRect)frame
+{
+    
+    self = [super initWithFrame:frame];
+    if (self)
+    {
+        
+        //添加背景，用于放置所有元素
+        imageViewBg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,weatherLabel_width,weatherLabel_height)];
+        imageViewBg.backgroundColor = [UIColor blackColor];
+        [self addSubview:imageViewBg];
+    }
+    return self;
+
+}
+
 - (void)initWeather:(NSString *)city withWeather:(NSString *)weather withTemp:(NSString *)temp;
 {
-    int index = 0;
-//    weatherImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,image_width,image_height)];
-    //加载标签图片
-//    [self initImage:index];
-    //    [imageViewBg addSubview:weatherImageView];
-
-    NSString* strImg = [NSString stringWithFormat:@"weather-%d.png",index];
     
-    UIImage *image = [UIImage imageNamed:strImg];
-    [imageViewBg setImage:image];
+//    int index = 0;
+////    weatherImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,image_width,image_height)];
+//    //加载标签图片
+////    [self initImage:index];
+//    //    [imageViewBg addSubview:weatherImageView];
+//
+//    NSString* strImg = [NSString stringWithFormat:@"weather-%d.png",index];
+//    
+//    UIImage *image = [UIImage imageNamed:strImg];
+//    [imageViewBg setImage:image];
+    [self setWeatherIcon:weather];
     
     
     cityLabel = [[UILabel alloc] initWithFrame:CGRectMake(image_width + 15, 0, 100, weatherLabel_height - 10)];
@@ -68,6 +83,29 @@
     [imageViewBg addSubview:tempLabel];
     NSLog(@"OLD:%f",self.center.y);
 
+}
+
+- (void)setWeatherIcon:(NSString *)weather
+{
+    NSArray *WeatherName = [NSArray arrayWithObjects:@"晴",@"晴转多云",@"多云",@"雨",@"小雨",@"中雨",@"大雨",@"雷阵雨",@"雷阵雨转大雨",nil];
+
+    NSString * strImg;
+    int index = [WeatherName indexOfObject:weather];
+    switch(index)
+    {
+        case 0: strImg = @"weather-0.png";break;
+        case 1: strImg = @"weather-1.png";break;
+        case 2: strImg = @"weather-2.png";break;
+        case 3:
+        case 4:
+        case 5:
+        case 6: strImg = @"weather-3.png";break;
+        case 7:
+        case 8: strImg = @"weather-4.png";break;
+        default:strImg = @"weather-0.png";break;
+    }
+    UIImage *image = [UIImage imageNamed:strImg];
+    [imageViewBg setImage:image];
 }
 
 
