@@ -7,6 +7,7 @@
 //
 
 #import "SBPen.h"
+#import "SBDoodleView.h"
 
 @implementation SBPen
 
@@ -64,12 +65,13 @@
         self.preradius = self.radius;
         self.radius = tmp;
     }
+    [self.board startToErase:self];
 }
 
 /**
  *  从橡皮模式转回画笔模式
  */
-- (void) transformBackToPen
+- (void) transformToPen
 {
     if (self.color == -1) {
         self.color = self.precolor;
@@ -77,5 +79,12 @@
         self.preradius = self.radius;
         self.radius = tmp;
     }
+    
+    [self.board startToDraw:self];
+}
+
+- (void) waitForNextState
+{
+    [self.board waitForNext];
 }
 @end

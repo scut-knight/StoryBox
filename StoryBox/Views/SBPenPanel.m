@@ -10,15 +10,6 @@
 #import "SBPenPanel.h"
 #import "SBPen.h"
 
-/**
- *  画笔面板的状态。1. 涂鸦中 2. 选择画笔 3. 选择橡皮擦
- */
-typedef enum : NSUInteger {
-    DOODLING,
-    PEN,
-    ERASER,
-} PEN_PANEL_STATE;
-
 @interface SBPenPanel ()
 
 -(void) paintBackGroundViewForView:(UIView *)view;
@@ -28,6 +19,7 @@ typedef enum : NSUInteger {
 -(void) initOkBtnForErase;
 -(void) initLeaveBtn;
 -(void) initReselectBtn;
+-(void) tranformMode:(PEN_STATE)mode;
 
 @property (nonatomic) CGFloat panelWidth; /// 面板的最大宽度
 @property (nonatomic) CGFloat panelHeight; /// 单个面板的高度
@@ -37,7 +29,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) UIButton *leaveBtn; /// 离开画笔面板
 @property (nonatomic) UIButton *reselectBtn; /// 重新选择画笔
 @property (nonatomic) SBPen *delegate;
-@property (nonatomic) PEN_PANEL_STATE state;
+@property (nonatomic) PEN_STATE state;
 
 @end
 
@@ -215,7 +207,6 @@ typedef enum : NSUInteger {
     self.statusLabel.textColor = [UIColor colorWithPatternImage:
                                     [UIImage imageNamed:
                                      [NSString stringWithFormat:@"%dcolor.png", self.delegate.color]]];
-    NSLog(@"%@", [self.statusLabel.textColor description]);
 }
 
 /**
@@ -281,6 +272,25 @@ typedef enum : NSUInteger {
     }
 }
 
+- (void) tranformMode:(PEN_STATE)mode
+{
+    self.state = mode;
+    switch (mode) {
+        case DOODLING:
+            [self.delegate transformToPen];
+            break;
+        case ERASER:
+            [self.delegate transformToEraser];
+            break;
+        case PEN:
+            [self.delegate waitForNextState];
+            break;
+        default:
+            break;
+    }
+    [self updateStatus:[self.delegate description]];
+}
+
 #pragma mark - about switch from status
 /**
  *  状态变迁的说明： 选择画笔是每次打开画笔面板都切换到的状态。从选择画笔可以到离开状态和涂鸦状态。
@@ -295,7 +305,10 @@ typedef enum : NSUInteger {
 -(void)prepareForSelectPen
 {
     [self showPanel:YES];
-    [self.delegate transformBackToPen]; // 不管之前是否设置了橡皮，这个函数都会进行判断，所以调用的时候就不需要判断了。
+    if (self.delegate.color == -1) {
+        [self.delegate transformToPen];
+    }
+    
     // 前一个状态是怎么样的
     switch (self.state) {
         case DOODLING:
@@ -356,6 +369,8 @@ typedef enum : NSUInteger {
     }
     
     self.state = PEN;
+    // 更新画笔状态
+    [self.delegate waitForNextState];
 }
 
 /**
@@ -386,9 +401,9 @@ typedef enum : NSUInteger {
     self.statusLabel = [[UILabel alloc]
                         initWithFrame:CGRectMake(10, 0, self.panelWidth / 3 + 20, self.panelHeight)];
     if (self.delegate != nil) {
-        [self.delegate transformBackToPen];
-        [self updateStatus:[self.delegate description]];
+        [self tranformMode:DOODLING];
     }
+    
     [self initOkBtnForErase];
     [self initLeaveBtn];
     [self initReselectBtn];
@@ -398,8 +413,6 @@ typedef enum : NSUInteger {
     [self.penStatusView addSubview:self.reselectBtn];
     [self paintBackGroundViewForView:self.penStatusView];
     [self addSubview:self.penStatusView];
-    
-    self.state = DOODLING;
 }
 
 /**
@@ -413,14 +426,11 @@ typedef enum : NSUInteger {
     
     self.penRadiusView = [[UIView alloc] initWithFrame:CGRectMake(0, 85, self.panelWidth, self.panelHeight)];
     
-    [self.delegate transformToEraser];
-    [self updateStatus:[self.delegate description]];
+    [self tranformMode:ERASER];
     
     [self initRadiusSlider];
     [self.penRadiusView addSubview:self.radiusSlider];
     [self paintBackGroundViewForView:self.penRadiusView];
     [self addSubview:self.penRadiusView];
-    
-    self.state = ERASER;
 }
 @end

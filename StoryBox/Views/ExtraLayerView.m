@@ -13,8 +13,11 @@
 #import "CustomAnimation.h"
 #import "SelectTitleView.h"
 #import "UIImage.h"
+
 #import "SBPen.h"
 #import "SBPenPanel.h"
+#import "SBDoodleView.h"
+
 #import "WeatherLabel.h"
 
 #import<CoreText/CoreText.h>
@@ -29,6 +32,7 @@
 -(void)reLoadTitleView;
 -(void)LongPress:(UILongPressGestureRecognizer *)longG;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
+-(void)clipDoodleBoard;
 
 -(void)clickWeatherButton:(id)sender;
 -(void)clickTitle:(id)sender;
@@ -37,6 +41,7 @@
 
 @property (nonatomic) SBPen * pen; /// 画笔
 @property (nonatomic) SBPenPanel * penPanel; /// 画笔修改面板
+@property (nonatomic) SBDoodleView * doodleBoard; /// 涂鸦的时候在这个面板上画画
 @end
 
 @implementation ExtraLayerView
@@ -299,11 +304,26 @@ int Start_y_gemotry;//标签容器
     // 初始化画笔
     self.pen = [[SBPen alloc] init];
     
+    // 初始化涂鸦画板。
+    // 涂鸦画板的高度相当于屏幕顶部到在涂鸦模式下画笔面板的顶部。也即屏幕顶部到颜色面板的顶部再加上35px。
+    self.doodleBoard = [[SBDoodleView alloc] initWithFrame:CGRectMake(0, 0, width_gemotry, _y + 85)];
+    
+    // 剪裁涂鸦画板，使之不大于要处理的图像本身
+    [self clipDoodleBoard];
+    self.pen.board = self.doodleBoard;
+    self.doodleBoard.hidden = YES;
+    [self addSubview:self.doodleBoard];
+    
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
     self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
     [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
     [self addSubview:self.penPanel];
+}
+
+-(void) clipDoodleBoard
+{
+    
 }
 
 #pragma mark - 手势与交互
