@@ -33,6 +33,20 @@
 
 }
 
+- (IBAction)selectTypeChanged:(UISegmentedControl *)sender
+{
+    selectType = [sender selectedSegmentIndex];
+    if(selectType)
+    {
+        self.styleLabel.text = @"拟物";
+
+    }
+    else
+    {
+        self.styleLabel.text = @"扁平";
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,6 +61,8 @@
     [self.LocationActivityIndictor startAnimating];
     [self.WeatherActivityIndictor startAnimating];
     [self.TempActivityIndictor startAnimating];
+    
+    selectType = 0;
 
 }
 
@@ -161,8 +177,11 @@
     NSString *temp1 = [weatherInfo objectForKey:@"temp1"];
     NSString *temp2 = [weatherInfo objectForKey:@"temp2"];
     
-    if([temp1 compare:temp2])
+    if([temp1 compare:temp2] == NSOrderedAscending)
+    {
         _temperature = [NSString stringWithFormat:@"%@ - %@",[weatherInfo objectForKey:@"temp1"],[weatherInfo objectForKey:@"temp2"]];
+        NSLog(@"%@ %@",temp1,temp2);
+    }
     else
         _temperature = [NSString stringWithFormat:@"%@ - %@",[weatherInfo objectForKey:@"temp2"],[weatherInfo objectForKey:@"temp1"]];
 
@@ -187,16 +206,22 @@
 
 - (void)updateWeatherLabel
 {
-    WeatherLabel *label = [[WeatherLabel alloc] initPreview:CGRectMake(30, 300, 90, 30)];
+    WeatherLabel *label0 = [[WeatherLabel alloc] initPreview:CGRectMake(50, 300, 90, 30) iconType:0];
     
-    [label initWeather:_city withWeather:_weather withTemp:_temperature];
+    [label0 initWeather:_city withWeather:_weather withTemp:_temperature];
     
-    [self.view addSubview:label];
+    [self.view addSubview:label0];
+    
+    WeatherLabel *label1 = [[WeatherLabel alloc] initPreview:CGRectMake(180, 300, 90, 30) iconType:1];
+    
+    [label1 initWeather:_city withWeather:_weather withTemp:_temperature];
+    
+    [self.view addSubview:label1];
 }
 
 - (IBAction)addButtonPressed:(UIButton *)sender
 {
-    WeatherLabel *label = [[WeatherLabel alloc] initWithFrame:CGRectMake(100, scView.contentOffset.y+100, 400, 200) withView:scView withTextVArr:textEditViewArray];
+    WeatherLabel *label = [[WeatherLabel alloc] initWithFrame:CGRectMake(100, scView.contentOffset.y+100, 400, 200) withView:scView withTextVArr:textEditViewArray iconType:selectType];
 
     [label initWeather:_city withWeather:_weather withTemp:_temperature];
     

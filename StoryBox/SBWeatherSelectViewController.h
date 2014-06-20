@@ -26,6 +26,8 @@
     NSString *_cityCode;
     NSString *_weather;
     NSString *_temperature;
+    
+    int selectType;
 
 }
 
@@ -38,5 +40,7 @@
 @property (retain, nonatomic) IBOutlet UILabel *TempLabel;
 - (IBAction)addButtonPressed:(UIButton *)sender;
 - (void)setParentView:(UIScrollView *)scrollView withTextArr:(NSMutableArray *)arr;
+- (IBAction)selectTypeChanged:(UISegmentedControl *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *styleLabel;
 
 @end

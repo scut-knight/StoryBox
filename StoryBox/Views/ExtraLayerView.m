@@ -222,6 +222,10 @@ int Start_y_gemotry;//标签容器
         {
             [scrollView bringSubviewToFront:titleV];
         }
+        if ([titleV isKindOfClass:[WeatherLabel class]])
+        {
+            [scrollView bringSubviewToFront:titleV];
+        }
     }
 }
 
@@ -384,6 +388,13 @@ int Start_y_gemotry;//标签容器
  */
 -(void)LongPress:(UILongPressGestureRecognizer *)longG
 {
+    //屏蔽长按手势,解决在ModifyImageView下长按按钮导致崩溃问题
+    for(UIView *subview in self.subviews)
+    {
+        if([subview isKindOfClass:[ModifyImageView class]])
+            return;
+    }
+    
     CGPoint point = [longG locationInView:self];
     float _x = history.x;
     float _y = history.y;

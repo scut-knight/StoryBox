@@ -10,7 +10,7 @@
 #import <MapKit/MKMapView.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface WeatherLabel : UIView
+@interface WeatherLabel : UIView<UIAlertViewDelegate>
 {
 //    CLLocationManager *_currentLoaction;
 //    NSString * _country;
@@ -26,6 +26,8 @@
 
 
     UIButton * deleteBTn;
+    
+    int iconType;
 
 
     
@@ -39,7 +41,7 @@
 
 //- (void)getWeather;
 
-- (id)initWithFrame:(CGRect)frame withView:(UIScrollView *)sc withTextVArr:textVA;
-- (id)initPreview:(CGRect)frame;
+- (id)initWithFrame:(CGRect)frame withView:(UIScrollView *)sc withTextVArr:textVA iconType:(int)type;
+- (id)initPreview:(CGRect)frame iconType:(int)type;
 - (void)initWeather:(NSString *)city withWeather:(NSString *)weather withTemp:(NSString *)temp;
 @end
