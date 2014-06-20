@@ -253,10 +253,19 @@
 		34B2781A1949711800E8700B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B278191949711800E8700B /* QuartzCore.framework */; };
 		34B2781C194971B500E8700B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781B194971B500E8700B /* SystemConfiguration.framework */; };
 		34B2781E1949720200E8700B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B2781D1949720200E8700B /* CoreTelephony.framework */; };
+		34E62D2B1953E59400764E0C /* weather-0-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D211953E59400764E0C /* weather-0-0.png */; };
+		34E62D2C1953E59400764E0C /* weather-0-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D221953E59400764E0C /* weather-0-1.png */; };
+		34E62D2D1953E59400764E0C /* weather-0-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D231953E59400764E0C /* weather-0-2.png */; };
+		34E62D2E1953E59400764E0C /* weather-0-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D241953E59400764E0C /* weather-0-3.png */; };
+		34E62D2F1953E59400764E0C /* weather-0-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D251953E59400764E0C /* weather-0-4.png */; };
+		34E62D301953E59400764E0C /* weather-1-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D261953E59400764E0C /* weather-1-0.png */; };
+		34E62D311953E59400764E0C /* weather-1-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D271953E59400764E0C /* weather-1-1.png */; };
+		34E62D321953E59400764E0C /* weather-1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D281953E59400764E0C /* weather-1-2.png */; };
+		34E62D331953E59400764E0C /* weather-1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D291953E59400764E0C /* weather-1-3.png */; };
+		34E62D341953E59400764E0C /* weather-1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D2A1953E59400764E0C /* weather-1-4.png */; };
 		A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */; };
 		A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */; };
 		A31DB92D195296FD00860D19 /* cityCode.json in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92C195296FD00860D19 /* cityCode.json */; };
-		A31DB9301952977600860D19 /* weather-0.png in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92F1952977600860D19 /* weather-0.png */; };
 		A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A321A7BF194ACE89005218DB /* QBImagePicker.rtf */; };
 		A38BD12C194F05C9006045A1 /* 5color.png in Resources */ = {isa = PBXBuildFile; fileRef = A38BD12B194F05C9006045A1 /* 5color.png */; };
 		A38BD130194F0E7C006045A1 /* SBPen.m in Sources */ = {isa = PBXBuildFile; fileRef = A38BD12F194F0E7C006045A1 /* SBPen.m */; };
@@ -559,11 +568,20 @@
 		34B278191949711800E8700B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		34B2781B194971B500E8700B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		34B2781D1949720200E8700B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		34E62D211953E59400764E0C /* weather-0-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0-0.png"; sourceTree = "<group>"; };
+		34E62D221953E59400764E0C /* weather-0-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0-1.png"; sourceTree = "<group>"; };
+		34E62D231953E59400764E0C /* weather-0-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0-2.png"; sourceTree = "<group>"; };
+		34E62D241953E59400764E0C /* weather-0-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0-3.png"; sourceTree = "<group>"; };
+		34E62D251953E59400764E0C /* weather-0-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0-4.png"; sourceTree = "<group>"; };
+		34E62D261953E59400764E0C /* weather-1-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-0.png"; sourceTree = "<group>"; };
+		34E62D271953E59400764E0C /* weather-1-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-1.png"; sourceTree = "<group>"; };
+		34E62D281953E59400764E0C /* weather-1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-2.png"; sourceTree = "<group>"; };
+		34E62D291953E59400764E0C /* weather-1-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-3.png"; sourceTree = "<group>"; };
+		34E62D2A1953E59400764E0C /* weather-1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-4.png"; sourceTree = "<group>"; };
 		A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWeatherSelectViewController.h; sourceTree = "<group>"; };
 		A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWeatherSelectViewController.m; sourceTree = "<group>"; };
 		A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBWeatherSelectViewController.xib; sourceTree = "<group>"; };
 		A31DB92C195296FD00860D19 /* cityCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cityCode.json; sourceTree = "<group>"; };
-		A31DB92F1952977600860D19 /* weather-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-0.png"; sourceTree = "<group>"; };
 		A321A7BF194ACE89005218DB /* QBImagePicker.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = QBImagePicker.rtf; sourceTree = "<group>"; };
 		A38BD12B194F05C9006045A1 /* 5color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5color.png; sourceTree = "<group>"; };
 		A38BD12E194F0E7C006045A1 /* SBPen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBPen.h; path = Models/SBPen.h; sourceTree = "<group>"; };
@@ -1234,7 +1252,16 @@
 		A31DB92E1952977600860D19 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				A31DB92F1952977600860D19 /* weather-0.png */,
+				34E62D211953E59400764E0C /* weather-0-0.png */,
+				34E62D221953E59400764E0C /* weather-0-1.png */,
+				34E62D231953E59400764E0C /* weather-0-2.png */,
+				34E62D241953E59400764E0C /* weather-0-3.png */,
+				34E62D251953E59400764E0C /* weather-0-4.png */,
+				34E62D261953E59400764E0C /* weather-1-0.png */,
+				34E62D271953E59400764E0C /* weather-1-1.png */,
+				34E62D281953E59400764E0C /* weather-1-2.png */,
+				34E62D291953E59400764E0C /* weather-1-3.png */,
+				34E62D2A1953E59400764E0C /* weather-1-4.png */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -1338,6 +1365,7 @@
 				34B277F419496FDE00E8700B /* shareIcon0.png in Resources */,
 				34B2776719496FDE00E8700B /* Icon-Small-50@2x.png in Resources */,
 				34B2779719496FDE00E8700B /* 2.png in Resources */,
+				34E62D2C1953E59400764E0C /* weather-0-1.png in Resources */,
 				34B277E319496FDE00E8700B /* button17.png in Resources */,
 				34B2778819496FDE00E8700B /* rightRotaeBtn.png in Resources */,
 				34B2777A19496FDE00E8700B /* deleteBtn.png in Resources */,
@@ -1352,6 +1380,7 @@
 				34B277D519496FDE00E8700B /* 35.png in Resources */,
 				34B277E219496FDE00E8700B /* button16.png in Resources */,
 				34B277C519496FDE00E8700B /* 311.png in Resources */,
+				34E62D311953E59400764E0C /* weather-1-1.png in Resources */,
 				34B277A319496FDE00E8700B /* 223.png in Resources */,
 				34B277E119496FDE00E8700B /* button15.png in Resources */,
 				34B2775819496FDE00E8700B /* build-after.png in Resources */,
@@ -1364,6 +1393,7 @@
 				34B2777019496FDE00E8700B /* deleteTitle.png in Resources */,
 				34B277D719496FDE00E8700B /* 37.png in Resources */,
 				34B2779419496FDE00E8700B /* 14.png in Resources */,
+				34E62D321953E59400764E0C /* weather-1-2.png in Resources */,
 				34B277BC19496FDE00E8700B /* Mergesave.png in Resources */,
 				34B277A219496FDE00E8700B /* 222.png in Resources */,
 				34B2776119496FDE00E8700B /* icon-110.png in Resources */,
@@ -1377,12 +1407,14 @@
 				34B2775B19496FDE00E8700B /* selectImageBg.png in Resources */,
 				34B277A819496FDE00E8700B /* 240.png in Resources */,
 				34B2778919496FDE00E8700B /* rotateBtn.png in Resources */,
+				34E62D2D1953E59400764E0C /* weather-0-2.png in Resources */,
 				34B2768419496E5500E8700B /* GooglePlus.bundle in Resources */,
 				34B275E919496BD100E8700B /* Images.xcassets in Resources */,
 				34B2780E1949705700E8700B /* QBImagePickerController.bundle in Resources */,
 				34B277F219496FDE00E8700B /* titleBackBtn.png in Resources */,
 				34B2776319496FDE00E8700B /* Icon-72.png in Resources */,
 				34B277C219496FDE00E8700B /* 30.png in Resources */,
+				34E62D331953E59400764E0C /* weather-1-3.png in Resources */,
 				34B2778519496FDE00E8700B /* levelMirror.png in Resources */,
 				34B2775F19496FDE00E8700B /* homeBg3.jpg in Resources */,
 				34B2776B19496FDE00E8700B /* Icon@2x.png in Resources */,
@@ -1404,6 +1436,7 @@
 				34B277D019496FDE00E8700B /* 321.png in Resources */,
 				34B2777C19496FDE00E8700B /* editFinishBtn.png in Resources */,
 				34B277B719496FDE00E8700B /* Default~iphone.png in Resources */,
+				34E62D2E1953E59400764E0C /* weather-0-3.png in Resources */,
 				34B2777419496FDE00E8700B /* topBg_ImagePick.png in Resources */,
 				34B2769219496E5600E8700B /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				34B277D119496FDE00E8700B /* 322.png in Resources */,
@@ -1452,6 +1485,7 @@
 				34B277B419496FDE00E8700B /* Default-568h@2x.png in Resources */,
 				34B277AE19496FDE00E8700B /* 3.png in Resources */,
 				34B277F619496FDE00E8700B /* shareIcon2.png in Resources */,
+				34E62D341953E59400764E0C /* weather-1-4.png in Resources */,
 				34B277C819496FDE00E8700B /* 314.png in Resources */,
 				34B277DD19496FDE00E8700B /* button11.png in Resources */,
 				34B277DF19496FDE00E8700B /* button13.png in Resources */,
@@ -1488,14 +1522,15 @@
 				34B277E019496FDE00E8700B /* button14.png in Resources */,
 				34B277B219496FDE00E8700B /* titleBackBtn.png in Resources */,
 				34B2776E19496FDE00E8700B /* colorbg.png in Resources */,
+				34E62D2F1953E59400764E0C /* weather-0-4.png in Resources */,
 				34B277A119496FDE00E8700B /* 221.png in Resources */,
 				34B277AC19496FDE00E8700B /* 2color.png in Resources */,
 				34B2776519496FDE00E8700B /* icon-80.png in Resources */,
 				34B277A719496FDE00E8700B /* 233.png in Resources */,
 				34B277CA19496FDE00E8700B /* 316.png in Resources */,
 				34B277D219496FDE00E8700B /* 323.png in Resources */,
+				34E62D301953E59400764E0C /* weather-1-0.png in Resources */,
 				34B277D919496FDE00E8700B /* 39.png in Resources */,
-				A31DB9301952977600860D19 /* weather-0.png in Resources */,
 				34B2776419496FDE00E8700B /* Icon-72@2x.png in Resources */,
 				34B2768719496E5500E8700B /* PinterestSDKResources.bundle in Resources */,
 				34B277BD19496FDE00E8700B /* Navigation.png in Resources */,
@@ -1504,6 +1539,7 @@
 				34B277C719496FDE00E8700B /* 313.png in Resources */,
 				34B277C419496FDE00E8700B /* 310.png in Resources */,
 				34B2777E19496FDE00E8700B /* filterBtn-back.png in Resources */,
+				34E62D2B1953E59400764E0C /* weather-0-0.png in Resources */,
 				34B277DB19496FDE00E8700B /* button1.png in Resources */,
 				34B2779619496FDE00E8700B /* 1Downed.png in Resources */,
 				34B2768D19496E5600E8700B /* WeiboSDK.bundle in Resources */,
