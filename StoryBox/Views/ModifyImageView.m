@@ -78,6 +78,8 @@ int Start_y_ColorPanel;//410功能容器
         [self bringSubviewToFront:NavigationView];
         [self bringSubviewToFront:imageBarView];
         [self bringSubviewToFront:subFunctionView];
+        
+        
     }
     return self;
 }
@@ -149,7 +151,8 @@ int Start_y_ColorPanel;//410功能容器
 -(void)reSetImgView
 {
     UIView * temp_textView=[textViewArr objectAtIndex:imageIndex];
-    for (int i=0; i<temp_textView.subviews.count; ++i) {
+    for (int i=0; i<temp_textView.subviews.count; ++i)
+    {
         UIView * temp=[temp_textView.subviews objectAtIndex:i];
         [temp removeFromSuperview];
     }
@@ -199,7 +202,8 @@ int Start_y_ColorPanel;//410功能容器
             imgv=currentImageView;
             textv=_textV;
         }
-        else{
+        else
+        {
             imgv=[imageViewArr objectAtIndex:i];
             textv=[textViewArr objectAtIndex:i];
             
@@ -219,7 +223,8 @@ int Start_y_ColorPanel;//410功能容器
 //重新设置titleView的层次级别
 -(void)reLoadTitleView
 {
-    for (int i=0; i<_sc.subviews.count; ++i) {
+    for (int i=0; i<_sc.subviews.count; ++i)
+    {
         UITitleLabel * titleLabelTemp=[_sc.subviews objectAtIndex:i];
         if ([titleLabelTemp isKindOfClass:[UITitleLabel class]])
         {
@@ -378,7 +383,7 @@ int Start_y_ColorPanel;//410功能容器
 {
     printf("滤镜");
     
-}
+}   
 
 /**
  *  左旋按钮触发，向左选择90度
