@@ -44,6 +44,8 @@
     _sc = scrollView;
     textEditViewArray = arr;
     [selectView setBackgroundColor:[UIColor colorWithRed:(38.0/255) green:(43.0/255) blue:49.0/255 alpha:0.9]];;
+//    [selectView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.9]];;
+
     [self addSubview:selectView];
     
     [self  setBackgroundColor:[UIColor blackColor]];

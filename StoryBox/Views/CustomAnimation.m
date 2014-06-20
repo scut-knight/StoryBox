@@ -383,6 +383,12 @@
         {
             [scrollView bringSubviewToFront:titleV];
         }
+        if ([titleV isKindOfClass:[WeatherLabel class]])
+        {
+            [scrollView bringSubviewToFront:titleV];
+        }
+
+        
     }
 }
 
