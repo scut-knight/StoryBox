@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1570160E195541F200F050B9 /* Filterofdanya.png in Resources */ = {isa = PBXBuildFile; fileRef = 15701607195541F200F050B9 /* Filterofdanya.png */; };
+		1570160F195541F200F050B9 /* Filterofgete.png in Resources */ = {isa = PBXBuildFile; fileRef = 15701608195541F200F050B9 /* Filterofgete.png */; };
+		15701610195541F200F050B9 /* Filterofheibai.png in Resources */ = {isa = PBXBuildFile; fileRef = 15701609195541F200F050B9 /* Filterofheibai.png */; };
+		15701611195541F200F050B9 /* Filterofhuaijiu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570160A195541F200F050B9 /* Filterofhuaijiu.png */; };
+		15701612195541F200F050B9 /* FilterofLOMO2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570160B195541F200F050B9 /* FilterofLOMO2.png */; };
+		15701613195541F200F050B9 /* Filterofruise.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570160C195541F200F050B9 /* Filterofruise.png */; };
+		15701614195541F200F050B9 /* Filterofyese.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570160D195541F200F050B9 /* Filterofyese.png */; };
+		157016171955443C00F050B9 /* MONActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 157016161955443C00F050B9 /* MONActivityIndicatorView.m */; };
+		15701619195545FB00F050B9 /* 滤镜.png in Resources */ = {isa = PBXBuildFile; fileRef = 15701618195545FB00F050B9 /* 滤镜.png */; };
+		1570161B1955460B00F050B9 /* subFunctionBg1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570161A1955460B00F050B9 /* subFunctionBg1.png */; };
+		1570161D1955469100F050B9 /* 滤镜副本.png in Resources */ = {isa = PBXBuildFile; fileRef = 1570161C1955469100F050B9 /* 滤镜副本.png */; };
+		157016211955499A00F050B9 /* Filter_fuben1.png in Resources */ = {isa = PBXBuildFile; fileRef = 157016201955499A00F050B9 /* Filter_fuben1.png */; };
 		34B275D719496BD100E8700B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D619496BD100E8700B /* Foundation.framework */; };
 		34B275D919496BD100E8700B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D819496BD100E8700B /* CoreGraphics.framework */; };
 		34B275DB19496BD100E8700B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275DA19496BD100E8700B /* UIKit.framework */; };
@@ -284,6 +296,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15701607195541F200F050B9 /* Filterofdanya.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofdanya.png; sourceTree = "<group>"; };
+		15701608195541F200F050B9 /* Filterofgete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofgete.png; sourceTree = "<group>"; };
+		15701609195541F200F050B9 /* Filterofheibai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofheibai.png; sourceTree = "<group>"; };
+		1570160A195541F200F050B9 /* Filterofhuaijiu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofhuaijiu.png; sourceTree = "<group>"; };
+		1570160B195541F200F050B9 /* FilterofLOMO2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilterofLOMO2.png; sourceTree = "<group>"; };
+		1570160C195541F200F050B9 /* Filterofruise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofruise.png; sourceTree = "<group>"; };
+		1570160D195541F200F050B9 /* Filterofyese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filterofyese.png; sourceTree = "<group>"; };
+		157016151955443C00F050B9 /* MONActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MONActivityIndicatorView.h; sourceTree = "<group>"; };
+		157016161955443C00F050B9 /* MONActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MONActivityIndicatorView.m; sourceTree = "<group>"; };
+		15701618195545FB00F050B9 /* 滤镜.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "滤镜.png"; sourceTree = "<group>"; };
+		1570161A1955460B00F050B9 /* subFunctionBg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = subFunctionBg1.png; sourceTree = "<group>"; };
+		1570161C1955469100F050B9 /* 滤镜副本.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "滤镜副本.png"; sourceTree = "<group>"; };
+		157016201955499A00F050B9 /* Filter_fuben1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filter_fuben1.png; sourceTree = "<group>"; };
 		34B275D319496BD100E8700B /* StoryBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B275D619496BD100E8700B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34B275D819496BD100E8700B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -646,6 +671,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15701606195541F200F050B9 /* filters */ = {
+			isa = PBXGroup;
+			children = (
+				157016201955499A00F050B9 /* Filter_fuben1.png */,
+				1570161C1955469100F050B9 /* 滤镜副本.png */,
+				1570161A1955460B00F050B9 /* subFunctionBg1.png */,
+				15701618195545FB00F050B9 /* 滤镜.png */,
+				15701607195541F200F050B9 /* Filterofdanya.png */,
+				15701608195541F200F050B9 /* Filterofgete.png */,
+				15701609195541F200F050B9 /* Filterofheibai.png */,
+				1570160A195541F200F050B9 /* Filterofhuaijiu.png */,
+				1570160B195541F200F050B9 /* FilterofLOMO2.png */,
+				1570160C195541F200F050B9 /* Filterofruise.png */,
+				1570160D195541F200F050B9 /* Filterofyese.png */,
+			);
+			path = filters;
+			sourceTree = "<group>";
+		};
 		34B275CA19496BD100E8700B = {
 			isa = PBXGroup;
 			children = (
@@ -965,6 +1008,7 @@
 		34B276A519496FDE00E8700B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				15701606195541F200F050B9 /* filters */,
 				A31DB92E1952977600860D19 /* Weather */,
 				34B276A619496FDE00E8700B /* AlbumGroup */,
 				34B276AD19496FDE00E8700B /* homePage */,
@@ -1234,6 +1278,8 @@
 		34B277FC1949705700E8700B /* photoClasses */ = {
 			isa = PBXGroup;
 			children = (
+				157016151955443C00F050B9 /* MONActivityIndicatorView.h */,
+				157016161955443C00F050B9 /* MONActivityIndicatorView.m */,
 				34B277FD1949705700E8700B /* QBAssetCollectionViewController.h */,
 				34B277FE1949705700E8700B /* QBAssetCollectionViewController.m */,
 				34B277FF1949705700E8700B /* QBAssetCollectionViewControllerDelegate.h */,
@@ -1357,6 +1403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15701619195545FB00F050B9 /* 滤镜.png in Resources */,
 				34B277D619496FDE00E8700B /* 36.png in Resources */,
 				34B277D419496FDE00E8700B /* 34.png in Resources */,
 				34B277F019496FDE00E8700B /* button8.png in Resources */,
@@ -1408,6 +1455,7 @@
 				34B2777219496FDE00E8700B /* scaled.png in Resources */,
 				34B277EC19496FDE00E8700B /* button4.png in Resources */,
 				34B277E419496FDE00E8700B /* button18.png in Resources */,
+				1570160E195541F200F050B9 /* Filterofdanya.png in Resources */,
 				34B277E619496FDE00E8700B /* button2.png in Resources */,
 				34B2775B19496FDE00E8700B /* selectImageBg.png in Resources */,
 				34B277A819496FDE00E8700B /* 240.png in Resources */,
@@ -1430,9 +1478,11 @@
 				34B277F119496FDE00E8700B /* button9.png in Resources */,
 				34B277B619496FDE00E8700B /* Default@2x.png in Resources */,
 				34B2779519496FDE00E8700B /* 1color.png in Resources */,
+				1570161D1955469100F050B9 /* 滤镜副本.png in Resources */,
 				34B2777D19496FDE00E8700B /* editTopView.png in Resources */,
 				34B277AB19496FDE00E8700B /* 243.png in Resources */,
 				A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */,
+				15701613195541F200F050B9 /* Filterofruise.png in Resources */,
 				34B2761819496E4C00E8700B /* ClipViewController_iPhone.xib in Resources */,
 				34B277F319496FDE00E8700B /* titleNavigation.png in Resources */,
 				34B2779219496FDE00E8700B /* 12.png in Resources */,
@@ -1440,6 +1490,7 @@
 				34B2779D19496FDE00E8700B /* 211.png in Resources */,
 				34B277D019496FDE00E8700B /* 321.png in Resources */,
 				34B2777C19496FDE00E8700B /* editFinishBtn.png in Resources */,
+				15701611195541F200F050B9 /* Filterofhuaijiu.png in Resources */,
 				34B277B719496FDE00E8700B /* Default~iphone.png in Resources */,
 				34E62D2E1953E59400764E0C /* weather-0-3.png in Resources */,
 				34B2777419496FDE00E8700B /* topBg_ImagePick.png in Resources */,
@@ -1462,12 +1513,14 @@
 				34B2778A19496FDE00E8700B /* subFunctionBg.png in Resources */,
 				34B277CF19496FDE00E8700B /* 320.png in Resources */,
 				34B277B819496FDE00E8700B /* backBtn.png in Resources */,
+				15701614195541F200F050B9 /* Filterofyese.png in Resources */,
 				34B2776919496FDE00E8700B /* Icon-Small@2x.png in Resources */,
 				34B2776A19496FDE00E8700B /* Icon.png in Resources */,
 				34B277D819496FDE00E8700B /* 38.png in Resources */,
 				34B2778019496FDE00E8700B /* frontMoveBg.png in Resources */,
 				34B2768A19496E5500E8700B /* RennSDK.bundle in Resources */,
 				34B277FB19496FDE00E8700B /* shareIcon7.png in Resources */,
+				1570160F195541F200F050B9 /* Filterofgete.png in Resources */,
 				34B2761A19496E4C00E8700B /* ImagePickupView.xib in Resources */,
 				34B2768919496E5500E8700B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				34B277EB19496FDE00E8700B /* button3.png in Resources */,
@@ -1481,6 +1534,7 @@
 				34B2779019496FDE00E8700B /* 10.png in Resources */,
 				34B2777619496FDE00E8700B /* addImageBtn.png in Resources */,
 				34B277AF19496FDE00E8700B /* 3color.png in Resources */,
+				15701610195541F200F050B9 /* Filterofheibai.png in Resources */,
 				34B2775D19496FDE00E8700B /* homeBg1.png in Resources */,
 				34B2776619496FDE00E8700B /* Icon-Small-50.png in Resources */,
 				34B277EA19496FDE00E8700B /* button23.png in Resources */,
@@ -1506,6 +1560,7 @@
 				34B277AA19496FDE00E8700B /* 242.png in Resources */,
 				34B277F919496FDE00E8700B /* shareIcon5.png in Resources */,
 				34B2779F19496FDE00E8700B /* 213.png in Resources */,
+				157016211955499A00F050B9 /* Filter_fuben1.png in Resources */,
 				34B277BB19496FDE00E8700B /* Mergefinish.png in Resources */,
 				34B2777519496FDE00E8700B /* addImageBg.png in Resources */,
 				34B277A419496FDE00E8700B /* 230.png in Resources */,
@@ -1524,11 +1579,13 @@
 				34B2779819496FDE00E8700B /* 200.png in Resources */,
 				34B2778719496FDE00E8700B /* moreFunctionBtn.png in Resources */,
 				34B2769B19496E5600E8700B /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
+				1570161B1955460B00F050B9 /* subFunctionBg1.png in Resources */,
 				34B277E019496FDE00E8700B /* button14.png in Resources */,
 				34B277B219496FDE00E8700B /* titleBackBtn.png in Resources */,
 				34B2776E19496FDE00E8700B /* colorbg.png in Resources */,
 				34E62D2F1953E59400764E0C /* weather-0-4.png in Resources */,
 				34B277A119496FDE00E8700B /* 221.png in Resources */,
+				15701612195541F200F050B9 /* FilterofLOMO2.png in Resources */,
 				34B277AC19496FDE00E8700B /* 2color.png in Resources */,
 				34B2776519496FDE00E8700B /* icon-80.png in Resources */,
 				34B277A719496FDE00E8700B /* 233.png in Resources */,
@@ -1575,6 +1632,7 @@
 				34B2769F19496E5600E8700B /* TypeDevice.m in Sources */,
 				34B2767519496E5500E8700B /* CustomAnimation.m in Sources */,
 				34B2761119496E3F00E8700B /* ClipViewController.m in Sources */,
+				157016171955443C00F050B9 /* MONActivityIndicatorView.m in Sources */,
 				34B2761419496E3F00E8700B /* MHImagePickerMutilSelector.m in Sources */,
 				34B2780B1949705700E8700B /* QBAssetCollectionViewController.m in Sources */,
 				34B2780F1949705700E8700B /* QBImagePickerController.m in Sources */,
@@ -1742,6 +1800,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StoryBox/StoryBox-Prefix.pch";
 				INFOPLIST_FILE = "StoryBox/StoryBox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StoryBox/Views/ShareSDK/Extend/SinaWeiboSDK",
@@ -1774,6 +1833,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StoryBox/StoryBox-Prefix.pch";
 				INFOPLIST_FILE = "StoryBox/StoryBox-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/StoryBox/Views/ShareSDK/Extend/SinaWeiboSDK",

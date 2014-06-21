@@ -10,6 +10,7 @@
 #import "PositionSwitch.h"
 #import "UITextLable.h"
 #import "ImagePickupViewController.h"
+#import "MONActivityIndicatorView.h"
 
 @class ExtraLayerView;
 //@protocol ParentExtralayer <NSObject>
@@ -37,6 +38,7 @@
     UIView * moreFunction;
     UIView * NavigationView;
     UIView * subFunctionView;
+    UIView * subFunctionViewofFilter;   //加入滤镜的选择子功能视图
     UITextLable * textEditView;
     BOOL state_V;           /// 记录镜像垂直状态
     BOOL state_H;           /// 记录镜像水平状态
