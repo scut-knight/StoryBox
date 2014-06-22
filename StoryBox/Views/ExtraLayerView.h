@@ -13,7 +13,7 @@
 #import "PositionSwitch.h"
 #import "UITitleLabel.h"
 #import "WeatherLabel.h"
-
+#import "SBScrollView.h"
 
 /**
  *  标签类型
@@ -46,7 +46,6 @@ typedef enum : NSUInteger {
     UITitleLabel * actionTitleView;
 
     
-    UIScrollView * scrollView;/// 显示currentImageView
     UIScrollView * scviewButton;/// 显示currentImageView
     
     LAYER_MODE flag_model;/// 默认0模型
@@ -74,7 +73,8 @@ typedef enum : NSUInteger {
 @property(retain,nonatomic) UIView * textEditView;
 @property(retain,nonatomic) NSMutableArray *textEditViewArray;;
 @property(retain,nonatomic) NSMutableArray * imageViewArray;
-@property(retain,nonatomic) UIScrollView * scrollView;      /// 放置相片的view
+@property(retain, nonatomic) SBScrollView * scrollView;/// 显示currentImageView
+//@property(retain,nonatomic) UIScrollView * scrollView;      /// 放置相片的view
 @property(retain,nonatomic) id<HiddenTopViewDelegate>delegate;
 @property(retain,nonatomic) PositionSwitch *positionSwich;
 

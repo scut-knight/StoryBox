@@ -7,7 +7,7 @@
 //
 
 #import "SBPen.h"
-#import "SBDoodleView.h"
+#import "SBScrollView.h"
 
 @implementation SBPen
 
@@ -51,6 +51,17 @@
     }
     
     return [NSString stringWithFormat:@"%@       半径:%u", colorDescription, self.radius];
+}
+
+/**
+ *  根据滑动条的值更新画笔或橡皮的半径
+ *
+ *  @param value 滑动条的当前值
+ */
+- (void) updateRadiusWithSliderValue:(unsigned int)value
+{
+    self.radius = value;
+    [self.board updatePenWeight:self.radius];
 }
 
 /**

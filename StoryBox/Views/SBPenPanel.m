@@ -204,9 +204,14 @@
         return;
     }
     // 根据图片的颜色来设置说明文字的颜色
-    self.statusLabel.textColor = [UIColor colorWithPatternImage:
+    if (self.delegate.color == 4) {
+        self.statusLabel.textColor = [UIColor grayColor]; // 黑色会看不见，所以选择灰色
+    }
+    else {
+        self.statusLabel.textColor = [UIColor colorWithPatternImage:
                                     [UIImage imageNamed:
                                      [NSString stringWithFormat:@"%dcolor.png", self.delegate.color]]];
+    }
 }
 
 /**
@@ -265,7 +270,7 @@
     UISlider * control = (UISlider *)sender;
     unsigned int before = self.delegate.radius;
     if(control == self.radiusSlider) {
-        self.delegate.radius = (unsigned int)(control.value);
+        [self.delegate updateRadiusWithSliderValue:(unsigned int)(control.value)];
     }
     if (abs(before - self.delegate.radius) >= 1) {
         [self updateStatus:[self.delegate description]];

@@ -16,7 +16,6 @@
 
 #import "SBPen.h"
 #import "SBPenPanel.h"
-#import "SBDoodleView.h"
 
 #import "WeatherLabel.h"
 #import "SBWeatherSelectViewController.h"
@@ -33,7 +32,6 @@
 -(void)reLoadTitleView;
 -(void)LongPress:(UILongPressGestureRecognizer *)longG;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
--(void)clipDoodleBoard;
 
 -(void)clickWeatherButton:(id)sender;
 -(void)clickTitle:(id)sender;
@@ -42,13 +40,13 @@
 
 @property (nonatomic) SBPen * pen; /// 画笔
 @property (nonatomic) SBPenPanel * penPanel; /// 画笔修改面板
-@property (nonatomic) SBDoodleView * doodleBoard; /// 涂鸦的时候在这个面板上画画
 @property (nonatomic) SBWeatherSelectViewController *weatherSelect; /// 天气标签选择器
 @end
 
 @implementation ExtraLayerView
 
-@synthesize gemomtryView,textEditView, scrollView;
+@synthesize gemomtryView,textEditView;
+//@synthesize scrollView;
 @synthesize imageViewArray,textEditViewArray;
 @synthesize positionSwich;
 
@@ -97,14 +95,14 @@ int Start_y_gemotry;//标签容器
         [self setBackgroundColor:[UIColor blackColor]];
         
         
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 45, 320, Start_y_gemotry-45)];//568
+        self.scrollView = [[SBScrollView alloc] initWithFrame:CGRectMake(0, 45, 320, Start_y_gemotry-45)];//568
         
 //      scrollView=[[UIScrollView alloc] initWithFrame:[positionSwich switchBound:CGRectMake(0, 45, 320,480-45)]];//568
-        scrollView.userInteractionEnabled = YES;
-        [scrollView setContentSize:CGSizeMake(320, 960)];
-        scrollView.pagingEnabled = NO;
-        [scrollView setBackgroundColor:[UIColor blackColor]];
-        [self addSubview:scrollView];
+        self.scrollView.userInteractionEnabled = YES;
+        [self.scrollView setContentSize:CGSizeMake(320, 960)];
+        self.scrollView.pagingEnabled = NO;
+        [self.scrollView setBackgroundColor:[UIColor blackColor]];
+        [self addSubview:self.scrollView];
         
         //初始化图片view和标注编辑view数组
         imageViewArray = [[NSMutableArray alloc] init];
@@ -116,7 +114,7 @@ int Start_y_gemotry;//标签容器
       
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
         tapG.numberOfTapsRequired=1;
-        [scrollView addGestureRecognizer:tapG];
+        [self.scrollView addGestureRecognizer:tapG];
  
         UILongPressGestureRecognizer * tapG2=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
         tapG2.minimumPressDuration=0.7;
@@ -207,11 +205,11 @@ int Start_y_gemotry;//标签容器
         UIView * textv = [textEditViewArray objectAtIndex:i];
       
         height = height+imgv.frame.size.height;
-        [scrollView addSubview:imgv];
-        [scrollView addSubview:textv];
+        [self.scrollView addSubview:imgv];
+        [self.scrollView addSubview:textv];
     }
     
-    [scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
+    [self.scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     [self reLoadTitleView];
 }
 
@@ -220,16 +218,16 @@ int Start_y_gemotry;//标签容器
  */
 -(void)reLoadTitleView
 {
-    for (int i=0; i<scrollView.subviews.count; ++i)
+    for (int i=0; i<self.scrollView.subviews.count; ++i)
     {
-        UIView * titleV=[scrollView.subviews objectAtIndex:i];
+        UIView * titleV=[self.scrollView.subviews objectAtIndex:i];
         if ([titleV isKindOfClass:[UITitleLabel class]])
         {
-            [scrollView bringSubviewToFront:titleV];
+            [self.scrollView bringSubviewToFront:titleV];
         }
         if ([titleV isKindOfClass:[WeatherLabel class]])
         {
-            [scrollView bringSubviewToFront:titleV];
+            [self.scrollView bringSubviewToFront:titleV];
         }
     }
 }
@@ -241,7 +239,7 @@ int Start_y_gemotry;//标签容器
  */
 -(void)initGeometryModelBtn
 {
-    float _y = scrollView.frame.origin.y+scrollView.frame.size.height-49;
+    float _y = self.scrollView.frame.origin.y+self.scrollView.frame.size.height-49;
     
     gemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, 320, 49)];
     [self addSubview:gemomtryView];
@@ -285,7 +283,8 @@ int Start_y_gemotry;//标签容器
     
     [weatherBtn setTag:10];
     [weatherBtn setSelected:NO];
-    [weatherBtn addTarget:self action:@selector(clickWeatherButton:) forControlEvents:UIControlEventTouchUpInside];
+    [weatherBtn addTarget:self action:@selector(clickWeatherButton:)
+         forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:weatherBtn];
     
     
@@ -312,26 +311,13 @@ int Start_y_gemotry;//标签容器
     // 初始化画笔
     self.pen = [[SBPen alloc] init];
     
-    // 初始化涂鸦画板。
-    // 涂鸦画板的高度相当于屏幕顶部到在涂鸦模式下画笔面板的顶部。也即屏幕顶部到颜色面板的顶部再加上35px。
-    self.doodleBoard = [[SBDoodleView alloc] initWithFrame:CGRectMake(0, 0, width_gemotry, _y + 85)];
-    
-    // 剪裁涂鸦画板，使之不大于要处理的图像本身
-    [self clipDoodleBoard];
-    self.pen.board = self.doodleBoard;
-    self.doodleBoard.hidden = YES;
-    [self addSubview:self.doodleBoard];
+    self.pen.board = self.scrollView;
     
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
     self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
     [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
     [self addSubview:self.penPanel];
-}
-
--(void) clipDoodleBoard
-{
-    
 }
 
 #pragma mark - 手势与交互
@@ -365,7 +351,7 @@ int Start_y_gemotry;//标签容器
         //第二次检查
         if (!isExisted)
         {
-            CGPoint point = [tapD locationInView:scrollView];
+            CGPoint point = [tapD locationInView:self.scrollView];
             //记录触摸的图片序号
             int d_index=-1;
             for (int i=0; i<imageViewArray.count; ++i)
@@ -377,7 +363,7 @@ int Start_y_gemotry;//标签容器
                 {
                     //找到点击对应的视图序号
                     d_index = i;
-                    printf("edit:%d",d_index);
+                    printf("edit:%d\n",d_index);
                     break;
                 }
             }
@@ -436,8 +422,8 @@ int Start_y_gemotry;//标签容器
     {
         printf("beg");
         
-        dis_pan=scrollView.frame.size.height*(1 - _scale)/2;
-        CGPoint point_s=[longG locationInView:scrollView];
+        dis_pan=self.scrollView.frame.size.height*(1 - _scale)/2;
+        CGPoint point_s=[longG locationInView:self.scrollView];
         for (int i=0; i<imageViewArray.count; ++i)
         {
             UIImageView * img=[imageViewArray objectAtIndex: i];
@@ -491,7 +477,7 @@ int Start_y_gemotry;//标签容器
                                 [imageViewArray objectAtIndex:[alertView tag]]
                                     withTextView:[textEditViewArray objectAtIndex: [alertView tag]]
                                     withIndex:[alertView tag]
-                                   withScrollView:scrollView
+                                   withScrollView:self.scrollView
                                     withTextArray:imageViewArray
                                    withImageArray:textEditViewArray];
             [self addSubview:modifyV];
@@ -743,7 +729,7 @@ int Start_y_gemotry;//标签容器
     //清除空标签
     [self clearNullLable];
  
-    float offset = scrollView.contentOffset.y;
+    float offset = self.scrollView.contentOffset.y;
     
     NSLog(@"test==%d,",flag_model);
     if (flag_model == BUBBLE)
@@ -758,7 +744,7 @@ int Start_y_gemotry;//标签容器
      textLable.delegate=self;
     [textLable initWithLableArray:LableArray];
     [textLable._textView becomeFirstResponder];
-    [scrollView addSubview:textLable];
+    [self.scrollView addSubview:textLable];
     [LableArray addObject:textLable];//管理标签
     [textLable endPanHandle];
    
@@ -813,7 +799,7 @@ int Start_y_gemotry;//标签容器
  */
 -(float)getScrollviewOffset
 {
-    return scrollView.contentOffset.y;
+    return self.scrollView.contentOffset.y;
 
 }
 
@@ -838,9 +824,9 @@ int Start_y_gemotry;//标签容器
     //如果传入titleView为空，则从已有大标签中选取第一个
     if ((titleView == nil) || ((actionTitleView!=nil) && (![actionTitleView isEqual:titleView])))
     {
-        for (int i=0; i<scrollView.subviews.count; ++i)
+        for (int i=0; i<self.scrollView.subviews.count; ++i)
         {
-            UITitleLabel * _view = [scrollView.subviews objectAtIndex:i];
+            UITitleLabel * _view = [self.scrollView.subviews objectAtIndex:i];
             if ([_view isKindOfClass:[UITitleLabel class]])
             {
                 [_view hiddenBorder];
@@ -876,9 +862,9 @@ int Start_y_gemotry;//标签容器
  */
 -(BOOL)resetTitleviewState
 {
-    for (int i=0; i<scrollView.subviews.count; ++i)
+    for (int i=0; i<self.scrollView.subviews.count; ++i)
     {
-        UITitleLabel * view = [scrollView.subviews objectAtIndex:i];
+        UITitleLabel * view = [self.scrollView.subviews objectAtIndex:i];
         if ([view isKindOfClass:[UITitleLabel class]])
         {
             if (view.contorlBtn.hidden == NO)
@@ -898,10 +884,10 @@ int Start_y_gemotry;//标签容器
  */
 -(void)moveTitleViewToScrollView
 {
-    printf("拼接后移动=%d",scrollView.subviews.count);
-    for (int i=scrollView.subviews.count-1;i>=0; --i)
+    printf("拼接后移动=%d",self.scrollView.subviews.count);
+    for (int i=self.scrollView.subviews.count-1;i>=0; --i)
     {
-        UIView *textView=[scrollView.subviews objectAtIndex:i];
+        UIView *textView=[self.scrollView.subviews objectAtIndex:i];
         if ([textView isKindOfClass:[UIView class]])
         {
             for (int j=textView.subviews.count-1; j>=0; --j)
@@ -915,8 +901,8 @@ int Start_y_gemotry;//标签容器
                     float _y=titleView.superview.frame.origin.y+titleView.center.y;//计算坐标Y
                     [titleView setCenter:CGPointMake(titleView.center.x, _y)];
                     
-                    [scrollView  addSubview:titleView];
-                    [scrollView bringSubviewToFront:titleView];
+                    [self.scrollView  addSubview:titleView];
+                    [self.scrollView bringSubviewToFront:titleView];
                    
                 }
                 
@@ -979,7 +965,7 @@ int Start_y_gemotry;//标签容器
     [textEditViewArray removeAllObjects];
     [LableArray removeAllObjects ];
     
-    [scrollView removeFromSuperview];
+    [self.scrollView removeFromSuperview];
     
     for (int j=0; j<self.subviews.count;++j)
     {

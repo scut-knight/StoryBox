@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class SBPen;
+
 /**
  *  Doodle时在这个上面作画
  */
-@interface SBDoodleView : UIView
+@interface SBScrollView : UIScrollView
 
 - (void) startToDraw:(SBPen *)pen;
 - (void) startToErase:(SBPen *)pen;
 - (void) waitForNext;
+- (void) updatePenWeight:(unsigned int)weight;
 @end

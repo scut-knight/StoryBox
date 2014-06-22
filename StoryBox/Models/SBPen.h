@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SBDoodleView;
+@class SBScrollView;
 
 /**
  *  画笔面板的状态。1. 涂鸦中 2. 选择画笔 3. 选择橡皮擦
@@ -27,10 +27,11 @@ typedef enum : NSUInteger {
 - (void) transformToEraser;
 - (void) transformToPen;
 - (void) waitForNextState;
+- (void) updateRadiusWithSliderValue:(unsigned int)value;
 
 @property (nonatomic) int color;
 @property (nonatomic) unsigned int precolor;
 @property (nonatomic) unsigned int radius;
 @property (nonatomic) unsigned int preradius;
-@property (nonatomic) SBDoodleView * board;
+@property (nonatomic) SBScrollView * board;
 @end
