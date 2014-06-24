@@ -298,20 +298,19 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
     
 }
 
+
 /**
- *  实现UIImagePickerControllerDelegate委托，从相册中选取照片
+ *  重新实现UIImagePickerControllerDelegate委托，从相册中选取照片，之前版本在ios3.0后已停用
  *
  *  @param picker
- *  @param image
- *  @param editingInfo
+ *  @param info
  */
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    //[btn_addCover.imageView setImage:image forState:UIControlStateNormal];
+    NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+    NSLog(@"path:%@",imageURL);
     
-    //[picker dismissModalViewControllerAnimated:YES];
-    
-    //如果选中相片大于10张，返回，否则加入选中列表中
+    UIImage* image = [info objectForKey: @"UIImagePickerControllerOriginalImage"];
     if (pics.count>=10)
     {
         return;
@@ -320,6 +319,33 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
     [pics addObject:image];
     [self updateTableView];
 }
+
+
+/**
+ *  实现UIImagePickerControllerDelegate委托，从相册中选取照片
+ *
+ *  @param picker
+ *  @param image
+ *  @param editingInfo
+ */
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+//{
+//    
+//    //[btn_addCover.imageView setImage:image forState:UIControlStateNormal];
+//    
+//    //[picker dismissModalViewControllerAnimated:YES];
+//    NSLog(@"path:%@",editingInfo);
+//    
+//    //如果选中相片大于10张，返回，否则加入选中列表中
+//    NSLog(@"CALL");
+//    if (pics.count>=10)
+//    {
+//        return;
+//    }
+//    
+//    [pics addObject:image];
+//    [self updateTableView];
+//}
 
 /**
  *  制作按钮点击触发，触发协议里的imagePickerMutilSelectorDidGetImages函数

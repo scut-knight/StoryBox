@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		349124571957FF330044DAF9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349124561957FF330044DAF9 /* AVFoundation.framework */; };
+		3497A74619595CC600DEA8F1 /* SBAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3497A74519595CC600DEA8F1 /* SBAudioRecorder.m */; };
 		34B275D719496BD100E8700B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D619496BD100E8700B /* Foundation.framework */; };
 		34B275D919496BD100E8700B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275D819496BD100E8700B /* CoreGraphics.framework */; };
 		34B275DB19496BD100E8700B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B275DA19496BD100E8700B /* UIKit.framework */; };
@@ -283,6 +285,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		349124561957FF330044DAF9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3497A74419595CC600DEA8F1 /* SBAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioRecorder.h; sourceTree = "<group>"; };
+		3497A74519595CC600DEA8F1 /* SBAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioRecorder.m; sourceTree = "<group>"; };
 		34B275D319496BD100E8700B /* StoryBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B275D619496BD100E8700B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		34B275D819496BD100E8700B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -595,6 +600,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				349124571957FF330044DAF9 /* AVFoundation.framework in Frameworks */,
 				34B2781E1949720200E8700B /* CoreTelephony.framework in Frameworks */,
 				34B2781C194971B500E8700B /* SystemConfiguration.framework in Frameworks */,
 				34B2781A1949711800E8700B /* QuartzCore.framework in Frameworks */,
@@ -665,6 +671,7 @@
 		34B275D519496BD100E8700B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				349124561957FF330044DAF9 /* AVFoundation.framework */,
 				34B2781D1949720200E8700B /* CoreTelephony.framework */,
 				34B2781B194971B500E8700B /* SystemConfiguration.framework */,
 				34B278191949711800E8700B /* QuartzCore.framework */,
@@ -759,6 +766,8 @@
 				34B2762A19496E5500E8700B /* PositionSwitch.m */,
 				34B2762B19496E5500E8700B /* SelectTitleView.h */,
 				34B2762C19496E5500E8700B /* SelectTitleView.m */,
+				3497A74419595CC600DEA8F1 /* SBAudioRecorder.h */,
+				3497A74519595CC600DEA8F1 /* SBAudioRecorder.m */,
 				34B2762D19496E5500E8700B /* ShareSDK */,
 				34B2766519496E5500E8700B /* ShareView.h */,
 				34B2766619496E5500E8700B /* ShareView.m */,
@@ -1587,6 +1596,7 @@
 				34B276A319496E5600E8700B /* UITitleLabel.m in Sources */,
 				A38BD130194F0E7C006045A1 /* SBPen.m in Sources */,
 				34B2767919496E5500E8700B /* ModifyImageView.m in Sources */,
+				3497A74619595CC600DEA8F1 /* SBAudioRecorder.m in Sources */,
 				34B276A019496E5600E8700B /* UICliper.m in Sources */,
 				34B2767A19496E5500E8700B /* PositionSwitch.m in Sources */,
 				34B276A419496E5600E8700B /* WeatherLabel.m in Sources */,

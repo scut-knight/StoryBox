@@ -8,16 +8,31 @@
 
 
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import <objc/runtime.h>
+static NSString * path;
 
 @implementation ALAssetsLibrary(CustomPhotoAlbum)
 
--(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
+//@dynamic indieBandName;
+//
+//- (NSString *)indieBandName {
+//    return objc_getAssociatedObject(self, IndieBandNameKey);
+//}
+//
+//- (void)setIndieBandName:(NSString *)indieBandName
+//{
+//    objc_setAssociatedObject(self, IndieBandNameKey, indieBandName, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
+-(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
 {
+//    DDD = @"DDD";
     [self writeImageToSavedPhotosAlbum:image.CGImage orientation:(ALAssetOrientation)image.imageOrientation
      
-                       completionBlock:^(NSURL* assetURL, NSError* error) {
-                           if (error!=nil) {
+                       completionBlock:^(NSURL* assetURL, NSError* error)
+    {
+                           if (error!=nil)
+                           {
                                completionBlock(error);
                                return;
                                
@@ -25,8 +40,17 @@
                            [self addAssetURL: assetURL
                                      toAlbum:albumName
                          withCompletionBlock:completionBlock];
-                       }];
+        path = [assetURL absoluteString];
+//        NSLog(@"%@",assetURL);
+    }];
 }
+
+-(NSString *)getPath
+{
+    return path;
+}
+
+
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock{
     
     __block BOOL albumWasFound = NO;

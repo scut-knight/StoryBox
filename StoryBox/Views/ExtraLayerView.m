@@ -17,6 +17,7 @@
 #import "SBPenPanel.h"
 #import "WeatherLabel.h"
 #import "SBWeatherSelectViewController.h"
+#import "SBAudioRecorder.h"
 
 #import<CoreText/CoreText.h>
 
@@ -282,6 +283,16 @@ int Start_y_gemotry;//标签容器
     [weatherBtn setSelected:NO];
     [weatherBtn addTarget:self action:@selector(clickWeatherButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:weatherBtn];
+    
+    UIButton * SoundBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [SoundBtn setFrame:CGRectMake(100,300, 90, 35)];
+    
+    [SoundBtn setTitle:@"sound" forState:UIControlStateNormal];
+    
+    [SoundBtn setTag:0];
+    [SoundBtn setSelected:NO];
+    [SoundBtn addTarget:self action:@selector(clickSoundButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:SoundBtn];
     
     
     
@@ -695,17 +706,22 @@ int Start_y_gemotry;//标签容器
 }
 
 #pragma mark - 标签
-
+//bin test
 -(void)clickWeatherButton:(id)sender
 {
-    NSLog(@"bin call");
-
     self.weatherSelect = [[SBWeatherSelectViewController alloc] init];
     self.weatherSelect.delegate = self.delegate;
     [self.weatherSelect setParentView:self.scrollView withTextArr:self.textEditViewArray];
     [self.delegate hiddenTopView:YES];
     
     [self addSubview:self.weatherSelect.view];
+}
+
+-(void)clickSoundButton:(id)sender
+{
+    [[SBAudioRecorder sharedAudioRecord] startRecord];
+    
+    
 }
 
 /**

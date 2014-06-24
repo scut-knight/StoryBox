@@ -12,6 +12,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "WeatherLabel.h"
 #import "UITitleLabel.h"
+#import "SBAudioRecorder.h"
 
 @implementation CameraCustom
 
@@ -117,18 +118,40 @@
     
 //    UIImage *img=[UIImage imageWithCGImage:viewImage.CGImage scale:0.5 orientation:UIImageOrientationUp];
     return viewImage;
-
 }
-/* 保存合成后图片到本地LKTQ目录*/
+
+/**
+ *  保存合成后图片到本地LKTQ目录
+ *
+ *  @param img
+ */
+//bin test
 +(void)saveImage_merged:(UIImage *)img
 {
-    ALAssetsLibrary * library=[[ALAssetsLibrary alloc] init] ;
-    [library saveImage:img toAlbum:@"故事盒子" withCompletionBlock:^(NSError *error) {
-        if (error!=nil) {
-            NSLog(@"Big error: %@", [error description]);
-        }
-    }];
+    
+    SBAudioRecorder * record = [SBAudioRecorder sharedAudioRecord];
+//    [record connectToSoundDictionary];
+    
+
+    ALAssetsLibrary * library=[[ALAssetsLibrary alloc] init];
+
+    [library saveImage:img toAlbum:@"故事盒子" withCompletionBlock:^(NSError *error)
+     {
+         //将图片和声音的对应信息写入文件中
+         [record addRecord:[library getPath]];
+//         [[record soundDictionary] setObject:soundPath forKey:picPath];
+//         [record writeSoundDictionaryToFile];
+         
+         if (error!=nil)
+         {
+             NSLog(@"Big error: %@", [error description]);
+         }
+     }];
+    
+
 }
+
+
 
 /* 循环保存单独图片到本地LKTQ目录*/
 +(void)saveAllImageOneByOne:(NSMutableArray *)imageViewArr textViewArray:(NSMutableArray*)textViewArr
@@ -149,7 +172,7 @@
                 NSLog(@"Big error: %@", [error description]);
             }
         }];
-        
+
     }
 }
 
