@@ -17,22 +17,21 @@
     AVAudioRecorder *recorder;
     BOOL recording;
     int recordNumber;
+    AVAudioPlayer * audioPlayer;
+    NSURL *currentPictureRecordURL;
+    BOOL currentPicturehasRecord;
 }
 - (void)initAudioRecord;
 - (void)startRecord;
-- (void)saveToFile;
 
 - (void)connectToSoundDictionary;
 - (void)writeSoundDictionaryToFile;
 + (SBAudioRecorder *)sharedAudioRecord;
 - (void)addRecord:(NSString *)picPath;
+-(void)playRecord;
+- (BOOL)checkSoundAndSetup:(NSString *)picPath;
 
 @property (strong,nonatomic) NSMutableDictionary * soundDictionary;
 @property (strong,nonatomic) NSString *filePath;
-//luyin{
-//    AVAudioSession * audioSession = [AVAudioSession sharedInstance]; if (!recording) {
-//        recording = YES;
-//        [audioSession setCategory:AVAudioSessionCategoryRecord error:nil];
-//        [audioSession setActive:YES error:nil];
-//        [LuBut setTitle:@"停止" forState:UIControlStateNormal];
+
 @end

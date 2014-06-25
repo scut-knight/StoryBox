@@ -294,6 +294,16 @@ int Start_y_gemotry;//标签容器
     [SoundBtn addTarget:self action:@selector(clickSoundButton:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:SoundBtn];
     
+    UIButton * PlayBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [PlayBtn setFrame:CGRectMake(100,400, 90, 35)];
+    
+    [PlayBtn setTitle:@"play" forState:UIControlStateNormal];
+    
+    [PlayBtn setTag:0];
+    [PlayBtn setSelected:NO];
+    [PlayBtn addTarget:self action:@selector(PlayBtnButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:PlayBtn];
+    
     
     
     //子模板view颜色面板
@@ -722,6 +732,11 @@ int Start_y_gemotry;//标签容器
     [[SBAudioRecorder sharedAudioRecord] startRecord];
     
     
+}
+
+-(void)PlayBtnButton:(id)sender
+{
+    [[SBAudioRecorder sharedAudioRecord] playRecord];
 }
 
 /**

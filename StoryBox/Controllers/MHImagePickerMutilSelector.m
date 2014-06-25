@@ -299,16 +299,10 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
 }
 
 
-/**
- *  重新实现UIImagePickerControllerDelegate委托，从相册中选取照片，之前版本在ios3.0后已停用
- *
- *  @param picker
- *  @param info
- */
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
-    NSLog(@"path:%@",imageURL);
+    NSLog(@"%@",imageURL);
     
     UIImage* image = [info objectForKey: @"UIImagePickerControllerOriginalImage"];
     if (pics.count>=10)
