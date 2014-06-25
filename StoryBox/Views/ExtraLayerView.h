@@ -15,6 +15,8 @@
 #import "WeatherLabel.h"
 #import "SBScrollView.h"
 
+@class SBRecordingPanel;
+
 /**
  *  标签类型
  */
@@ -32,7 +34,8 @@ typedef enum : NSUInteger {
 -(void)clear;
 @end
 
-@interface ExtraLayerView : UIView<UpdateCurrentImageDelegate,UITextFieldDelegate ,GetParentChild,SetParentTitle>
+@interface ExtraLayerView : UIView<UpdateCurrentImageDelegate,UITextFieldDelegate ,
+                                GetParentChild,SetParentTitle,UIActionSheetDelegate>
 {
     //模板选择栏
     UIView * gemomtryView;
@@ -67,6 +70,8 @@ typedef enum : NSUInteger {
     NSMutableArray * imageArray;/// 图片数组
     
     BOOL stateEdit;/// 记录标签的编辑状态
+    
+    SBRecordingPanel * recordingPanel; /// 录音面板
     
 }
 @property(retain,nonatomic) UIView * gemomtryView;

@@ -20,11 +20,14 @@
 #import "WeatherLabel.h"
 #import "SBWeatherSelectViewController.h"
 
+#import "SBRecordingPanel.h"
+
 #import<CoreText/CoreText.h>
 
 @interface ExtraLayerView ()
 
 -(void)initImageViewFromArray:(NSMutableArray *)arr;//图片和文字
+-(void)initPendants;
 -(void)initSubGemomtryView;
 -(void)initGeometryModelBtn;
 
@@ -33,7 +36,8 @@
 -(void)LongPress:(UILongPressGestureRecognizer *)longG;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
--(void)clickWeatherButton:(id)sender;
+-(void)clickWeatherButton;
+-(void)clickRecordingButton;
 -(void)clickTitle:(id)sender;
 -(void)clickDoodleModel:(id)sender;
 -(void)clickColorInitGemo:(id)sender;
@@ -41,6 +45,9 @@
 @property (nonatomic) SBPen * pen; /// 画笔
 @property (nonatomic) SBPenPanel * penPanel; /// 画笔修改面板
 @property (nonatomic) SBWeatherSelectViewController *weatherSelect; /// 天气标签选择器
+
+@property (nonatomic) NSMutableArray * pendants; /// 不会被合成的小挂件，用作选择按钮
+
 @end
 
 @implementation ExtraLayerView
@@ -111,6 +118,7 @@ int Start_y_gemotry;//标签容器
         [self initImageArray:arr];
         [self initTextEditView];
         [self initGeometryModelBtn];
+        [self initPendants];
       
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
         tapG.numberOfTapsRequired=1;
@@ -277,16 +285,16 @@ int Start_y_gemotry;//标签容器
     }
     
     //bin test
-    UIButton * weatherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [weatherBtn setFrame:CGRectMake(20,300, 90, 35)];
-
-    [weatherBtn setTitle:@"weather" forState:UIControlStateNormal];
-    
-    [weatherBtn setTag:10];
-    [weatherBtn setSelected:NO];
-    [weatherBtn addTarget:self action:@selector(clickWeatherButton:)
-         forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:weatherBtn];
+//    UIButton * weatherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [weatherBtn setFrame:CGRectMake(20,300, 90, 35)];
+//
+//    [weatherBtn setTitle:@"weather" forState:UIControlStateNormal];
+//    
+//    [weatherBtn setTag:10];
+//    [weatherBtn setSelected:NO];
+//    [weatherBtn addTarget:self action:@selector(clickWeatherButton)
+//         forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:weatherBtn];
     
     
     
@@ -529,20 +537,19 @@ int Start_y_gemotry;//标签容器
 }
 
 /**
- *  大标签按钮触发，切换到大标签选择界面
- *
- *  @param sender
+ *  点击标签按钮，弹出子选项
  */
 -(void)clickTitle:(id)sender
 {
-    SelectTitleView *selectTitle = [[SelectTitleView alloc] initWithScrollView:self.scrollView withTextArr:self.textEditViewArray];
-    selectTitle.delegate=self.delegate;
-    [self addSubview:selectTitle];
-    [self.delegate hiddenTopView:YES];
-    [self setCurrentTitleView:nil];
-   
-    [self  resetButtonImage:nil];
-    [self hideAllButtomPanel];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"标签类型"
+                                  delegate:self
+                                  cancelButtonTitle:@"取消"
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@"大标签",@"天气标签",@"语音标签",nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+    [actionSheet showInView:self];
 }
 
 -(void)initSubGemomtryView
@@ -598,6 +605,7 @@ int Start_y_gemotry;//标签容器
     subGemomtryView.hidden = NO;
     simlarGemomtryView.hidden=YES;
     [self.penPanel showPanel:NO];
+    [self showRecordingPendant:NO];
     [self refreshDoodleView];
     
     switch (flag_model) {
@@ -742,7 +750,7 @@ int Start_y_gemotry;//标签容器
 
 #pragma mark - 标签
 
--(void)clickWeatherButton:(id)sender
+-(void)clickWeatherButton
 {
     NSLog(@"bin call");
 
@@ -854,6 +862,23 @@ int Start_y_gemotry;//标签容器
 #pragma mark - 大标签
 
 /**
+ *  大标签按钮触发，切换到大标签选择界面
+ *
+ *  @param sender
+ */
+- (void)clickBigLabel
+{
+    SelectTitleView *selectTitle = [[SelectTitleView alloc] initWithScrollView:self.scrollView withTextArr:self.textEditViewArray];
+    selectTitle.delegate=self.delegate;
+    [self addSubview:selectTitle];
+    [self.delegate hiddenTopView:YES];
+    [self setCurrentTitleView:nil];
+    
+    [self  resetButtonImage:nil];
+    [self hideAllButtomPanel];
+}
+
+/**
  *  委托方法。设置大标签视图为当前激活状态，并显示操作栏
  *
  *  @param titleView 大标签
@@ -924,7 +949,7 @@ int Start_y_gemotry;//标签容器
  */
 -(void)moveTitleViewToScrollView
 {
-    printf("拼接后移动=%d",self.scrollView.subviews.count);
+    printf("拼接后移动=%d\n",self.scrollView.subviews.count);
     for (int i=self.scrollView.subviews.count-1;i>=0; --i)
     {
         UIView *textView=[self.scrollView.subviews objectAtIndex:i];
@@ -949,6 +974,74 @@ int Start_y_gemotry;//标签容器
             }
 
         }
+    }
+}
+
+#pragma mark - 挂件
+
+/**
+ *  初始化挂件列表
+ */
+- (void)initPendants
+{
+    self.pendants = [NSMutableArray array];
+    // 把录音面板放置在屏幕中间。
+    CGFloat height;
+    if (IS_IPHONE_5) {
+        height = 568;
+    } else {
+        height = 480;
+    }
+    recordingPanel = [[SBRecordingPanel alloc] initWithFrame:
+                      CGRectMake(110, height - 25, 100, 50) andWithImageURL:[[NSURL alloc] init]];
+    [self addSubview:recordingPanel];
+    [self showRecordingPendant:NO];
+    [self.pendants addObject:recordingPanel];
+}
+
+/**
+ *  是否显示录音/播放按钮
+ */
+- (void)showRecordingPendant:(BOOL)ok
+{
+    recordingPanel.hidden = !ok;
+}
+
+/**
+ *  开启录音/播放的选项
+ */
+- (void)clickRecordingButton
+{
+    [self showRecordingPendant:YES];
+}
+
+#pragma mark - actionsheet
+
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet
+{
+    self.scrollView.backgroundColor = [UIColor blackColor];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    self.scrollView.opaque = NO;
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0: // 大标签
+            [self clickBigLabel];
+            break;
+        case 1: // 天气标签
+            [self clickWeatherButton];
+            break;
+        case 2: // 语音标签
+            [self clickRecordingButton];
+            break;
+            
+        default:
+            break;
     }
 }
 
@@ -1024,4 +1117,5 @@ int Start_y_gemotry;//标签容器
 {
     [self clearView];
 }
+
 @end
