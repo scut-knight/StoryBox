@@ -263,7 +263,9 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
  */
 -(void)deletePicHandler:(UIButton*)btn
 {
-    [pics removeObjectAtIndex:btn.tag];
+    if ([pics count] != 0) {
+        [pics removeObjectAtIndex:btn.tag];
+    }
     [self updateTableView];
 }
 
@@ -401,6 +403,18 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
     {
         [pics addObject:[arr objectAtIndex:i]];
     }
+    [self updateTableView];
+}
+
+/**
+ *  清空无用的图片，方便等会的复制旧列表的图片到当前列表中
+ */
+-(void)removeImagesInArray
+{
+    [btn_done setEnabled:NO];
+    [btn_done setImage:[UIImage imageNamed:@"build-before.png"] forState:UIControlStateNormal];
+    [pics removeAllObjects];
+    [self updateTableView];
 }
 
 /**
@@ -421,11 +435,14 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
      */
     //设置代理
     [MHImagePickerMutilSelector sharedInstance].delegate = vc;
+
     //如果已选中图片列表不为空，则用该列表来初始化
     if (arry != nil)
     {
+        [[MHImagePickerMutilSelector  sharedInstance] removeImagesInArray];
         [[MHImagePickerMutilSelector sharedInstance] addImageToArray:arry];
     }
+
     UIImagePickerController * picker=[[UIImagePickerController alloc] init];
     //将UIImagePicker的代理指向到imagePickerMutilSelector
     picker.delegate = [MHImagePickerMutilSelector sharedInstance];

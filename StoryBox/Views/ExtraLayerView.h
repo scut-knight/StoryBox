@@ -86,6 +86,7 @@ typedef enum : NSUInteger {
 -(void)setCurrentTitleView:(UITitleLabel *)titleView;
 -(void)clearView;
 -(void)hideAllButtomPanel;
+-(void)refreshDoodleView;
 
 //拼图分享后返回把标题移动到scrollview层
 -(void)moveTitleViewToScrollView;

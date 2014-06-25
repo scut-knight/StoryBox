@@ -7,6 +7,7 @@
 //
 
 #import "CustomAnimation.h"
+#import "SBDoodleView.h"
 
 @implementation ExtraLayerView(CustomAnimation)
 
@@ -91,9 +92,9 @@
 /**
  *  边界检测
  *
- *  @param _view <#_view description#>
- *  @param _t    <#_t description#>
- *  @param _d_y  <#_d_y description#>
+ *  @param _view
+ *  @param _t
+ *  @param _d_y
  */
 -(void)detectBoundWithImagev:(UIImageView *) _view withTexv:(UIView*)_t withY:(float)_d_y
 {
@@ -399,11 +400,15 @@
 {
     int height=0;
     int  _y=0;//two图片Y坐标
+    int margin = 8;
     for (int i=0; i<imageViewArray.count; ++i)
     {
         UIImageView * imgv;
         UIView *textv;
         imgv=[imageViewArray objectAtIndex:i];
+        if ([imgv isKindOfClass:[SBDoodleView class]]) { // 跳过涂鸦视图，避免奇怪的偏移
+            continue;
+        }
         textv=[textEditViewArray objectAtIndex:i];
         [imgv setFrame:CGRectMake(0,_y,imgv.frame.size.width, imgv.frame.size.height)];
        
@@ -411,14 +416,15 @@
         
         [self.scrollView addSubview:imgv];
         [self.scrollView addSubview:textv];
-        height=height+imgv.frame.size.height+8;
+        height += imgv.frame.size.height + margin;
         
-        _y=_y+imgv.frame.size.height+8;
+        _y += imgv.frame.size.height + margin;
         
     }
     [self.scrollView setContentSize:CGSizeMake(320,height)];//更新滚动视图的内容大小
 
     [self reLoadTitleView];
+    [self.scrollView moveDoodleViewAbove];
 }
 
 @end

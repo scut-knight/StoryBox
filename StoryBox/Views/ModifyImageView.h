@@ -13,6 +13,7 @@
 #import "MONActivityIndicatorView.h"
 
 @class ExtraLayerView;
+@class SBScrollView;
 //@protocol ParentExtralayer <NSObject>
 //
 //-(void)enableGesture:(BOOL)b;
@@ -28,7 +29,7 @@
 {
     UIImageView * currentImageView;
     UIView * _textV;
-    UIScrollView * _sc;
+    SBScrollView * _sc;
     NSMutableArray * imageViewArr;
     NSMutableArray * textViewArr;
     UIView * imageBarView;
@@ -49,6 +50,6 @@
 
 @property(retain,nonatomic) id<HiddenTopViewDelegate>delegate;
 
--(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(UIScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray;
+-(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(SBScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray;
 
 @end

@@ -290,14 +290,14 @@
             [self setCenter:CGPointMake(_x, _y)];
             [_textV addSubview:self];
             [_textV bringSubviewToFront:self];
-            printf("退出");
+            printf("退出\n");
             return;
         }
         else
-            printf("无");
+            printf("无\n");
         
     }
-    printf("sum=%d,d=%d,",sum,d);
+    printf("sum=%d,d=%d \n",sum,d);
 }
 
 

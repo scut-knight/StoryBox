@@ -9,6 +9,7 @@
 #import "ModifyImageView.h"
 #import "ClipViewController.h"
 #import "CameraCustom.h"
+#import "SBDoodleView.h"
 
 //界面布局
 int Start_y_ColorPanel;//410功能容器
@@ -31,7 +32,9 @@ int Start_y_ColorPanel;//410功能容器
 
 @synthesize delegate;
 
--(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV withIndex:(int)index   withScrollView:(UIScrollView *)sc withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray
+-(id)initWithImageView:(UIImageView*)imgV withTextView:(UIView*)textV
+             withIndex:(int)index   withScrollView:(SBScrollView *)sc
+         withTextArray:(NSMutableArray*)textArray withImageArray:(NSMutableArray*)imageArray
 {
     self = [super init];
     if (self)
@@ -113,6 +116,7 @@ int Start_y_ColorPanel;//410功能容器
  */
 -(void)backEdit:(id)sender
 {
+    // 当前图片
     currentImageView.transform = imageTrangsform;
     [currentImageView setImage:[UIImage imageWithCGImage:imageCG]];
 
@@ -191,6 +195,7 @@ int Start_y_ColorPanel;//410功能容器
 {
     int height=0;
     int  _y=0;//two图片Y坐标
+    int margin = 8; // 图片间隔
     for (int i=0; i<imageViewArr.count; ++i)
     {
         UIImageView * imgv;
@@ -205,19 +210,29 @@ int Start_y_ColorPanel;//410功能容器
             textv=[textViewArr objectAtIndex:i];
             
         }
+        
+        if ([imgv isKindOfClass:[SBDoodleView class]]) { // 跳过涂鸦视图，避免奇怪的偏移
+            continue;
+        }
+        
         [imgv setFrame:CGRectMake(0,_y,imgv.frame.size.width, imgv.frame.size.height)];
         [textv setFrame:imgv.frame];
         height=height+imgv.frame.size.height;
-       
-        _y=_y+imgv.frame.size.height+8;
+        NSLog(@"%d", height); // sptest
+        _y += imgv.frame.size.height + margin;
         
     }
+    
+    [_sc moveDoodleViewAbove];
     [_sc setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     //重新设置坐标
     
     [self reLoadTitleView];
 }
-//重新设置titleView的层次级别
+
+/**
+ *  重新设置titleView的层次级别
+ */
 -(void)reLoadTitleView
 {
     for (int i=0; i<_sc.subviews.count; ++i) {
@@ -450,7 +465,7 @@ int Start_y_ColorPanel;//410功能容器
     
 }
 
-
+#pragma mark - 滤镜
 //----------------------------------滤镜添加----------------------------------------
 /**
  *  滤镜按钮触发
@@ -1112,6 +1127,7 @@ const float colormatrix_yese[] = {
     [currentImageView setImage:img];
 
 }
+
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return  NO;

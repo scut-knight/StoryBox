@@ -275,6 +275,7 @@
 		34E62D321953E59400764E0C /* weather-1-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D281953E59400764E0C /* weather-1-2.png */; };
 		34E62D331953E59400764E0C /* weather-1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D291953E59400764E0C /* weather-1-3.png */; };
 		34E62D341953E59400764E0C /* weather-1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D2A1953E59400764E0C /* weather-1-4.png */; };
+		A30BD64C1957203300E2C672 /* SBDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30BD64B1957203300E2C672 /* SBDoodleView.m */; };
 		A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */; };
 		A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */; };
 		A31DB92D195296FD00860D19 /* cityCode.json in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92C195296FD00860D19 /* cityCode.json */; };
@@ -604,6 +605,8 @@
 		34E62D281953E59400764E0C /* weather-1-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-2.png"; sourceTree = "<group>"; };
 		34E62D291953E59400764E0C /* weather-1-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-3.png"; sourceTree = "<group>"; };
 		34E62D2A1953E59400764E0C /* weather-1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-4.png"; sourceTree = "<group>"; };
+		A30BD64A1957203300E2C672 /* SBDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDoodleView.h; path = Views/SBDoodleView.h; sourceTree = "<group>"; };
+		A30BD64B1957203300E2C672 /* SBDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBDoodleView.m; path = Views/SBDoodleView.m; sourceTree = "<group>"; };
 		A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWeatherSelectViewController.h; sourceTree = "<group>"; };
 		A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWeatherSelectViewController.m; sourceTree = "<group>"; };
 		A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBWeatherSelectViewController.xib; sourceTree = "<group>"; };
@@ -785,6 +788,8 @@
 			children = (
 				A35D78AA1953D233007ECB24 /* SBScrollView.h */,
 				A35D78AB1953D233007ECB24 /* SBScrollView.m */,
+				A30BD64A1957203300E2C672 /* SBDoodleView.h */,
+				A30BD64B1957203300E2C672 /* SBDoodleView.m */,
 				A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */,
 				A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */,
 				A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */,
@@ -1660,6 +1665,7 @@
 				34B2767B19496E5500E8700B /* SelectTitleView.m in Sources */,
 				A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */,
 				34B2780C1949705700E8700B /* QBImagePickerAssetCell.m in Sources */,
+				A30BD64C1957203300E2C672 /* SBDoodleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

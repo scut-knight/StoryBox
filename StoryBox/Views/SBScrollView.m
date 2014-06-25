@@ -7,55 +7,58 @@
 //
 
 #import "SBScrollView.h"
+#import "SBDoodleView.h"
 #import "SBPen.h"
 
 @interface SBScrollView ()
 
--(void) initialize;
--(void) drawLineNew;
--(void) eraseLine;
--(void) handleTouches;
+@property (nonatomic, strong) SBDoodleView * doodleView;
+@property (nonatomic, strong) UIImage * doodleResult;
+@property (nonatomic, assign) CGRect doodleFrame;
 
-@property (nonatomic, assign) CGPoint previousPoint;
-@property (nonatomic, assign) CGPoint currentPoint;
-@property (nonatomic, assign) PEN_STATE drawMode;
-@property (nonatomic, strong) UIImage * viewImage;
-@property (nonatomic, strong) UIColor * selectedColor;
-@property (nonatomic, assign) unsigned int weight;
 @end
 
 @implementation SBScrollView
 
-- (id)initWithFrame:(CGRect)frame
+- (id) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initialize];
+//        [self makeDoodlePossible]; 需要等到填充图片之后才能启动涂鸦功能
     }
     return self;
 }
 
-- (void)awakeFromNib
+/**
+ *  初始化涂鸦视图，并添加到scrollView中
+ */
+- (void) makeDoodlePossible
 {
-    [self initialize];
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    [self.viewImage drawInRect:self.bounds];
+    self.doodleView = [[SBDoodleView alloc] init];
+    [self addSubview:self.doodleView];
+    [self.doodleView setFrame:CGRectMake(0, 0,
+                                self.contentSize.width, self.contentSize.height)];
+    NSLog(@"wid %f, hei %f", self.contentSize.width, self.contentSize.height);
+    self.doodleViewNum = 0;// 等待其父类进一步地修改
+    self.doodleView.userInteractionEnabled = NO;
+    self.isDoodling = NO;
+    self.doodleView.image = [[UIImage alloc] init];
 }
 
 /**
- *  调用该私有方法完成初始化的重任
+ *  将涂鸦视图重新加入到顶部
  */
-- (void)initialize
+- (void) moveDoodleViewAbove
 {
-//    self.opaque = NO;
-    self.currentPoint = CGPointMake(0, 0);
-    self.previousPoint = self.currentPoint;
-    
-    self.drawMode = PEN;
-    self.selectedColor = [UIColor blackColor];
+    [self.doodleView removeFromSuperview];
+    NSLog(@"move view wid %f, hei %f", self.contentSize.width, self.contentSize.height);
+    NSLog(@"doodle view x %f, y %f, wid %f, hei %f", self.doodleView.frame.origin.x, self.doodleView.frame.origin.y,self.doodleView.frame.size.width, self.doodleView.frame.size.height);
+
+    [self addSubview:self.doodleView];
+    if (self.doodleResult != nil) {
+        self.doodleView.image = self.doodleResult;
+        [self.doodleView setFrame:self.doodleFrame];// 防止古怪的大小变换
+    }
 }
 
 #pragma mark - draw, erase, and wait
@@ -67,7 +70,7 @@
  */
 - (void)startToDraw:(SBPen *)pen
 {
-    self.drawMode = DOODLING;
+    self.doodleView.drawMode = DOODLING;
     if (pen.color < 0 || pen.color > 4) {
         NSLog(@"在准备往画板上涂鸦时遇到错误的颜色范围。选中错误颜色: %d", pen.color);
         return;
@@ -77,25 +80,28 @@
     // 之所以不直接从图片中获取颜色，是因为图片的颜色不纯
     switch (pen.color) {
         case 0:
-            self.selectedColor = [UIColor greenColor];
+            self.doodleView.selectedColor = [UIColor greenColor];
             break;
         case 1:
-            self.selectedColor = [UIColor whiteColor];
+            self.doodleView.selectedColor = [UIColor whiteColor];
             break;
         case 2:
-            self.selectedColor = [UIColor blueColor];
+            self.doodleView.selectedColor = [UIColor blueColor];
             break;
         case 3:
-            self.selectedColor = [UIColor redColor];
+            self.doodleView.selectedColor = [UIColor redColor];
             break;
         case 4:
-            self.selectedColor = [UIColor blackColor];
+            self.doodleView.selectedColor = [UIColor blackColor];
             break;
         default:
             break;
     }
     
-    self.weight = pen.radius;
+    self.doodleView.weight = pen.radius;
+    self.doodleView.userInteractionEnabled = YES;
+    self.isDoodling = YES;
+    self.scrollEnabled = NO;
     NSLog(@"P");
 }
 
@@ -106,9 +112,11 @@
  */
 - (void)startToErase:(SBPen *)pen
 {
-    self.drawMode = ERASER;
-    NSLog(@"%d", pen.radius);
-    self.weight = pen.radius;
+    self.doodleView.drawMode = ERASER;
+    self.doodleView.weight = pen.radius;
+    self.doodleView.userInteractionEnabled = YES;
+    self.isDoodling = YES;
+    self.scrollEnabled = NO;
         NSLog(@"E");
 }
 
@@ -117,27 +125,11 @@
  */
 - (void)waitForNext
 {
-    self.drawMode = PEN;
+    self.doodleView.drawMode = PEN;
+//    self.doodleView.userInteractionEnabled = NO;
+    self.isDoodling = NO;
+    self.scrollEnabled = YES;
         NSLog(@"W");
-}
-
-/**
- *  根据当前状态的不同，来处理触摸事件对视图的影响
- */
-- (void)handleTouches
-{
-    switch (self.drawMode) {
-        case PEN:
-            // do nothing
-            break;
-        case DOODLING:
-            [self drawLineNew];
-            break;
-        case ERASER:
-            [self eraseLine];
-        default:
-            break;
-    }
 }
 
 /**
@@ -147,73 +139,28 @@
  */
 - (void)updatePenWeight:(unsigned int)weight
 {
-    self.weight = weight;
+    self.doodleView.weight = weight;
 }
 
-#pragma mark - 具体的画图和擦除的实现
-
-- (void)eraseLine
+/**
+ *  返回涂鸦的结果
+ *
+ *  @return 当前涂鸦的内容，UIImage类型
+ */
+- (SBDoodleView *)saveDoodleView
 {
-    UIGraphicsBeginImageContext(self.bounds.size);
-    [self.viewImage drawInRect:self.bounds];
-    
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
-    
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), self.weight);
-    CGContextBeginPath(UIGraphicsGetCurrentContext());
-    CGContextSetBlendMode(UIGraphicsGetCurrentContext(), kCGBlendModeClear);
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), self.previousPoint.x, self.previousPoint.y);
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), self.currentPoint.x, self.currentPoint.y);
-    
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.previousPoint = self.currentPoint;
-    
-    [self setNeedsDisplay];
+    if (self.doodleView.image == nil) {
+        self.doodleView.image = [[UIImage alloc] init];
+    }
+    return self.doodleView;
 }
 
-
-- (void)drawLineNew
+/**
+ *  记录变形之前的涂鸦视图
+ */
+- (void) recordDoodleView
 {
-    UIGraphicsBeginImageContext(self.bounds.size);
-    [self.viewImage drawInRect:self.bounds];
-    
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    CGContextSetStrokeColorWithColor(UIGraphicsGetCurrentContext(), self.selectedColor.CGColor);
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), self.weight);
-    CGContextBeginPath(UIGraphicsGetCurrentContext());
-    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), self.previousPoint.x, self.previousPoint.y);
-    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), self.currentPoint.x, self.currentPoint.y);
-    
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    self.viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.previousPoint = self.currentPoint;
-    
-    [self setNeedsDisplay];
+    self.doodleResult = [UIImage imageWithCGImage:self.doodleView.image.CGImage];
+    self.doodleFrame = self.doodleView.frame;
 }
-
-#pragma mark - Touches methods
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    CGPoint p = [[touches anyObject] locationInView:self];
-    self.previousPoint = p;
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    self.currentPoint = [[touches anyObject] locationInView:self];
-    
-    [self handleTouches];
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    self.currentPoint = [[touches anyObject] locationInView:self];
-    
-    [self handleTouches];
-}
-
 @end

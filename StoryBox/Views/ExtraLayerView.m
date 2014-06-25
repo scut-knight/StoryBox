@@ -94,7 +94,7 @@ int Start_y_gemotry;//标签容器
         history = CGPointMake(0, 0);
         [self setBackgroundColor:[UIColor blackColor]];
         
-        
+        // 预留45的高度给标题栏
         self.scrollView = [[SBScrollView alloc] initWithFrame:CGRectMake(0, 45, 320, Start_y_gemotry-45)];//568
         
 //      scrollView=[[UIScrollView alloc] initWithFrame:[positionSwich switchBound:CGRectMake(0, 45, 320,480-45)]];//568
@@ -208,7 +208,8 @@ int Start_y_gemotry;//标签容器
         [self.scrollView addSubview:imgv];
         [self.scrollView addSubview:textv];
     }
-    
+    // 添加完所有图片后才开始创建涂鸦面板
+    [self.scrollView makeDoodlePossible];
     [self.scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     [self reLoadTitleView];
 }
@@ -312,12 +313,35 @@ int Start_y_gemotry;//标签容器
     self.pen = [[SBPen alloc] init];
     
     self.pen.board = self.scrollView;
+    [self refreshDoodleView];
     
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
     self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
     [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
     [self addSubview:self.penPanel];
+}
+
+/**
+ *  如果需要，插入或者更新涂鸦视图
+ */
+-(void)refreshDoodleView
+{
+    NSLog(@"涂鸦视图序号：%u", self.scrollView.doodleViewNum);
+    NSUInteger doodleViewNum = self.scrollView.doodleViewNum;
+    // 已添加涂鸦视图
+    if (doodleViewNum != 0 && doodleViewNum <= [self.imageViewArray count] - 1) {
+        self.imageViewArray[doodleViewNum] = [self.scrollView saveDoodleView];
+    }
+    // 尚未添加涂鸦视图
+    else if (doodleViewNum == 0) {
+        [self.imageViewArray addObject:[self.scrollView saveDoodleView]];
+        self.scrollView.doodleViewNum = [self.imageViewArray count] - 1;
+        [self.textEditViewArray addObject:[[UIView alloc] init]];
+    }
+    else {
+        NSLog(@"涂鸦视图的序号有误！序号（从0开始）是%u，而共有图片%u张", doodleViewNum, [self.imageViewArray count]);
+    }
 }
 
 #pragma mark - 手势与交互
@@ -330,6 +354,7 @@ int Start_y_gemotry;//标签容器
 -(void)clickDoodleModel:(id)sender
 {
     NSLog(@"Doodle");
+    self.scrollView.isDoodling = YES;
     [self.penPanel fillPenColorPanel];
     [self.penPanel prepareForSelectPen];
 }
@@ -341,6 +366,10 @@ int Start_y_gemotry;//标签容器
  */
 -(void)tapHandle:(UIGestureRecognizer *)tapD
 {
+    if (self.scrollView.isDoodling) {
+        return;
+    }
+    
     BOOL isExisted = [self resetTitleviewState];
     // 先隐藏编辑面板
     [self hideAllButtomPanel];
@@ -367,6 +396,7 @@ int Start_y_gemotry;//标签容器
                     break;
                 }
             }
+            [self.scrollView recordDoodleView];
             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示"
                                                          message:@"要处理当前图片吗?"
                                                         delegate:self
@@ -394,6 +424,10 @@ int Start_y_gemotry;//标签容器
  */
 -(void)LongPress:(UILongPressGestureRecognizer *)longG
 {
+    if (self.scrollView.isDoodling) { // 在涂鸦状态下不响应除点击按钮和涂鸦之外的其他手势
+        return;
+    }
+    
     //屏蔽长按手势,解决在ModifyImageView下长按按钮导致崩溃问题
     for(UIView *subview in self.subviews)
     {
@@ -421,6 +455,7 @@ int Start_y_gemotry;//标签容器
     if (longG.state==UIGestureRecognizerStateBegan)
     {
         printf("beg");
+        [self.scrollView recordDoodleView];
         
         dis_pan=self.scrollView.frame.size.height*(1 - _scale)/2;
         CGPoint point_s=[longG locationInView:self.scrollView];
@@ -484,6 +519,9 @@ int Start_y_gemotry;//标签容器
             [self.delegate hiddenTopView:YES];
             break;
         }
+        // 取消编辑
+        case 0:
+            break;
         default:
             break;
     }
@@ -550,6 +588,7 @@ int Start_y_gemotry;//标签容器
  */
 -(void)clickModel:(id)sender
 {
+    self.scrollView.isDoodling = NO;
     [self resetTitleviewState];
     LAYER_MODE fla_o = flag_model;
     
@@ -559,6 +598,7 @@ int Start_y_gemotry;//标签容器
     subGemomtryView.hidden = NO;
     simlarGemomtryView.hidden=YES;
     [self.penPanel showPanel:NO];
+    [self refreshDoodleView];
     
     switch (flag_model) {
         case DOODLE:

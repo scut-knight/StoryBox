@@ -19,7 +19,7 @@
 +(UIImage*)photoMerge:(NSMutableArray *)imageViewArr textViewArray:(NSMutableArray*)textViewArr
 {
     int num=[imageViewArr count];
-    printf("自动保存沙盒%d",num);
+    printf("自动保存沙盒%d\n",num);
     UIImageView *testImageV;
     UIView * testTextEditV;
     UIView *panner = [[UIView alloc] init];
@@ -32,33 +32,46 @@
 //    NSMutableArray* _centerA=[self saveCenterArray:imageViewArr];//保存原始中点
     NSMutableArray *_centerA=[[NSMutableArray alloc]init];
     
+    // spacewander says: 这个间隔到底是做什么用的呢？
     int margin = 8;//图片间隔
-    for (int i=0; i< num; ++i)
+    // 最后一个图片是涂鸦面板
+    for (int i=0; i < num; ++i)
     {
         testImageV = [imageViewArr objectAtIndex:i];
         testTextEditV = [textViewArr objectAtIndex:i];
         
         //保存位置，大小
         [self saveCenterArray:_centerA withView:testImageV];
+        if (i == num - 1) {
+            break;
+        }
         
         //重新设置图片view 和文字view的y坐标，然后添加到容器panner View中
-        [testImageV setFrame:CGRectMake(0, _height,testImageV.frame.size.width*2,testImageV.frame.size.height*2)];//图片放大二倍
+        [testImageV setFrame:CGRectMake(0, _height,testImageV.frame.size.width*2,
+                                        testImageV.frame.size.height*2)];//图片放大二倍
  
-        [testTextEditV setFrame:CGRectMake(0,_height_textv, testImageV.frame.size.width, testImageV.frame.size.height)];//文本view自动适应图片的大小
+        [testTextEditV setFrame:CGRectMake(0,_height_textv, testImageV.frame.size.width,
+                                           testImageV.frame.size.height)];//文本view自动适应图片的大小
         
         [self adjustTextLableTolarge:testTextEditV];//调整文字层标签，字号和文字背景图片
         
-        _height=_height + testImageV.frame.size.height+margin;//累加总高度
-        _height_textv=_height_textv +testTextEditV.frame.size.height+margin;
+        _height += testImageV.frame.size.height + margin;//累加总高度
+        _height_textv += testTextEditV.frame.size.height + margin;
         //排列依次添加
         [panner addSubview: testImageV];//图片
         [textPanner addSubview:testTextEditV];//文字拼接
     }
+    
     [panner setFrame:CGRectMake(0, 0, _width, _height)];
      /*文字层拼接后，以文字图片的形式和图片层叠加*/
  
     [textPanner setFrame:CGRectMake(0, 0,_width_textv, _height_textv)];//变大 test
     [panner addSubview:textPanner];
+    
+    UIImageView *doodleView = [imageViewArr objectAtIndex:(num - 1)];
+    [doodleView setFrame:CGRectMake(0, 0,doodleView.frame.size.width*2,
+                    doodleView.frame.size.height*2)];
+    [panner addSubview:doodleView];// 添加涂鸦面板
 
     UIImage * img=[self SaveToBox:panner withPath:[self pathOfImageOfBox]];//默认自动保存到沙盒
     [self adjustIamgeViewAndTextView:imageViewArr textView:textViewArr WithCenterOrdinal:_centerA];//还原图片大小

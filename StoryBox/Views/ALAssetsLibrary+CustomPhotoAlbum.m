@@ -27,6 +27,7 @@
                          withCompletionBlock:completionBlock];
                        }];
 }
+
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock{
     
     __block BOOL albumWasFound = NO;
