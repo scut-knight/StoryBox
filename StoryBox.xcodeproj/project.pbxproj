@@ -276,6 +276,8 @@
 		34E62D331953E59400764E0C /* weather-1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D291953E59400764E0C /* weather-1-3.png */; };
 		34E62D341953E59400764E0C /* weather-1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D2A1953E59400764E0C /* weather-1-4.png */; };
 		A30BD64C1957203300E2C672 /* SBDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30BD64B1957203300E2C672 /* SBDoodleView.m */; };
+		A3184AF9195BF62A0041A267 /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = A3184AF8195BF62A0041A267 /* recording.png */; };
+		A3184B01195BFD3D0041A267 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = A3184B00195BFD3D0041A267 /* play.png */; };
 		A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */; };
 		A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */; };
 		A31DB92D195296FD00860D19 /* cityCode.json in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92C195296FD00860D19 /* cityCode.json */; };
@@ -608,6 +610,8 @@
 		34E62D2A1953E59400764E0C /* weather-1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-4.png"; sourceTree = "<group>"; };
 		A30BD64A1957203300E2C672 /* SBDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDoodleView.h; path = Views/SBDoodleView.h; sourceTree = "<group>"; };
 		A30BD64B1957203300E2C672 /* SBDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBDoodleView.m; path = Views/SBDoodleView.m; sourceTree = "<group>"; };
+		A3184AF8195BF62A0041A267 /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording.png; sourceTree = "<group>"; };
+		A3184B00195BFD3D0041A267 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWeatherSelectViewController.h; sourceTree = "<group>"; };
 		A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWeatherSelectViewController.m; sourceTree = "<group>"; };
 		A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBWeatherSelectViewController.xib; sourceTree = "<group>"; };
@@ -1018,6 +1022,7 @@
 		34B276A519496FDE00E8700B /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A3184AF7195BF60B0041A267 /* audio */,
 				15701606195541F200F050B9 /* filters */,
 				A31DB92E1952977600860D19 /* Weather */,
 				34B276A619496FDE00E8700B /* AlbumGroup */,
@@ -1310,6 +1315,15 @@
 			path = Views/photoClasses;
 			sourceTree = "<group>";
 		};
+		A3184AF7195BF60B0041A267 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				A3184B00195BFD3D0041A267 /* play.png */,
+				A3184AF8195BF62A0041A267 /* recording.png */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
 		A31DB92E1952977600860D19 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
@@ -1442,6 +1456,7 @@
 				34B277D519496FDE00E8700B /* 35.png in Resources */,
 				34B277E219496FDE00E8700B /* button16.png in Resources */,
 				34B277C519496FDE00E8700B /* 311.png in Resources */,
+				A3184AF9195BF62A0041A267 /* recording.png in Resources */,
 				34E62D311953E59400764E0C /* weather-1-1.png in Resources */,
 				34B277A319496FDE00E8700B /* 223.png in Resources */,
 				34B277E119496FDE00E8700B /* button15.png in Resources */,
@@ -1595,6 +1610,7 @@
 				34B2776E19496FDE00E8700B /* colorbg.png in Resources */,
 				34E62D2F1953E59400764E0C /* weather-0-4.png in Resources */,
 				34B277A119496FDE00E8700B /* 221.png in Resources */,
+				A3184B01195BFD3D0041A267 /* play.png in Resources */,
 				15701612195541F200F050B9 /* FilterofLOMO2.png in Resources */,
 				34B277AC19496FDE00E8700B /* 2color.png in Resources */,
 				34B2776519496FDE00E8700B /* icon-80.png in Resources */,

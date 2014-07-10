@@ -216,9 +216,10 @@ int Start_y_gemotry;//标签容器
         [self.scrollView addSubview:imgv];
         [self.scrollView addSubview:textv];
     }
+    // 此时视图大小为320 * 960
+    [self.scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     // 添加完所有图片后才开始创建涂鸦面板
     [self.scrollView makeDoodlePossible];
-    [self.scrollView setContentSize:CGSizeMake(320,height+60)];//更新滚动视图的内容大小
     [self reLoadTitleView];
 }
 
@@ -393,6 +394,9 @@ int Start_y_gemotry;//标签容器
             int d_index=-1;
             for (int i=0; i<imageViewArray.count; ++i)
             {
+                if (i == self.scrollView.doodleViewNum) { // 不响应对于涂鸦视图的操作
+                    return;
+                }
                 UIImageView * img = [imageViewArray objectAtIndex: i];
                 float t = img.frame.origin.y+img.frame.size.height;
                 float p = img.frame.origin.y;
@@ -469,7 +473,11 @@ int Start_y_gemotry;//标签容器
         CGPoint point_s=[longG locationInView:self.scrollView];
         for (int i=0; i<imageViewArray.count; ++i)
         {
+            if (i == self.scrollView.doodleViewNum) { // 不响应对于涂鸦视图的操作
+                return;
+            }
             UIImageView * img=[imageViewArray objectAtIndex: i];
+
             float t=img.frame.origin.y+img.frame.size.height;
             float p=img.frame.origin.y;
             if (point_s.y<=t&&point_s.y>=p)
@@ -548,7 +556,6 @@ int Start_y_gemotry;//标签容器
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:@"大标签",@"天气标签",@"语音标签",nil];
     
-    actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
     [actionSheet showInView:self];
 }
 
@@ -993,7 +1000,7 @@ int Start_y_gemotry;//标签容器
         height = 480;
     }
     recordingPanel = [[SBRecordingPanel alloc] initWithFrame:
-                      CGRectMake(110, height - 25, 100, 50) andWithImageURL:[[NSURL alloc] init]];
+                      CGRectMake(110, height / 2 - 25, 100, 50) andWithImageURL:[[NSURL alloc] init]];
     [self addSubview:recordingPanel];
     [self showRecordingPendant:NO];
     [self.pendants addObject:recordingPanel];
@@ -1020,6 +1027,7 @@ int Start_y_gemotry;//标签容器
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet
 {
     self.scrollView.backgroundColor = [UIColor blackColor];
+    [self hideAllButtomPanel];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -1097,6 +1105,7 @@ int Start_y_gemotry;//标签容器
     [imageViewArray removeAllObjects];
     [textEditViewArray removeAllObjects];
     [LableArray removeAllObjects ];
+    [self.pendants removeAllObjects];
     
     [self.scrollView removeFromSuperview];
     

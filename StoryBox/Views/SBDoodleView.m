@@ -7,6 +7,7 @@
 //
 
 #import "SBDoodleView.h"
+#import "SBScrollView.h"
 
 @implementation SBDoodleView
 
@@ -19,9 +20,17 @@
     return self;
 }
 
+/**
+ *  @overwrite
+ */
 - (void)drawRect:(CGRect)rect
 {
-    [self.image drawInRect:rect];
+    [self.image drawInRect:self.bounds];
+}
+
+- (void) setParentView:(SBScrollView *)parentView
+{
+    delegate = parentView;
 }
 
 /**
@@ -108,22 +117,22 @@
     CGPoint p = [[touches anyObject] locationInView:self];
     self.previousPoint = p;
     
+    // 使用contentSize来划定涂鸦的边界，而不是原始的frame大小
     x0 = self.superview.frame.origin.x;
-    x1 = self.superview.frame.origin.x + self.superview.frame.size.width;
+    x1 = self.superview.frame.origin.x + self->delegate.contentSize.width;
     y0 = self.superview.frame.origin.y;
-    // 提高底线位置，使涂鸦区域约束在按钮面板之上
-    y1 = self.superview.frame.origin.y + self.superview.frame.size.height - 85;
-//    NSLog(@"左上角 (%f, %f) 右下角 (%f, %f)", x0, y0, x1, y1);
+    y1 = self.superview.frame.origin.y + self->delegate.contentSize.height;
+    NSLog(@"左上角 (%f, %f) 右下角 (%f, %f)", x0, y0, x1, y1);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     self.currentPoint = [[touches anyObject] locationInView:self];
     
-    if (self.currentPoint.x > x0 && self.currentPoint.x < x1 &&
-        self.currentPoint.y > y0 && self.currentPoint.y < y1) {
+//    if (self.currentPoint.x > x0 && self.currentPoint.x < x1 &&
+//        self.currentPoint.y > y0 && self.currentPoint.y < y1) {
         [self handleTouches];
-    }
+//    }
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -131,10 +140,10 @@
     self.currentPoint = [[touches anyObject] locationInView:self];
     NSLog(@"当前点 %f, %f", self.currentPoint.x, self.currentPoint.y);
     
-    if (self.currentPoint.x > x0 && self.currentPoint.x < x1 &&
-        self.currentPoint.y > y0 && self.currentPoint.y < y1) {
+//    if (self.currentPoint.x > x0 && self.currentPoint.x < x1 &&
+//        self.currentPoint.y > y0 && self.currentPoint.y < y1) {
         [self handleTouches];
-    }
+//    }
 }
 
 @end

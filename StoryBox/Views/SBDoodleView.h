@@ -19,12 +19,19 @@
     CGFloat x1;
     CGFloat y0;
     CGFloat y1;
+    
+    /**
+     * 因为SBDoodleView的父视图只能是SBScrollView，所以设置私有变量delegate，
+     * 如果加入到非SBScrollView的子视图中，那么编译器就会报错
+     */
+    SBScrollView * delegate;
 }
 
 -(void) initialize;
 -(void) drawLineNew;
 -(void) eraseLine;
 -(void) handleTouches;
+-(void) setParentView:(SBScrollView *)delegate;
 
 @property (nonatomic, assign) CGPoint previousPoint;
 @property (nonatomic, assign) CGPoint currentPoint;

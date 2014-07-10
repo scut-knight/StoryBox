@@ -46,19 +46,39 @@
 }
 
 /**
+ *  因为要对作为子类的涂鸦视图做处理，所以针对涂鸦视图重载addSubview函数
+ *
+ *  @param view
+ */
+- (void) addSubview:(UIView *)view
+{
+    if ([view isKindOfClass:[SBDoodleView class]]) {
+      [(SBDoodleView *)view setParentView:self];
+    }
+    [super addSubview:view];
+}
+
+/**
  *  将涂鸦视图重新加入到顶部
  */
 - (void) moveDoodleViewAbove
 {
     [self.doodleView removeFromSuperview];
     NSLog(@"move view wid %f, hei %f", self.contentSize.width, self.contentSize.height);
-    NSLog(@"doodle view x %f, y %f, wid %f, hei %f", self.doodleView.frame.origin.x, self.doodleView.frame.origin.y,self.doodleView.frame.size.width, self.doodleView.frame.size.height);
 
     [self addSubview:self.doodleView];
+    // 因为某些奇奇怪怪的原因，doodleView会被设置为width=0,height=0，所以……
     if (self.doodleResult != nil) {
         self.doodleView.image = self.doodleResult;
         [self.doodleView setFrame:self.doodleFrame];// 防止古怪的大小变换
     }
+    else {
+        [self.doodleView setFrame:CGRectMake(0, 0,
+                                            self.contentSize.width, self.contentSize.height)];
+    }
+    NSLog(@"doodle view x %f, y %f, wid %f, hei %f",
+          self.doodleView.frame.origin.x, self.doodleView.frame.origin.y,
+          self.doodleView.frame.size.width, self.doodleView.frame.size.height);
 }
 
 #pragma mark - draw, erase, and wait
@@ -163,4 +183,5 @@
     self.doodleResult = [UIImage imageWithCGImage:self.doodleView.image.CGImage];
     self.doodleFrame = self.doodleView.frame;
 }
+
 @end
