@@ -8,6 +8,9 @@
 
 
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
+#import <objc/runtime.h>
+
+static NSString * path;
 
 @implementation ALAssetsLibrary(CustomPhotoAlbum)
 
@@ -25,7 +28,15 @@
                            [self addAssetURL: assetURL
                                      toAlbum:albumName
                          withCompletionBlock:completionBlock];
+                           
+                           path = [assetURL absoluteString];
+                           //        NSLog(@"%@",assetURL);
                        }];
+}
+
+-(NSString *)getPath
+{
+    return path;
 }
 
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock{

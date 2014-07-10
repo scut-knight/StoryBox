@@ -32,11 +32,13 @@
     id<MHImagePickerMutilSelectorDelegate>  delegate;
     
     UIButton * btn_done;//add
+    UIButton * btn_exit;//wind:返回上一层
 }
 
 @property (nonatomic,retain)UIImagePickerController * imagePicker;
 @property(nonatomic,retain)id<MHImagePickerMutilSelectorDelegate> delegate;
 @property(nonatomic,retain)UIView * selectedPan;
+@property(nonatomic,retain)UIView * selectedPanofAlbum;
 
 +(void)showInViewController:(UIViewController<UIImagePickerControllerDelegate,MHImagePickerMutilSelectorDelegate> *)vc  withArr:(NSArray*)arry;
 

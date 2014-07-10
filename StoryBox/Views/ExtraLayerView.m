@@ -285,20 +285,6 @@ int Start_y_gemotry;//标签容器
         [scviewButton addSubview:modelBtn];
     }
     
-    //bin test
-//    UIButton * weatherBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [weatherBtn setFrame:CGRectMake(20,300, 90, 35)];
-//
-//    [weatherBtn setTitle:@"weather" forState:UIControlStateNormal];
-//    
-//    [weatherBtn setTag:10];
-//    [weatherBtn setSelected:NO];
-//    [weatherBtn addTarget:self action:@selector(clickWeatherButton)
-//         forControlEvents:UIControlEventTouchUpInside];
-//    [self addSubview:weatherBtn];
-    
-    
-    
     //子模板view颜色面板
      _y = gemomtryView.frame.origin.y - height_gemotry;
     subGemomtryView = [[UIView alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, height_gemotry)];
@@ -443,7 +429,8 @@ int Start_y_gemotry;//标签容器
     //屏蔽长按手势,解决在ModifyImageView下长按按钮导致崩溃问题
     for(UIView *subview in self.subviews)
     {
-        if([subview isKindOfClass:[ModifyImageView class]])
+        if([subview isKindOfClass:[ModifyImageView class]] ||
+            [subview isKindOfClass:[SBRecordingPanel class]])
             return;
     }
     
@@ -1000,7 +987,7 @@ int Start_y_gemotry;//标签容器
         height = 480;
     }
     recordingPanel = [[SBRecordingPanel alloc] initWithFrame:
-                      CGRectMake(110, height / 2 - 25, 100, 50) andWithImageURL:[[NSURL alloc] init]];
+                      CGRectMake(280, 200, 30, 80)];
     [self addSubview:recordingPanel];
     [self showRecordingPendant:NO];
     [self.pendants addObject:recordingPanel];

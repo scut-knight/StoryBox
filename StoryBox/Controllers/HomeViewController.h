@@ -20,9 +20,11 @@
 @interface HomeViewController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,QBImagePickerControllerDelegate,AccessHomeDelegate,MHImagePickerMutilSelectorDelegate>
 {
     ImagePickupViewController * imagePkViewC;
+    ImagePickupViewController *imgViewC;
     UIActionSheet *sheet;
 //    NSMutableArray * imageA;//图片数组
-     NSArray * imageA;//图片数组
+    NSArray * imageA;//图片数组
+    UIImagePickerController* picker_library_;
     
     BOOL show;
     BOOL isadd;
@@ -32,10 +34,10 @@
 @property(retain,nonatomic)IBOutlet UIImageView *homeBgV;
 @property(retain,nonatomic)IBOutlet UIButton *startBtn;
 @property(retain,nonatomic)ImagePickupViewController * imagePkViewC;
-@property(retain,nonatomic) UIImagePickerController *picker;
+@property(retain,nonatomic) ImagePickupViewController *imgViewC;
 
 -(IBAction)clickPhotoPickup:(id)sender;//相册
 -(IBAction)clickset:(id)sender;
 -(void)imagePickerMutilSelectorDidGetImages:(NSArray*)imageArray;
-
+- (IBAction)clickViewPhotoAlbum:(id)sender;
 @end

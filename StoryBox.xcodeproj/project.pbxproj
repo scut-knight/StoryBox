@@ -36,7 +36,6 @@
 		34B2761319496E3F00E8700B /* ImagePickupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B2760E19496E3F00E8700B /* ImagePickupViewController.m */; };
 		34B2761419496E3F00E8700B /* MHImagePickerMutilSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B2761019496E3F00E8700B /* MHImagePickerMutilSelector.m */; };
 		34B2761819496E4C00E8700B /* ClipViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B2761519496E4C00E8700B /* ClipViewController_iPhone.xib */; };
-		34B2761919496E4C00E8700B /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B2761619496E4C00E8700B /* HomeViewController.xib */; };
 		34B2761A19496E4C00E8700B /* ImagePickupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B2761719496E4C00E8700B /* ImagePickupView.xib */; };
 		34B2767319496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B2761C19496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		34B2767419496E5500E8700B /* CameraCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B2761E19496E5500E8700B /* CameraCustom.m */; };
@@ -276,12 +275,18 @@
 		34E62D331953E59400764E0C /* weather-1-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D291953E59400764E0C /* weather-1-3.png */; };
 		34E62D341953E59400764E0C /* weather-1-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 34E62D2A1953E59400764E0C /* weather-1-4.png */; };
 		A30BD64C1957203300E2C672 /* SBDoodleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30BD64B1957203300E2C672 /* SBDoodleView.m */; };
-		A3184AF9195BF62A0041A267 /* recording.png in Resources */ = {isa = PBXBuildFile; fileRef = A3184AF8195BF62A0041A267 /* recording.png */; };
-		A3184B01195BFD3D0041A267 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = A3184B00195BFD3D0041A267 /* play.png */; };
 		A31DB92A1952948700860D19 /* SBWeatherSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */; };
 		A31DB92B1952948700860D19 /* SBWeatherSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */; };
 		A31DB92D195296FD00860D19 /* cityCode.json in Resources */ = {isa = PBXBuildFile; fileRef = A31DB92C195296FD00860D19 /* cityCode.json */; };
 		A31F5671195AB6D4000D8200 /* SBRecordingPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = A31F5670195AB6D4000D8200 /* SBRecordingPanel.m */; };
+		A3215579196E5FC300672BB8 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3215578196E5FC300672BB8 /* HomeViewController.xib */; };
+		A321557C196E5FFC00672BB8 /* startBtn2.png in Resources */ = {isa = PBXBuildFile; fileRef = A321557A196E5FFC00672BB8 /* startBtn2.png */; };
+		A321557D196E5FFC00672BB8 /* startBtn3.png in Resources */ = {isa = PBXBuildFile; fileRef = A321557B196E5FFC00672BB8 /* startBtn3.png */; };
+		A3215580196E64E800672BB8 /* SBViewerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A321557F196E64E800672BB8 /* SBViewerView.m */; };
+		A3215583196E652100672BB8 /* SBAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = A3215582196E652100672BB8 /* SBAudioRecorder.m */; };
+		A3215587196E6FBD00672BB8 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = A3215584196E6FBD00672BB8 /* play.png */; };
+		A3215588196E6FBD00672BB8 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = A3215585196E6FBD00672BB8 /* record.png */; };
+		A3215589196E6FBD00672BB8 /* stop.png in Resources */ = {isa = PBXBuildFile; fileRef = A3215586196E6FBD00672BB8 /* stop.png */; };
 		A321A7C0194ACE89005218DB /* QBImagePicker.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A321A7BF194ACE89005218DB /* QBImagePicker.rtf */; };
 		A35D78AC1953D233007ECB24 /* SBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A35D78AB1953D233007ECB24 /* SBScrollView.m */; };
 		A38BD12C194F05C9006045A1 /* 5color.png in Resources */ = {isa = PBXBuildFile; fileRef = A38BD12B194F05C9006045A1 /* 5color.png */; };
@@ -338,7 +343,6 @@
 		34B2760F19496E3F00E8700B /* MHImagePickerMutilSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHImagePickerMutilSelector.h; path = Controllers/MHImagePickerMutilSelector.h; sourceTree = "<group>"; };
 		34B2761019496E3F00E8700B /* MHImagePickerMutilSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHImagePickerMutilSelector.m; path = Controllers/MHImagePickerMutilSelector.m; sourceTree = "<group>"; };
 		34B2761519496E4C00E8700B /* ClipViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClipViewController_iPhone.xib; path = Xibs/ClipViewController_iPhone.xib; sourceTree = "<group>"; };
-		34B2761619496E4C00E8700B /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = Xibs/HomeViewController.xib; sourceTree = "<group>"; };
 		34B2761719496E4C00E8700B /* ImagePickupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ImagePickupView.xib; path = Xibs/ImagePickupView.xib; sourceTree = "<group>"; };
 		34B2761B19496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ALAssetsLibrary+CustomPhotoAlbum.h"; path = "Views/ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
 		34B2761C19496E5500E8700B /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ALAssetsLibrary+CustomPhotoAlbum.m"; path = "Views/ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
@@ -610,14 +614,22 @@
 		34E62D2A1953E59400764E0C /* weather-1-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather-1-4.png"; sourceTree = "<group>"; };
 		A30BD64A1957203300E2C672 /* SBDoodleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBDoodleView.h; path = Views/SBDoodleView.h; sourceTree = "<group>"; };
 		A30BD64B1957203300E2C672 /* SBDoodleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBDoodleView.m; path = Views/SBDoodleView.m; sourceTree = "<group>"; };
-		A3184AF8195BF62A0041A267 /* recording.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recording.png; sourceTree = "<group>"; };
-		A3184B00195BFD3D0041A267 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		A31DB9271952948600860D19 /* SBWeatherSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWeatherSelectViewController.h; sourceTree = "<group>"; };
 		A31DB9281952948600860D19 /* SBWeatherSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWeatherSelectViewController.m; sourceTree = "<group>"; };
 		A31DB9291952948700860D19 /* SBWeatherSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBWeatherSelectViewController.xib; sourceTree = "<group>"; };
 		A31DB92C195296FD00860D19 /* cityCode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cityCode.json; sourceTree = "<group>"; };
 		A31F566F195AB6D4000D8200 /* SBRecordingPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRecordingPanel.h; path = Views/SBRecordingPanel.h; sourceTree = "<group>"; };
 		A31F5670195AB6D4000D8200 /* SBRecordingPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRecordingPanel.m; path = Views/SBRecordingPanel.m; sourceTree = "<group>"; };
+		A3215578196E5FC300672BB8 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		A321557A196E5FFC00672BB8 /* startBtn2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startBtn2.png; sourceTree = "<group>"; };
+		A321557B196E5FFC00672BB8 /* startBtn3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startBtn3.png; sourceTree = "<group>"; };
+		A321557E196E64E800672BB8 /* SBViewerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBViewerView.h; sourceTree = "<group>"; };
+		A321557F196E64E800672BB8 /* SBViewerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBViewerView.m; sourceTree = "<group>"; };
+		A3215581196E652100672BB8 /* SBAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAudioRecorder.h; sourceTree = "<group>"; };
+		A3215582196E652100672BB8 /* SBAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAudioRecorder.m; sourceTree = "<group>"; };
+		A3215584196E6FBD00672BB8 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		A3215585196E6FBD00672BB8 /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
+		A3215586196E6FBD00672BB8 /* stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stop.png; sourceTree = "<group>"; };
 		A321A7BF194ACE89005218DB /* QBImagePicker.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = QBImagePicker.rtf; sourceTree = "<group>"; };
 		A35D78AA1953D233007ECB24 /* SBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBScrollView.h; path = Views/SBScrollView.h; sourceTree = "<group>"; };
 		A35D78AB1953D233007ECB24 /* SBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBScrollView.m; path = Views/SBScrollView.m; sourceTree = "<group>"; };
@@ -793,6 +805,10 @@
 		34B2760619496D0100E8700B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A3215581196E652100672BB8 /* SBAudioRecorder.h */,
+				A3215582196E652100672BB8 /* SBAudioRecorder.m */,
+				A321557E196E64E800672BB8 /* SBViewerView.h */,
+				A321557F196E64E800672BB8 /* SBViewerView.m */,
 				A35D78AA1953D233007ECB24 /* SBScrollView.h */,
 				A35D78AB1953D233007ECB24 /* SBScrollView.m */,
 				A30BD64A1957203300E2C672 /* SBDoodleView.h */,
@@ -845,8 +861,8 @@
 		34B2760719496D1000E8700B /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				A3215578196E5FC300672BB8 /* HomeViewController.xib */,
 				34B2761519496E4C00E8700B /* ClipViewController_iPhone.xib */,
-				34B2761619496E4C00E8700B /* HomeViewController.xib */,
 				34B2761719496E4C00E8700B /* ImagePickupView.xib */,
 			);
 			name = Xibs;
@@ -1055,6 +1071,8 @@
 		34B276AD19496FDE00E8700B /* homePage */ = {
 			isa = PBXGroup;
 			children = (
+				A321557A196E5FFC00672BB8 /* startBtn2.png */,
+				A321557B196E5FFC00672BB8 /* startBtn3.png */,
 				34B276AE19496FDE00E8700B /* homeBg1.png */,
 				34B276AF19496FDE00E8700B /* homeBg2.png */,
 				34B276B019496FDE00E8700B /* homeBg3.jpg */,
@@ -1318,8 +1336,9 @@
 		A3184AF7195BF60B0041A267 /* audio */ = {
 			isa = PBXGroup;
 			children = (
-				A3184B00195BFD3D0041A267 /* play.png */,
-				A3184AF8195BF62A0041A267 /* recording.png */,
+				A3215584196E6FBD00672BB8 /* play.png */,
+				A3215585196E6FBD00672BB8 /* record.png */,
+				A3215586196E6FBD00672BB8 /* stop.png */,
 			);
 			name = audio;
 			sourceTree = "<group>";
@@ -1456,7 +1475,6 @@
 				34B277D519496FDE00E8700B /* 35.png in Resources */,
 				34B277E219496FDE00E8700B /* button16.png in Resources */,
 				34B277C519496FDE00E8700B /* 311.png in Resources */,
-				A3184AF9195BF62A0041A267 /* recording.png in Resources */,
 				34E62D311953E59400764E0C /* weather-1-1.png in Resources */,
 				34B277A319496FDE00E8700B /* 223.png in Resources */,
 				34B277E119496FDE00E8700B /* button15.png in Resources */,
@@ -1490,12 +1508,14 @@
 				34B275E919496BD100E8700B /* Images.xcassets in Resources */,
 				34B2780E1949705700E8700B /* QBImagePickerController.bundle in Resources */,
 				34B277F219496FDE00E8700B /* titleBackBtn.png in Resources */,
+				A3215579196E5FC300672BB8 /* HomeViewController.xib in Resources */,
 				34B2776319496FDE00E8700B /* Icon-72.png in Resources */,
 				34B277C219496FDE00E8700B /* 30.png in Resources */,
 				34E62D331953E59400764E0C /* weather-1-3.png in Resources */,
 				34B2778519496FDE00E8700B /* levelMirror.png in Resources */,
 				34B2775F19496FDE00E8700B /* homeBg3.jpg in Resources */,
 				34B2776B19496FDE00E8700B /* Icon@2x.png in Resources */,
+				A3215588196E6FBD00672BB8 /* record.png in Resources */,
 				34B2779E19496FDE00E8700B /* 212.png in Resources */,
 				34B2779119496FDE00E8700B /* 11.png in Resources */,
 				34B277F719496FDE00E8700B /* shareIcon3.png in Resources */,
@@ -1519,10 +1539,10 @@
 				34B277B719496FDE00E8700B /* Default~iphone.png in Resources */,
 				34E62D2E1953E59400764E0C /* weather-0-3.png in Resources */,
 				34B2777419496FDE00E8700B /* topBg_ImagePick.png in Resources */,
+				A321557D196E5FFC00672BB8 /* startBtn3.png in Resources */,
 				34B2769219496E5600E8700B /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				34B277D119496FDE00E8700B /* 322.png in Resources */,
 				34B277ED19496FDE00E8700B /* button5.png in Resources */,
-				34B2761919496E4C00E8700B /* HomeViewController.xib in Resources */,
 				34B2768119496E5500E8700B /* Resource.bundle in Resources */,
 				34B2776219496FDE00E8700B /* Icon-120.png in Resources */,
 				34B277A519496FDE00E8700B /* 231.png in Resources */,
@@ -1555,6 +1575,7 @@
 				34B2769419496E5600E8700B /* ShareSDKiPadDefaultShareViewUI.bundle in Resources */,
 				34B277FA19496FDE00E8700B /* shareIcon6.png in Resources */,
 				34B2777B19496FDE00E8700B /* editBackBtn.png in Resources */,
+				A3215589196E6FBD00672BB8 /* stop.png in Resources */,
 				34B2777319496FDE00E8700B /* shareBtn_ImagePick.png in Resources */,
 				34B2779019496FDE00E8700B /* 10.png in Resources */,
 				34B2777619496FDE00E8700B /* addImageBtn.png in Resources */,
@@ -1588,6 +1609,7 @@
 				157016211955499A00F050B9 /* Filter_fuben1.png in Resources */,
 				34B277BB19496FDE00E8700B /* Mergefinish.png in Resources */,
 				34B2777519496FDE00E8700B /* addImageBg.png in Resources */,
+				A3215587196E6FBD00672BB8 /* play.png in Resources */,
 				34B277A419496FDE00E8700B /* 230.png in Resources */,
 				34B277BF19496FDE00E8700B /* Singlefinish.png in Resources */,
 				34B2775919496FDE00E8700B /* build-before.png in Resources */,
@@ -1608,9 +1630,9 @@
 				34B277E019496FDE00E8700B /* button14.png in Resources */,
 				34B277B219496FDE00E8700B /* titleBackBtn.png in Resources */,
 				34B2776E19496FDE00E8700B /* colorbg.png in Resources */,
+				A321557C196E5FFC00672BB8 /* startBtn2.png in Resources */,
 				34E62D2F1953E59400764E0C /* weather-0-4.png in Resources */,
 				34B277A119496FDE00E8700B /* 221.png in Resources */,
-				A3184B01195BFD3D0041A267 /* play.png in Resources */,
 				15701612195541F200F050B9 /* FilterofLOMO2.png in Resources */,
 				34B277AC19496FDE00E8700B /* 2color.png in Resources */,
 				34B2776519496FDE00E8700B /* icon-80.png in Resources */,
@@ -1667,10 +1689,12 @@
 				34B2780D1949705700E8700B /* QBImagePickerAssetView.m in Sources */,
 				34B276A219496E5600E8700B /* UITextLable.m in Sources */,
 				34B2767819496E5500E8700B /* MaskView.m in Sources */,
+				A3215583196E652100672BB8 /* SBAudioRecorder.m in Sources */,
 				A38BD139194F18A0006045A1 /* SBPenPanel.m in Sources */,
 				34B2761319496E3F00E8700B /* ImagePickupViewController.m in Sources */,
 				34B2767619496E5500E8700B /* ExtraLayerView.m in Sources */,
 				34B275E319496BD100E8700B /* main.m in Sources */,
+				A3215580196E64E800672BB8 /* SBViewerView.m in Sources */,
 				34B278101949705700E8700B /* QBImagePickerGroupCell.m in Sources */,
 				34B2767419496E5500E8700B /* CameraCustom.m in Sources */,
 				34B276A319496E5600E8700B /* UITitleLabel.m in Sources */,

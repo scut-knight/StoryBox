@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+
+@protocol PassValueDelegate
+@optional
+-(void)willFinishPass:(NSString*)strVal;
+@end
+
 typedef void(^SaveImageCompletion)(NSError* error);
 
 /**
@@ -18,4 +24,7 @@ typedef void(^SaveImageCompletion)(NSError* error);
 -(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
 
 -(void)addAssetURL:(NSURL*)assetURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock;
+
+-(NSString *)getPath;
+
 @end

@@ -15,9 +15,9 @@
 {
     UIButton *recordBtn;
     UIButton *playBtn;
-    NSURL *imageURL;
     BOOL canPlayAudio;
+    BOOL recording;
 }
 
--(id) initWithFrame:(CGRect)frame andWithImageURL:(NSURL *)url;
+-(id) initWithFrame:(CGRect)frame;
 @end

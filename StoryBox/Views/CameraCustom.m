@@ -12,6 +12,7 @@
 #import "ALAssetsLibrary+CustomPhotoAlbum.h"
 #import "WeatherLabel.h"
 #import "UITitleLabel.h"
+#import "SBAudioRecorder.h"
 
 @implementation CameraCustom
 
@@ -135,8 +136,16 @@
 /* 保存合成后图片到本地LKTQ目录*/
 +(void)saveImage_merged:(UIImage *)img
 {
+    SBAudioRecorder * record = [SBAudioRecorder sharedAudioRecord];
+    //    [record connectToSoundDictionary];
+    
     ALAssetsLibrary * library=[[ALAssetsLibrary alloc] init] ;
     [library saveImage:img toAlbum:@"故事盒子" withCompletionBlock:^(NSError *error) {
+        //将图片和声音的对应信息写入文件中
+        [record addRecord:[library getPath]];
+        //         [[record soundDictionary] setObject:soundPath forKey:picPath];
+        //         [record writeSoundDictionaryToFile];
+        
         if (error!=nil) {
             NSLog(@"Big error: %@", [error description]);
         }
@@ -157,7 +166,8 @@
         testTextEditV=[textViewArr objectAtIndex:i];
         img=[self singleImage:testImageV withTextView:testTextEditV];
         
-        [library saveImage:img toAlbum:@"故事盒子" withCompletionBlock:^(NSError *error) {
+        [library saveImage:img toAlbum:@"故事盒子" withCompletionBlock:^(NSError *error)
+        {
             if (error!=nil) {
                 NSLog(@"Big error: %@", [error description]);
             }

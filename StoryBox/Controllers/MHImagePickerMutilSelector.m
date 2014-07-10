@@ -15,7 +15,9 @@
 static MHImagePickerMutilSelector *sharedSingleton_ = nil;
 
 @interface MHImagePickerMutilSelector ()
-
+{
+    NSArray *_urls;
+}
 @end
 
 @implementation MHImagePickerMutilSelector
@@ -23,6 +25,7 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
 @synthesize imagePicker;
 @synthesize delegate;
 @synthesize selectedPan;
+@synthesize selectedPanofAlbum;
 
 #pragma mark - singleton
 
@@ -70,9 +73,30 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
         kScreenHeight = 480;
     }
     
+    // wind:显示我的故事，不进行编辑
+    selectedPanofAlbum = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-131, 320, 131)];//480
+    [selectedPanofAlbum setBackgroundColor:[UIColor blackColor]];
+    btn_exit = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn_exit setFrame:CGRectMake(10, kScreenHeight-20, 47, 31)];
+    //[btn_exit setEnabled:NO];
+    [btn_exit setImage:[UIImage imageNamed:@"build-before.png"] forState:UIControlStateNormal];
+    //点击事件
+    [btn_exit addTarget:self action:@selector(doneSelect:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [selectedPanofAlbum addSubview:btn_exit];
+    
+    
     //显示当前选中相片的视图
     selectedPan = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-131, 320, 131)];//480
     [selectedPan setBackgroundColor:[UIColor blackColor]];
+    btn_done = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn_done setFrame:CGRectMake(10, 450, 47, 31)];
+    [btn_done setEnabled:NO];
+    [btn_done setImage:[UIImage imageNamed:@"build-before.png"] forState:UIControlStateNormal];
+    //点击事件
+    [btn_done addTarget:self action:@selector(doneSelect:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [selectedPan addSubview:btn_done];
     
     //显示当前选中相片张数
     textlabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 13, 300, 14)];
@@ -136,9 +160,11 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
     //导航条半透明?
     navigationController.navigationBar.translucent = YES;
     //设置导航栏导航按钮的字体为红色
-    [navigationController.navigationBar setTintColor:[UIColor colorWithRed:223/255.0 green:110/255.0 blue:118/255.0 alpha:1]];
+    [navigationController.navigationBar
+        setTintColor:[UIColor colorWithRed:223/255.0 green:110/255.0 blue:118/255.0 alpha:1]];
 
-    [[navigationController.view.subviews objectAtIndex:0] setFrame:CGRectMake(0, 0, 320, kScreenHeight-131)];
+    [[navigationController.view.subviews objectAtIndex:0]
+        setFrame:CGRectMake(0, 0, 320, kScreenHeight-131)];
     //遍历导航条各组件，隐藏取消按钮
     for (UINavigationItem *item in navigationController.navigationBar.subviews)
     {
@@ -307,12 +333,30 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
  *  @param image
  *  @param editingInfo
  */
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    //[btn_addCover.imageView setImage:image forState:UIControlStateNormal];
+    NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+    NSLog(@"%@",imageURL);
     
-    //[picker dismissModalViewControllerAnimated:YES];
+    UIImage* image = [info objectForKey: @"UIImagePickerControllerOriginalImage"];
+    if (pics.count>=10)
+    {
+        return;
+    }
     
+    [pics addObject:image];
+    [self updateTableView];
+}
+
+/**
+ *  实现UIImagePickerControllerDelegate委托，从相册中选取照片
+ *
+ *  @param picker
+ *  @param image
+ *  @param editingInfo
+ */
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)info
+{
     //如果选中相片大于10张，返回，否则加入选中列表中
     if (pics.count>=10)
     {
@@ -338,6 +382,19 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
     [self close];
 }
 
+/**
+ *  wind:制作按钮点击触发返回主界面 *
+ *  @param sender
+ */
+-(void)exitViewAlbum:(id)sender
+{
+    printf("exit");
+    if (delegate && [delegate respondsToSelector:@selector(imagePickerMutilSelectorDidGetImages:)])
+    {
+        [delegate performSelector:@selector(imagePickerMutilSelectorDidGetImages:) withObject:pics];
+    }
+    [self close];
+}
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
@@ -397,6 +454,9 @@ static MHImagePickerMutilSelector *sharedSingleton_ = nil;
  */
 -(void)addImageToArray:(NSArray*)arr
 {
+    //bin fixing the bug in record
+    [pics removeAllObjects];
+    
     [btn_done setEnabled:YES];
     [btn_done setImage:[UIImage imageNamed:@"build-after.png"] forState:UIControlStateNormal];
     for (int i=0; i<arr.count; ++i)

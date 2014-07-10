@@ -10,6 +10,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MHImagePickerMutilSelector.h"
 #import <SinaWeiboConnection/SinaWeiboConnection.h>
+#import "SBViewerView.h"
 
 @interface HomeViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation HomeViewController
 
-@synthesize picker;
+@synthesize imgViewC;
 @synthesize imagePkViewC;
 @synthesize startBtn,homeBgV;
 
@@ -66,6 +67,30 @@
 //    }
 //    return show;
     return YES;                 //隐藏为YES，显示为NO
+}
+
+/**
+ *  点击我的故事按钮触发
+ 点击浏览现有故事
+ *
+ */
+- (IBAction)clickViewPhotoAlbum:(id)sender {
+    NSLog(@"wind call");
+    UIButton* btn1 = (UIButton*)sender;
+    if ([btn1 isKindOfClass:[UIButton class]])
+    {
+        picker_library_ = [[UIImagePickerController alloc] init];
+        picker_library_.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker_library_.allowsEditing = NO;
+        picker_library_.delegate = self;
+        
+        [self jumpToImageViewC];
+    }
+    else
+    {
+        
+    }
+    
 }
 
 /**
@@ -134,6 +159,42 @@
     
   
 }
+
+-(void)jumpToImageViewC
+{
+    NSLog(@"跳转页面浏览故事");
+    //    self.imgViewC = [[SBViewController alloc] initWithNibName:@"SBViewController" bundle:nil];
+    //      [self presentModalViewController:imgViewC animated:YES];
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePicker animated:YES completion:NULL];
+    
+    //    imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    //    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    //    imagePicker.showsCameraControls = NO;
+    
+    //    SBViewerView *view = [[SBViewerView alloc] init];
+    //    [self.view addSubview:view];
+    //    [self.view bringSubviewToFront:view];
+    
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"PICK");
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+    UIImage* image = [info objectForKey: @"UIImagePickerControllerOriginalImage"];
+    NSURL *imageURL = [info valueForKey:UIImagePickerControllerReferenceURL];
+    NSLog(@"bin:%@",imageURL);
+    
+    SBViewerView *view = [[SBViewerView alloc] initWithImage:image withImageURL:imageURL];
+    [self.view addSubview:view];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

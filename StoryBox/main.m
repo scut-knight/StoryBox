@@ -1,9 +1,8 @@
 //
 //  main.m
-//  LKTQ
+//  StoryBox
 //
-//  Created by mac on 13-12-2.
-//  Copyright (c) 2013年 sony. All rights reserved.
+//  Copyright (c) 2014年 scutknight. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

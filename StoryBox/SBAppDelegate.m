@@ -1,10 +1,8 @@
 //
 //  AppDelegate.m
-//  LKTQ
+//  StoryBox
 //
-//  Created by mac on 13-12-2.
-//  Copyright (c) 2013年 sony. All rights reserved.
-// modify tianqi  2014.4.27
+//  Copyright (c) 2014年 scutknight. All rights reserved.
 
 #import "AppDelegate.h"
 #import <ShareSDK/ShareSDK.h>
