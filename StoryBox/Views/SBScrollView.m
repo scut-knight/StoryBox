@@ -35,12 +35,13 @@
 - (void) makeDoodlePossible
 {
     self.doodleView = [[SBDoodleView alloc] init];
+    self.doodleView.userInteractionEnabled = YES;
     [self addSubview:self.doodleView];
     [self.doodleView setFrame:CGRectMake(0, 0,
                                 self.contentSize.width, self.contentSize.height)];
     NSLog(@"wid %f, hei %f", self.contentSize.width, self.contentSize.height);
     self.doodleViewNum = 0;// 等待其父类进一步地修改
-    self.doodleView.userInteractionEnabled = NO;
+//    self.doodleView.userInteractionEnabled = NO;
     self.isDoodling = NO;
     self.doodleView.image = [[UIImage alloc] init];
 }

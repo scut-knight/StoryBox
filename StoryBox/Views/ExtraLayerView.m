@@ -120,11 +120,13 @@ int Start_y_gemotry;//标签容器
         [self initGeometryModelBtn];
         [self initPendants];
       
-        UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
+        UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc]
+                                       initWithTarget:self action:@selector(tapHandle:)];
         tapG.numberOfTapsRequired=1;
         [self.scrollView addGestureRecognizer:tapG];
  
-        UILongPressGestureRecognizer * tapG2=[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(LongPress:)];
+        UILongPressGestureRecognizer * tapG2=[[UILongPressGestureRecognizer alloc]
+                                              initWithTarget:self action:@selector(LongPress:)];
         tapG2.minimumPressDuration=0.7;
         [self addGestureRecognizer:tapG2];
         
@@ -348,6 +350,15 @@ int Start_y_gemotry;//标签容器
  */
 -(void)clickDoodleModel:(id)sender
 {
+//    for (int i=0; i<self.subviews.count; ++i)
+//    {
+//        UITitleLabel * _view = [self.scrollView.subviews objectAtIndex:i];
+//        if ([_view isKindOfClass:[UITitleLabel class]])
+//        {
+//            _view.userInteractionEnabled = NO;
+//        }
+//    } 觉得在涂鸦的过程中也允许移动大标签不算是问题。如果不想要这个feature的话，反注释掉这段，然后添加恢复中断的代码
+    
     NSLog(@"Doodle");
     self.scrollView.isDoodling = YES;
     [self.penPanel fillPenColorPanel];
@@ -429,8 +440,7 @@ int Start_y_gemotry;//标签容器
     //屏蔽长按手势,解决在ModifyImageView下长按按钮导致崩溃问题
     for(UIView *subview in self.subviews)
     {
-        if([subview isKindOfClass:[ModifyImageView class]] ||
-            [subview isKindOfClass:[SBRecordingPanel class]])
+        if([subview isKindOfClass:[ModifyImageView class]])
             return;
     }
     

@@ -73,6 +73,8 @@
 
         UIImageView *view = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320, 85)];
         [view setImage:[UIImage imageNamed:@"colorbg1.png"]];
+        [view setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1.0]];
+        
         [self.penColorView addSubview:view]; // 注意penColorView的高度与其他面板不一样
         
         [self paintBackGroundViewForView:self.penRadiusView];
@@ -123,6 +125,7 @@
     self.okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.okBtn setFrame:CGRectMake(self.panelWidth - 110, 10, 40, 30)];
     [self.okBtn setTitle:@"涂鸦" forState:UIControlStateNormal];
+    [self.okBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.okBtn addTarget:self action:@selector(prepareForDoodle)
          forControlEvents:UIControlEventTouchUpInside];
 }
@@ -132,6 +135,7 @@
     self.okBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.okBtn setFrame:CGRectMake(self.panelWidth - 110, 10, 40, 30)];
     [self.okBtn setTitle:@"橡皮" forState:UIControlStateNormal];
+    [self.okBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.okBtn addTarget:self action:@selector(prepareForErase)
          forControlEvents:UIControlEventTouchUpInside];
 }
@@ -141,6 +145,7 @@
     self.leaveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.leaveBtn setFrame:CGRectMake(self.panelWidth - 50, 10, 40, 30)];
     [self.leaveBtn setTitle:@"离开" forState:UIControlStateNormal];
+    [self.leaveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.leaveBtn addTarget:self action:@selector(prepareForLeave)
             forControlEvents:UIControlEventTouchUpInside];
 }
@@ -150,6 +155,7 @@
     self.reselectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.reselectBtn setFrame:CGRectMake(self.panelWidth - 170, 10, 40, 30)];
     [self.reselectBtn setTitle:@"选笔" forState:UIControlStateNormal];
+    [self.reselectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.reselectBtn addTarget:self action:@selector(prepareForSelectPen)
                forControlEvents:UIControlEventTouchUpInside];
 }
@@ -187,6 +193,7 @@
 {
     UIImageView *view1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,320,self.panelHeight)];
     [view1 setImage:[UIImage imageNamed:@"colorbg1.png"]];
+    [view setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1.0]];
     [view addSubview:view1];
 }
 
@@ -205,7 +212,7 @@
     }
     // 根据图片的颜色来设置说明文字的颜色
     if (self.delegate.color == 4) {
-        self.statusLabel.textColor = [UIColor grayColor]; // 黑色会看不见，所以选择灰色
+        self.statusLabel.textColor = [UIColor blackColor];
     }
     else {
         self.statusLabel.textColor = [UIColor colorWithPatternImage:
