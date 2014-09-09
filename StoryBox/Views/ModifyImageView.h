@@ -45,6 +45,7 @@
     BOOL state_H;           /// 记录镜像水平状态
     int imageIndex;
     CGImageRef imageCG;
+    UIImage *originalImage;
     
 }
 

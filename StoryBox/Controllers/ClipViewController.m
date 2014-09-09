@@ -12,6 +12,8 @@ static ClipViewController * sharedSingleton_ = nil;
 - (IBAction)HD:(id)sender;
 - (IBAction)Cropper:(id)sender;
 - (IBAction)back:(id)sender;
+- (void)drawCropper;
+- (void)drawMask;
 
 @property (nonatomic, retain) IBOutlet MaskView *maskView;
 @property (nonatomic, retain) IBOutlet ImageCropperView *cropper;
@@ -58,17 +60,16 @@ static ClipViewController * sharedSingleton_ = nil;
     self.image = img;
     self.viewC = VC;
     self.delegate = parent;
+    [self drawCropper];
+    [self drawMask];
 }
 
-- (void)viewDidLoad
+- (void) drawCropper
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
     [cropper setup];
     
     cropper.image = self.image; // 调用[cropper setImage]
-
+    
     [self.cropper setWidthAndHeight:1 withHeight:1];                     //默认 1:1
     
     //设置按钮标题颜色，默认第一个为蓝色
@@ -79,12 +80,24 @@ static ClipViewController * sharedSingleton_ = nil;
     //设置边框宽度和颜色
     cropper.layer.borderWidth = 1.0;
     cropper.layer.borderColor = [UIColor blueColor].CGColor;
-    
+}
+
+- (void) drawMask
+{
     //遮罩层不可交互
     self.maskView.userInteractionEnabled = NO;
     //遮罩层背景为黑色
     self.maskView.backgroundColor=[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
     [self.maskView setDrawFrame:self.cropper.frame];
+
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self drawCropper];
+    [self drawMask];
     
     //根据设备调整UI
     if(IS_IPHONE_5)

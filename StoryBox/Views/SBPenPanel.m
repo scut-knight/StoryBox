@@ -9,6 +9,7 @@
 
 #import "SBPenPanel.h"
 #import "SBPen.h"
+#import "SBScrollView.h"
 
 @interface SBPenPanel ()
 
@@ -235,6 +236,10 @@
         for (UIView *view in self.subviews) {
             view.hidden = NO;
         }
+        if (self.doodleView) {
+            [self.doodleView setDoodle:NO];
+        }
+
     } else {
         self.hidden = YES;
     }

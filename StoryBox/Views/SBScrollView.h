@@ -25,6 +25,7 @@
 - (SBDoodleView *) saveDoodleView;
 - (void) recordDoodleView;
 - (void) addSubview:(UIView *)view;
+- (void) setDoodle:(BOOL)isDoodling;
 
 @property (nonatomic, assign) NSUInteger doodleViewNum; /// 视图个数 + 涂鸦视图，记得从0开始
 @property (nonatomic, assign) BOOL isDoodling; /// 表示是否处于涂鸦中，在涂鸦中屏蔽特定的触屏事件

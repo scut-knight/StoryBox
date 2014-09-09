@@ -42,6 +42,9 @@
         _textView.delegate = self;
         _textView.text = @"";
         
+        //修复非单词出现红点下划线的问题
+        _textView.autocorrectionType = UITextAutocorrectionTypeNo;
+        
         UIColor *color;
         UIColor * colorTint;
         colorTint = [UIColor whiteColor];

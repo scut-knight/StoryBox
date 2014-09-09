@@ -50,6 +50,10 @@
          [self.scrollView setFrame:CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y+dis, self.scrollView.frame.size.width, self.scrollView.frame.size.height-dis)];
          self.scrollView.transform = CGAffineTransformIdentity;
          
+         NSLog(@"CustomAnimation current_index %d", current_index);
+         if (current_index < 0) {
+             return;
+         }
          UIImageView * imgv = [imageViewArray objectAtIndex:current_index];
          UIView * tV=[textEditViewArray objectAtIndex:current_index];
          [self changePaViewToOrdinal:imgv withT:tV];
@@ -375,6 +379,9 @@
 
 }
 
+/**
+ *  把所有标签层置于图片层上方显示
+ */
 -(void)reLoadTitleView
 {
     for (int i=0; i<self.scrollView.subviews.count; ++i)
@@ -388,8 +395,10 @@
         {
             [self.scrollView bringSubviewToFront:titleV];
         }
-
-        
+        if ([titleV isKindOfClass:[UITextLable class]])
+        {
+            [self.scrollView bringSubviewToFront:titleV];
+        }
     }
 }
 

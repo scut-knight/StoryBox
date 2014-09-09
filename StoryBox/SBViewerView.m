@@ -68,21 +68,41 @@
     BOOL hasSoundFile = [[SBAudioRecorder sharedAudioRecord] checkSoundAndSetup:imageURL];
     if(hasSoundFile)
     {
-        UIButton * playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [playBtn setFrame:CGRectMake(280,250, 30, 30)];
         [playBtn setSelected:NO];
         [playBtn setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
         [playBtn addTarget:self action:@selector(clickPlay:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:playBtn];
-
+        playing = false;
     }
     return self;
 }
      
 -(void)clickPlay:(id)sender
 {
-    NSLog(@"play");
-   [[SBAudioRecorder sharedAudioRecord] playRecord];
+    if(playing)
+    {
+        NSLog(@"pause");
+        playing = false;
+        [[SBAudioRecorder sharedAudioRecord] stopPlayRecord];
+        [playBtn setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        NSLog(@"play");
+        playing = true;
+        timer =  [NSTimer scheduledTimerWithTimeInterval:[[SBAudioRecorder sharedAudioRecord] playRecord] target:self selector:@selector(playEnd:) userInfo:nil repeats:NO];
+;
+        [playBtn setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)playEnd:(id)sender
+{
+    playing = false;
+    [playBtn setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+
 }
 
 -(void)initImageScrollView
@@ -121,6 +141,8 @@
  */
 -(void)backEdit:(id)sender
 {
+    // 停止播放录音
+    [[SBAudioRecorder sharedAudioRecord] stopPlayRecord];
     [self.delegate hiddenTopView:NO];
     [self removeFromSuperview];
 }

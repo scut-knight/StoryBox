@@ -80,19 +80,6 @@
     NSLog(@"拼接前开始移动");
     for (int i=extLayerView.scrollView.subviews.count-1;i>=0; --i)
     {
-        // 这是一个hack的行为:)，制作一个空的UIView占个位
-        if ([[extLayerView.scrollView.subviews objectAtIndex:i] isKindOfClass:[SBDoodleView class]]) {
-//            CGRect frame = [extLayerView.scrollView.subviews objectAtIndex:i];
-            NSUInteger doodleNum = extLayerView.scrollView.doodleViewNum;
-            if (doodleNum == [extLayerView.textEditViewArray count]) {
-                [extLayerView.textEditViewArray addObject:[[UIView alloc] init]];
-            }
-            else {
-                [extLayerView.textEditViewArray insertObject:[[UIView alloc] init] atIndex:doodleNum];
-            }
-            continue;
-        }
-        
         UITitleLabel *titleTemp=[extLayerView.scrollView.subviews objectAtIndex:i];
         if ([titleTemp isKindOfClass:[UITitleLabel class]])
         {

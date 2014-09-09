@@ -30,7 +30,9 @@
 - (void)writeSoundDictionaryToFile;
 + (SBAudioRecorder *)sharedAudioRecord;
 - (void)addRecord:(NSString *)picPath;
--(void)playRecord;
+- (float)playRecord;
+- (void)stopPlayRecord;
+
 - (BOOL)checkSoundAndSetup:(NSURL *)picPath;
 
 @property (strong,nonatomic) NSMutableDictionary * soundDictionary;

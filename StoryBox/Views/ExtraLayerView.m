@@ -214,7 +214,12 @@ int Start_y_gemotry;//标签容器
         UIImageView * imgv = [imageViewArray objectAtIndex:i];
         UIView * textv = [textEditViewArray objectAtIndex:i];
       
-        height = height+imgv.frame.size.height;
+        if (![imgv isKindOfClass:[SBDoodleView class]]) {
+            height = height+imgv.frame.size.height;
+        }
+        else {
+            self.scrollView.doodleViewNum = i;
+        }
         [self.scrollView addSubview:imgv];
         [self.scrollView addSubview:textv];
     }
@@ -223,25 +228,6 @@ int Start_y_gemotry;//标签容器
     // 添加完所有图片后才开始创建涂鸦面板
     [self.scrollView makeDoodlePossible];
     [self reLoadTitleView];
-}
-
-/**
- *  把所有标签层置于图片层上方显示
- */
--(void)reLoadTitleView
-{
-    for (int i=0; i<self.scrollView.subviews.count; ++i)
-    {
-        UIView * titleV=[self.scrollView.subviews objectAtIndex:i];
-        if ([titleV isKindOfClass:[UITitleLabel class]])
-        {
-            [self.scrollView bringSubviewToFront:titleV];
-        }
-        if ([titleV isKindOfClass:[WeatherLabel class]])
-        {
-            [self.scrollView bringSubviewToFront:titleV];
-        }
-    }
 }
 
 /**
@@ -314,6 +300,7 @@ int Start_y_gemotry;//标签容器
     
     _y -= 50; // 画笔面板比其他面板要高出一个高度为50的框
     self.penPanel = [[SBPenPanel alloc] initWithFrame:CGRectMake(0, _y, width_gemotry, 185)];
+    self.penPanel.DoodleView = self.scrollView;
     [self.penPanel setPenDelegate:self.pen]; // 让画笔面板可以控制画笔的状态
     [self.penPanel updateStatus:[self.pen description]];
     [self addSubview:self.penPanel];
@@ -334,7 +321,7 @@ int Start_y_gemotry;//标签容器
     else if (doodleViewNum == 0) {
         [self.imageViewArray addObject:[self.scrollView saveDoodleView]];
         self.scrollView.doodleViewNum = [self.imageViewArray count] - 1;
-        [self.textEditViewArray addObject:[[UIView alloc] init]];
+        [self.textEditViewArray addObject:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)]];
     }
     else {
         NSLog(@"涂鸦视图的序号有误！序号（从0开始）是%u，而共有图片%u张", doodleViewNum, [self.imageViewArray count]);
@@ -360,7 +347,7 @@ int Start_y_gemotry;//标签容器
 //    } 觉得在涂鸦的过程中也允许移动大标签不算是问题。如果不想要这个feature的话，反注释掉这段，然后添加恢复中断的代码
     
     NSLog(@"Doodle");
-    self.scrollView.isDoodling = YES;
+    [self.scrollView setDoodle:YES];
     [self.penPanel fillPenColorPanel];
     [self.penPanel prepareForSelectPen];
 }
@@ -797,6 +784,7 @@ int Start_y_gemotry;//标签容器
     [textLable initWithLableArray:LableArray];
     [textLable._textView becomeFirstResponder];
     [self.scrollView addSubview:textLable];
+    [self.scrollView bringSubviewToFront:textLable];
     [LableArray addObject:textLable];//管理标签
     [textLable endPanHandle];
    
@@ -973,6 +961,15 @@ int Start_y_gemotry;//标签容器
                     [self.scrollView  addSubview:titleView];
                     [self.scrollView bringSubviewToFront:titleView];
                    
+                }
+                else if ([titleView isKindOfClass:[WeatherLabel class]] ||
+                         [titleView isKindOfClass:[UITextLable class]])
+                {
+                    float _y=titleView.superview.frame.origin.y + titleView.center.y;//计算坐标Y
+                    [titleView setCenter:CGPointMake(titleView.center.x, _y)];
+                    
+                    [self.scrollView  addSubview:titleView];
+                    [self.scrollView bringSubviewToFront:titleView];
                 }
                 
             }

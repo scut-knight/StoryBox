@@ -14,6 +14,7 @@
 #import "UITitleLabel.h"
 #import "WeatherLabel.h"
 #import "SBScrollView.h"
+#import "SBDoodleView.h"
 
 @class SBRecordingPanel;
 

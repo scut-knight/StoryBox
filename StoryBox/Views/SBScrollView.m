@@ -24,6 +24,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.doodleViewNum = 0;// 等待其父类进一步地修改
 //        [self makeDoodlePossible]; 需要等到填充图片之后才能启动涂鸦功能
     }
     return self;
@@ -40,10 +41,15 @@
     [self.doodleView setFrame:CGRectMake(0, 0,
                                 self.contentSize.width, self.contentSize.height)];
     NSLog(@"wid %f, hei %f", self.contentSize.width, self.contentSize.height);
-    self.doodleViewNum = 0;// 等待其父类进一步地修改
-//    self.doodleView.userInteractionEnabled = NO;
+    self.doodleView.userInteractionEnabled = NO;
     self.isDoodling = NO;
     self.doodleView.image = [[UIImage alloc] init];
+}
+
+- (void) setDoodle:(BOOL)isDoodling
+{
+    self.isDoodling = isDoodling;
+    self.doodleView.userInteractionEnabled = isDoodling;
 }
 
 /**

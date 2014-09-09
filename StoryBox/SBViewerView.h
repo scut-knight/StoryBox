@@ -15,6 +15,10 @@
     UIImageView *imageView;
     UIView * NavigationView;
     float viewHeight;
+    BOOL playing;
+    UIButton * playBtn;
+    
+    NSTimer *timer;
 
 }
 

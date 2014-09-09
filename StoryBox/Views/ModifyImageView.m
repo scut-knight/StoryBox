@@ -475,6 +475,7 @@ int Start_y_ColorPanel;//410功能容器
 -(void)clickFilter:(id)sender
 {
     subFunctionView.hidden=YES;  //如是打开滤镜的界面，则关闭旋转的界面
+    originalImage = [UIImage imageWithCGImage:currentImageView.image.CGImage];
     printf("滤镜");
     if (subFunctionViewofFilter.hidden)
     {
@@ -731,50 +732,49 @@ const float colormatrix_yese[] = {
 
 -(void)clickFilter1:(id)sender
 {
+//    NSLog(@"滤镜LOMO");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        // [self activityIndicatorView:indicatorView
+//        //circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
     
-    NSLog(@"滤镜LOMO");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        // [self activityIndicatorView:indicatorView
-        //circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_lomo];
-    NSLog(@"%@",img);
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img = [ModifyImageView processImage:originalImage withColorMatrix:colormatrix_lomo];
+//    NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
 }
 -(void)clickFilter2:(id)sender
 {
-    NSLog(@"滤镜黑白");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        // [self activityIndicatorView:indicatorView
-        //circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_heibai];
+//    NSLog(@"滤镜黑白");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        // [self activityIndicatorView:indicatorView
+//        //circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_heibai];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
@@ -783,24 +783,24 @@ const float colormatrix_yese[] = {
 }
 -(void)clickFilter3:(id)sender
 {
-    NSLog(@"滤镜怀旧");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        // [self activityIndicatorView:indicatorView
-        // circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_huajiu];
+//    NSLog(@"滤镜怀旧");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        // [self activityIndicatorView:indicatorView
+//        // circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_huajiu];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
@@ -808,26 +808,26 @@ const float colormatrix_yese[] = {
 -(void)clickFilter4:(id)sender
 {
     
-    NSLog(@"滤镜淡雅");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        //   [self activityIndicatorView:indicatorView circleBackgroundColorAtIndex:7];
-        // - (UIColor *)activityIndicatorView:(MONActivityIndicatorView *)activityIndicatorView
-        //circleBackgroundColorAtIndex:(NSUInteger)index
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_danya];
+//    NSLog(@"滤镜淡雅");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        //   [self activityIndicatorView:indicatorView circleBackgroundColorAtIndex:7];
+//        // - (UIColor *)activityIndicatorView:(MONActivityIndicatorView *)activityIndicatorView
+//        //circleBackgroundColorAtIndex:(NSUInteger)index
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_danya];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
@@ -836,25 +836,25 @@ const float colormatrix_yese[] = {
 -(void)clickFilter5:(id)sender
 {
     
-    NSLog(@"滤镜锐色");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        //  [self activityIndicatorView:indicatorView
-        //  circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_ruise];
+//    NSLog(@"滤镜锐色");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        //  [self activityIndicatorView:indicatorView
+//        //  circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_ruise];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
@@ -864,25 +864,25 @@ const float colormatrix_yese[] = {
 -(void)clickFilter6:(id)sender
 {
     
-    NSLog(@"滤镜哥特");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        //    [self activityIndicatorView:indicatorView
-        //  circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_gete];
+//    NSLog(@"滤镜哥特");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        //    [self activityIndicatorView:indicatorView
+//        //  circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_gete];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];
@@ -891,26 +891,25 @@ const float colormatrix_yese[] = {
 
 -(void)clickFilter7:(id)sender
 {
-    
-    NSLog(@"滤镜哥特");
-    {
-        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
-        indicatorView.numberOfCircles = 7;
-        indicatorView.radius = 6;
-        indicatorView.internalSpacing = 3;
-        indicatorView.duration = 0.5;
-        indicatorView.delay = 0.5;
-        indicatorView.center = self.center;
-        //  [self activityIndicatorView:indicatorView
-        // circleBackgroundColorAtIndex:2];
-        [indicatorView startAnimating];
-        [self addSubview:indicatorView];
-        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
-    }//转针启动5秒
-    
-    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
-    [currentImageView setImage:img];
-    img=[ModifyImageView processImage:img withColorMatrix:colormatrix_yese];
+//    NSLog(@"滤镜哥特");
+//    {
+//        MONActivityIndicatorView *indicatorView = [[MONActivityIndicatorView alloc] init];
+//        indicatorView.numberOfCircles = 7;
+//        indicatorView.radius = 6;
+//        indicatorView.internalSpacing = 3;
+//        indicatorView.duration = 0.5;
+//        indicatorView.delay = 0.5;
+//        indicatorView.center = self.center;
+//        //  [self activityIndicatorView:indicatorView
+//        // circleBackgroundColorAtIndex:2];
+//        [indicatorView startAnimating];
+//        [self addSubview:indicatorView];
+//        [NSTimer scheduledTimerWithTimeInterval:5 target:indicatorView selector:@selector(stopAnimating) userInfo:nil repeats:NO];
+//    }//转针启动5秒
+//    
+//    UIImage * img = [UIImage imageWithCGImage:currentImageView.image.CGImage];
+//    [currentImageView setImage:img];
+    UIImage *img=[ModifyImageView processImage:originalImage withColorMatrix:colormatrix_yese];
     NSLog(@"%@",img);
     currentImageView.image = img;
     [currentImageView startAnimating];

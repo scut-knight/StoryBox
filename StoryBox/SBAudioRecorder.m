@@ -63,16 +63,21 @@
         }
 }
 
--(void)playRecord
+-(float)playRecord
 {
     NSError *error;
     audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:currentPictureRecordURL error:&error];
-    NSLog(@"err:%@",error);
+//    NSLog(@"err:%@",error);
     audioPlayer.volume = 1.0;
     [audioPlayer prepareToPlay];
     [audioPlayer play];
-    
-    NSLog(@"%i",audioPlayer.isPlaying);
+//    NSLog(@"%i",audioPlayer.isPlaying);
+    return audioPlayer.duration;
+}
+
+-(void)stopPlayRecord
+{
+    [audioPlayer stop];
 }
 
 
