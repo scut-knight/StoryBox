@@ -118,7 +118,7 @@ int Start_y_gemotry;//标签容器
         [self initImageArray:arr];
         [self initTextEditView];
         [self initGeometryModelBtn];
-        [self initPendants];
+//        [self initPendants];
       
         UITapGestureRecognizer * tapG=[[UITapGestureRecognizer alloc]
                                        initWithTarget:self action:@selector(tapHandle:)];
@@ -538,7 +538,7 @@ int Start_y_gemotry;//标签容器
                                   delegate:self
                                   cancelButtonTitle:@"取消"
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:@"大标签",@"天气标签",@"语音标签",nil];
+                                  otherButtonTitles:@"大标签",@"天气标签",nil];
     
     [actionSheet showInView:self];
 }
@@ -596,7 +596,7 @@ int Start_y_gemotry;//标签容器
     subGemomtryView.hidden = NO;
     simlarGemomtryView.hidden=YES;
     [self.penPanel showPanel:NO];
-    [self showRecordingPendant:NO];
+//    [self showRecordingPendant:NO];
     [self refreshDoodleView];
     
     switch (flag_model) {
@@ -986,13 +986,7 @@ int Start_y_gemotry;//标签容器
 - (void)initPendants
 {
     self.pendants = [NSMutableArray array];
-    // 把录音面板放置在屏幕中间。
-    CGFloat height;
-    if (IS_IPHONE_5) {
-        height = 568;
-    } else {
-        height = 480;
-    }
+
     recordingPanel = [[SBRecordingPanel alloc] initWithFrame:
                       CGRectMake(280, 200, 30, 80)];
     [self addSubview:recordingPanel];
@@ -1038,9 +1032,9 @@ int Start_y_gemotry;//标签容器
         case 1: // 天气标签
             [self clickWeatherButton];
             break;
-        case 2: // 语音标签
-            [self clickRecordingButton];
-            break;
+//        case 2: // 语音标签
+//            [self clickRecordingButton];
+//            break;
             
         default:
             break;

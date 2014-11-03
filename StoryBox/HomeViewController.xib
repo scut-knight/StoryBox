@@ -22,7 +22,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xCJ-wM-KCd">
-                    <rect key="frame" x="100" y="376" width="120" height="40"/>
+                    <rect key="frame" x="88" y="398" width="144" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" image="startBtn.png">
@@ -30,20 +30,6 @@
                     </state>
                     <connections>
                         <action selector="clickPhotoPickup:" destination="-1" eventType="touchUpInside" id="Yvp-oy-cN4"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="meJ-AP-b9e">
-                    <rect key="frame" x="100" y="429" width="120" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="Button" image="startBtn3.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="clickViewPhotoAlbum:" destination="-1" eventType="touchUpInside" id="2xJ-6s-UFD"/>
                     </connections>
                 </button>
             </subviews>
@@ -66,6 +52,5 @@
     <resources>
         <image name="homeBg2.png" width="640" height="1136"/>
         <image name="startBtn.png" width="312" height="100"/>
-        <image name="startBtn3.png" width="312" height="100"/>
     </resources>
 </document>

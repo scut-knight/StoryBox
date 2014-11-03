@@ -74,24 +74,19 @@
  点击浏览现有故事
  *
  */
-- (IBAction)clickViewPhotoAlbum:(id)sender {
-    NSLog(@"wind call");
-    UIButton* btn1 = (UIButton*)sender;
-    if ([btn1 isKindOfClass:[UIButton class]])
-    {
-        picker_library_ = [[UIImagePickerController alloc] init];
-        picker_library_.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        picker_library_.allowsEditing = NO;
-        picker_library_.delegate = self;
-        
-        [self jumpToImageViewC];
-    }
-    else
-    {
-        
-    }
-    
-}
+//- (IBAction)clickViewPhotoAlbum:(id)sender {
+//    NSLog(@"wind call");
+//    UIButton* btn1 = (UIButton*)sender;
+//    if ([btn1 isKindOfClass:[UIButton class]])
+//    {
+//        picker_library_ = [[UIImagePickerController alloc] init];
+//        picker_library_.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//        picker_library_.allowsEditing = NO;
+//        picker_library_.delegate = self;
+//        
+//        [self jumpToImageViewC];
+//    }
+//}
 
 /**
  *  点击开始制作按钮触发

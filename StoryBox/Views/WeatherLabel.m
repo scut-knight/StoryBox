@@ -219,7 +219,6 @@
 
 //        if (_y<=max&&_y>=min)
 //        {
-            d=i;//找到点击对应的视图序号
             _y=_y-sum;
             [self setCenter:CGPointMake(_x, _y)];
             [_textV addSubview:self];
